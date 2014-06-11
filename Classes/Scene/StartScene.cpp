@@ -37,5 +37,6 @@ void StartScene::showStartButton()
 
 void StartScene::startCallback(Ref *sender)
 {
-
+    // TODO: test
+    replaceScene<StartScene>();
 }
