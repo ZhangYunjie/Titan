@@ -18,12 +18,14 @@ static TTSceneBaseScene* scene() \
 { \
     auto _scene = TTSceneBaseScene::create(); \
     auto _node = __TYPE__::create(); \
-    _scene->addChild(_node); \
+    _scene->addChild(_node, MAIN_LAYER); \
     _scene->setTTScene(dynamic_cast<TTSceneBaseLayer*>(_node)); \
     return _scene; \
 }
 
 NS_TT_BEGIN
+
+#pragma mark - BaseLayer
 
 class TTSceneBaseLayer : public cocos2d::LayerColor
 {
@@ -40,6 +42,8 @@ public:
 	virtual void callBackForApplicationWillEnterForeground(){}
 };
 
+#pragma mark - BaseScene
+
 class TTSceneBaseScene : public cocos2d::Scene
 {
     TTSceneBaseLayer* scene;
@@ -53,6 +57,8 @@ public:
 
     CREATE_FUNC(TTSceneBaseScene);
 };
+
+#pragma mark - TTScene (场景的主层)
 
 template<class T_c> class TTScene : public TTSceneBaseLayer
 {
@@ -73,7 +79,7 @@ public:
         }
 
         _singleton = dynamic_cast<T_c*>(this);
-        _singleton->setTouchEnabled(interaction);
+        this->setTouchEnabled(interaction);
 
         initScene();
 
@@ -87,6 +93,11 @@ public:
         {
             inheritance();
         }
+    }
+    
+    TTSceneBaseScene* getScene()
+    {
+        return dynamic_cast<TTSceneBaseScene*>(this->getParent());
     }
 
     virtual void initScene(){}
@@ -122,7 +133,7 @@ public:
         _singleton->setInterrupt(false);
         _singleton->termScene();
 
-        // TOOD: topScene実装
+        // TODO: topScene実装
         // cocos2d::Director::getInstance()->topScene(T_cScene::scene());
     }
 
@@ -131,6 +142,8 @@ public:
 
     void (*inheritance)();
 };
+
+template<class T_c> T_c* TTScene<T_c>::_singleton = NULL;
 
 NS_TT_END
 
