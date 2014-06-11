@@ -11,14 +11,35 @@
 
 #include "cocos2d.h"
 
-class StartScene : public cocos2d::Layer
+#include "TitanScene.h"
+
+USING_NS_TT;
+
+class  StartScene :
+public TTScene<StartScene>
 {
 public:
-    static cocos2d::Scene* createScene();
-    
-    virtual bool init();
-    
     CREATE_FUNC( StartScene );
+
+    virtual void initScene();
+
+private:
+    void showStartButton();
+
+    void startCallback(Ref* sender);
+
+private:
+    cocos2d::Size mWinSize;
+
+    enum kTag
+    {
+        kTagStartButton = 1,
+    };
+
+    enum kZOrder
+    {
+        kZOrderMenu = 1,
+    };
 };
 
 #endif /* defined(__Titan__StartScene__) */

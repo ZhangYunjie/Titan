@@ -65,10 +65,11 @@ template<class T_c> class TTScene : public TTSceneBaseLayer
     bool interaction;
 
 protected:
+
     static T_c* _singleton;
 
 public:
-    TTScene():interaction(false), inheritance(NULL){}
+    TTScene():interaction(false){}
     virtual ~TTScene(){}
 
     virtual bool init()
@@ -79,22 +80,14 @@ public:
         }
 
         _singleton = dynamic_cast<T_c*>(this);
-        this->setTouchEnabled(interaction);
 
         initScene();
 
         setInterrupt(true);
         return _singleton? true : false;
     }
-
-    void doInheritance()
-    {
-        if(inheritance)
-        {
-            inheritance();
-        }
-    }
     
+    // 返回主层所属的场景
     TTSceneBaseScene* getScene()
     {
         return dynamic_cast<TTSceneBaseScene*>(this->getParent());
@@ -115,10 +108,6 @@ public:
         _singleton->setInterrupt(false);
         _singleton->termScene();
         cocos2d::Director::getInstance()->popScene();
-
-        // TODO: next scene's interaction
-
-        _singleton->TTScene::doInheritance();
     }
 
     template<class T_cReplace> static void replaceScene()
@@ -139,8 +128,6 @@ public:
 
     SCENE_FUNC(T_c);
     CREATE_FUNC(T_c);
-
-    void (*inheritance)();
 };
 
 template<class T_c> T_c* TTScene<T_c>::_singleton = NULL;
