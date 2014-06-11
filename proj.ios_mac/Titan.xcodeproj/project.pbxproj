@@ -123,6 +123,7 @@
 		89CED93219486A0D0065CBFC /* tuffy_bold_italic-charmap.png in Resources */ = {isa = PBXBuildFile; fileRef = 89CED8F519486A0D0065CBFC /* tuffy_bold_italic-charmap.png */; };
 		89CED93319486A0D0065CBFC /* west_england-64.fnt in Resources */ = {isa = PBXBuildFile; fileRef = 89CED8F619486A0D0065CBFC /* west_england-64.fnt */; };
 		89CED93419486A0D0065CBFC /* west_england-64.png in Resources */ = {isa = PBXBuildFile; fileRef = 89CED8F719486A0D0065CBFC /* west_england-64.png */; };
+		89CED93B194873C40065CBFC /* BattleScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89CED939194873C40065CBFC /* BattleScene.cpp */; };
 		8C7706011947529600270F5D /* StartScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C7705FF1947529600270F5D /* StartScene.cpp */; };
 		8CF729DB194757490030B362 /* TitanScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CF729D9194757490030B362 /* TitanScene.cpp */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
@@ -384,6 +385,8 @@
 		89CED8F519486A0D0065CBFC /* tuffy_bold_italic-charmap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tuffy_bold_italic-charmap.png"; sourceTree = "<group>"; };
 		89CED8F619486A0D0065CBFC /* west_england-64.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "west_england-64.fnt"; sourceTree = "<group>"; };
 		89CED8F719486A0D0065CBFC /* west_england-64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "west_england-64.png"; sourceTree = "<group>"; };
+		89CED939194873C40065CBFC /* BattleScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BattleScene.cpp; sourceTree = "<group>"; };
+		89CED93A194873C40065CBFC /* BattleScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BattleScene.h; sourceTree = "<group>"; };
 		89FA1A2419484595006B5499 /* GameDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDefine.h; sourceTree = "<group>"; };
 		8C7705FF1947529600270F5D /* StartScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StartScene.cpp; path = ../Classes/Scene/StartScene.cpp; sourceTree = "<group>"; };
 		8C7706001947529600270F5D /* StartScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StartScene.h; path = ../Classes/Scene/StartScene.h; sourceTree = "<group>"; };
@@ -665,6 +668,16 @@
 			path = fonts;
 			sourceTree = "<group>";
 		};
+		89CED938194873AB0065CBFC /* BattleScene */ = {
+			isa = PBXGroup;
+			children = (
+				89CED939194873C40065CBFC /* BattleScene.cpp */,
+				89CED93A194873C40065CBFC /* BattleScene.h */,
+			);
+			name = BattleScene;
+			path = ../Classes/Scene/BattleScene;
+			sourceTree = "<group>";
+		};
 		89FA1A2219484341006B5499 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -677,6 +690,7 @@
 		8C770604194752BA00270F5D /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				89CED938194873AB0065CBFC /* BattleScene */,
 				8C7705FF1947529600270F5D /* StartScene.cpp */,
 				8C7706001947529600270F5D /* StartScene.h */,
 			);
@@ -960,6 +974,7 @@
 			files = (
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
+				89CED93B194873C40065CBFC /* BattleScene.cpp in Sources */,
 				8CF729DB194757490030B362 /* TitanScene.cpp in Sources */,
 				1AFAF8B716D35DE700DB1158 /* AppDelegate.cpp in Sources */,
 				8C7706011947529600270F5D /* StartScene.cpp in Sources */,
