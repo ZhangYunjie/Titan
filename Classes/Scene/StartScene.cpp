@@ -22,7 +22,8 @@ void StartScene::initScene()
 
 void StartScene::showStartButton()
 {
-    auto startLabel = Label::createWithTTF("START", FONT_ARIAL, 14);
+    auto startLabel = Label::createWithSystemFont("START", FONT_ARIAL, 14);
+    startLabel->setColor(Color3B::WHITE);
     auto menuItem = MenuItemLabel::create(startLabel, CC_CALLBACK_1(StartScene::startCallback, this));
     menuItem->setTag(kTagStartButton);
 
