@@ -392,7 +392,7 @@
 		8C7706001947529600270F5D /* StartScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StartScene.h; path = ../Classes/Scene/StartScene.h; sourceTree = "<group>"; };
 		8CF729D9194757490030B362 /* TitanScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TitanScene.cpp; path = ../Classes/Base/TitanScene.cpp; sourceTree = "<group>"; };
 		8CF729DA194757490030B362 /* TitanScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TitanScene.h; path = ../Classes/Base/TitanScene.h; sourceTree = "<group>"; };
-		8CF729DC19475B140030B362 /* TitanBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TitanBase.h; path = ../Classes/TitanBase.h; sourceTree = "<group>"; };
+		8CF729E21948B2270030B362 /* TitanBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitanBase.h; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -700,9 +700,9 @@
 		8CF729D6194757040030B362 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				8CF729E21948B2270030B362 /* TitanBase.h */,
 				8CF729D9194757490030B362 /* TitanScene.cpp */,
 				8CF729DA194757490030B362 /* TitanScene.h */,
-				8CF729DC19475B140030B362 /* TitanBase.h */,
 			);
 			name = Base;
 			sourceTree = "<group>";
