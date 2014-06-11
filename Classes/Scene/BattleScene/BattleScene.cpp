@@ -7,3 +7,8 @@
 //
 
 #include "BattleScene.h"
+
+void BattleScene::initScene()
+{
+    
+}
