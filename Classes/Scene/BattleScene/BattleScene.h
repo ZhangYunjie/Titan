@@ -10,13 +10,14 @@
 #define __Titan__BattleScene__
 
 #include "cocos2d.h"
+#include "Box2D.h"
 
 #include "TitanScene.h"
 
 USING_NS_TT;
 
 class  BattleScene :
-public TTScene<BattleScene>
+public TTPhysicsScene<BattleScene>
 {
 public:
     CREATE_FUNC( BattleScene );

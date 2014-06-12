@@ -24,14 +24,13 @@ static TTSceneBaseScene* scene() \
 }
 
 #define PHY_SCENE_FUNC(__TYPE__) \
-static TTPhysicsBaseScene* scene() \
+static cocos2d::Scene* scene() \
 { \
-    auto _scene = dynamic_cast<TTPhysicsBaseScene*>(TTSceneBaseScene::createWithPhysics()); \
+    auto _scene = cocos2d::Scene::createWithPhysics(); \
     _scene->getPhysicsWorld()->setDebugDrawMask(cocos2d::PhysicsWorld::DEBUGDRAW_ALL); \
     auto _node = __TYPE__::create(); \
-    _node->setPhyWorld(_scene->getPhysicsWorld()); \
+    _node->setPhysicsWorld(_scene->getPhysicsWorld()); \
     _scene->addChild(_node, MAIN_LAYER); \
-    _scene->setTTScene(dynamic_cast<TTSceneBaseLayer*>(_node)); \
     return _scene; \
 }
 
@@ -68,12 +67,6 @@ public:
     TTSceneBaseLayer* getTTScene(){return scene;}
 
     CREATE_FUNC(TTSceneBaseScene);
-};
-
-class TTPhysicsBaseScene : public TTSceneBaseScene
-{
-public:
-    CREATE_FUNC(TTPhysicsBaseScene);
 };
 
 #pragma mark - TTScene (场景的主层)
@@ -157,6 +150,7 @@ template<class T_c> class TTPhysicsScene : public TTScene<T_c>
 private:
     cocos2d::PhysicsWorld* mWorld;
 
+public:
     PHY_SCENE_FUNC(T_c);
 };
 
