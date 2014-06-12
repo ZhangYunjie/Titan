@@ -8,6 +8,7 @@
 #include "GameDefine.h"
 
 #include "StartScene.h"
+#include "BattleScene.h"
 
 USING_NS_CC;
 
@@ -31,8 +32,7 @@ void StartScene::showStartButton()
     startLabel->setColor(Color3B::WHITE);
     auto menuItem = MenuItemLabel::create(startLabel, CC_CALLBACK_1(StartScene::startCallback, this));
     menuItem->setTag(kTagStartButton);
-    menuItem->setAnchorPoint(Vec2::ZERO);
-    menuItem->setPosition(Vec2::ZERO);
+    menuItem->setPosition( mWinSize / 2.0f );
 
     auto menu = Menu::create();
     menu->addChild(menuItem);
@@ -46,5 +46,5 @@ void StartScene::showStartButton()
 void StartScene::startCallback(Ref *sender)
 {
     // TODO: test
-    replaceScene<StartScene>();
+    replaceScene<BattleScene>();
 }
