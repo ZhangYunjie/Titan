@@ -15,6 +15,10 @@ void StartScene::initScene()
 {
     mWinSize = Director::getInstance()->getWinSize();
 
+    auto bgSprite = Sprite::create("bg.png");
+    bgSprite->setPosition( mWinSize / 2.0f );
+    this->addChild(bgSprite);
+
     showStartButton();
 }
 
@@ -22,15 +26,17 @@ void StartScene::initScene()
 
 void StartScene::showStartButton()
 {
-    TTFConfig ttfConfig(FONT_ARIAL, 40);
+    TTFConfig ttfConfig(FONT_ARIAL, 40.0f);
     auto startLabel = Label::createWithTTF(ttfConfig, "START");
     startLabel->setColor(Color3B::WHITE);
     auto menuItem = MenuItemLabel::create(startLabel, CC_CALLBACK_1(StartScene::startCallback, this));
     menuItem->setTag(kTagStartButton);
+    menuItem->setAnchorPoint(Vec2::ZERO);
+    menuItem->setPosition(Vec2::ZERO);
 
     auto menu = Menu::create();
     menu->addChild(menuItem);
-    menu->setPosition( mWinSize / 2.0f );
+    menu->setPosition(Vec2::ZERO);
 
     this->addChild(menu, kZOrderMenu);
 }

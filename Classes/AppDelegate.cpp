@@ -16,9 +16,14 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {
-        glview = GLView::create("My Game");
+        glview = GLView::create("Titan");
         director->setOpenGLView(glview);
     }
+
+    glview->setDesignResolutionSize(480.0f, 320.0f, ResolutionPolicy::FIXED_WIDTH);
+    director->setContentScaleFactor(2.0f);
+
+    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
     // turn on display FPS
     director->setDisplayStats(true);
