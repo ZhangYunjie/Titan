@@ -16,10 +16,6 @@ void StartScene::initScene()
 {
     mWinSize = Director::getInstance()->getWinSize();
 
-    auto bgSprite = Sprite::create("bg.png");
-    bgSprite->setPosition( mWinSize / 2.0f );
-    this->addChild(bgSprite);
-
     showStartButton();
 }
 
