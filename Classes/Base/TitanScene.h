@@ -14,12 +14,11 @@
 #include "TitanBase.h"
 
 #define SCENE_FUNC(__TYPE__) \
-static TTSceneBaseScene* scene() \
+static cocos2d::Scene* scene() \
 { \
-    auto _scene = TTSceneBaseScene::create(); \
+    auto _scene = cocos2d::Scene::create(); \
     auto _node = __TYPE__::create(); \
     _scene->addChild(_node, MAIN_LAYER); \
-    _scene->setTTScene(dynamic_cast<TTSceneBaseLayer*>(_node)); \
     return _scene; \
 }
 
@@ -53,22 +52,6 @@ public:
 	virtual void callBackForApplicationWillEnterForeground(){}
 };
 
-#pragma mark - BaseScene
-
-class TTSceneBaseScene : public cocos2d::Scene
-{
-    TTSceneBaseLayer* scene;
-
-protected:
-    TTSceneBaseScene():scene(NULL){}
-
-public:
-    void setTTScene(TTSceneBaseLayer* _scene){scene=_scene;}
-    TTSceneBaseLayer* getTTScene(){return scene;}
-
-    CREATE_FUNC(TTSceneBaseScene);
-};
-
 #pragma mark - TTScene (场景的主层)
 
 template<class T_c> class TTScene : public TTSceneBaseLayer
@@ -99,9 +82,9 @@ public:
     }
     
     // 返回主层所属的场景
-    TTSceneBaseScene* getScene()
+    cocos2d::Scene* getScene()
     {
-        return dynamic_cast<TTSceneBaseScene*>(this->getParent());
+        return dynamic_cast<cocos2d::Scene*>(this->getParent());
     }
 
     virtual void initScene(){}
@@ -142,6 +125,8 @@ public:
 };
 
 template<class T_c> T_c* TTScene<T_c>::_singleton = NULL;
+
+# pragma mark - Physics Layer
 
 template<class T_c> class TTPhysicsScene : public TTScene<T_c>
 {
