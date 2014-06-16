@@ -113,11 +113,11 @@ public:
             case cocos2d::Touch::DispatchMode::ONE_BY_ONE:
             {
                 auto _eventListener = cocos2d::EventListenerTouchOneByOne::create();
-                _eventListener->setSwallowTouches(true);  // 设置其不想下传递
+                _eventListener->setSwallowTouches(true);  // 设置其不向下传递
                 _eventListener->onTouchBegan     = CC_CALLBACK_2(T_c::onTouchBegan, this);
                 _eventListener->onTouchMoved     = CC_CALLBACK_2(T_c::onTouchMoved, this);
                 _eventListener->onTouchEnded     = CC_CALLBACK_2(T_c::onTouchEnded, this);
-                _eventListener->onTouchCancelled = CC_CALLBACK_2(T_c::onTouchCanceled, this);
+                _eventListener->onTouchCancelled = CC_CALLBACK_2(T_c::onTouchCancelled, this);
 
                 auto _eventDipatcher = cocos2d::Director::getInstance()->getEventDispatcher();
                 _eventDipatcher->addEventListenerWithSceneGraphPriority(_eventListener, this);

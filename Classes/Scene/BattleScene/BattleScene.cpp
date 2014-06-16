@@ -21,6 +21,8 @@ _debugDraw(NULL)
 
 void BattleScene::initScene()
 {
+    CCLOG("===== BattleScene#initScene =====");
+
     mWinSize = Director::getInstance()->getWinSize();
 
     initPhysics();
@@ -65,16 +67,16 @@ void BattleScene::initPhysics()
 
         body->CreateFixture(&fixtureDef);
     }
-    
+
     {
         b2BodyDef boxBodyDef;
         boxBodyDef.type = b2_staticBody;
         boxBodyDef.position.Set(150.0f/PTM_RATIO, 100.0f/PTM_RATIO);
         b2Body *boxBody = mWorld->CreateBody(&boxBodyDef);
-    
+
         b2PolygonShape rect;
         rect.SetAsBox(100.0f/PTM_RATIO, 25.0f/PTM_RATIO);
-    
+
         b2FixtureDef boxFixtureDef;
         boxFixtureDef.shape       = &rect;
         boxFixtureDef.density     = 0.4f;
@@ -86,6 +88,8 @@ void BattleScene::initPhysics()
 
 void BattleScene::initDebugMenu()
 {
+    CCLOG("===== BattleScene#initDebugMenu =====");
+
     auto debugBtn = MenuItemImage::create("CloseNormal.png", "CloseSelected.png", CC_CALLBACK_1(BattleScene::debugBtnCallback, this));
     debugBtn->setPosition(Point(mWinSize.width-20.0f, 20.0f));
     debugBtn->setTag(kTagDebugDraw);
@@ -124,6 +128,8 @@ void BattleScene::update(float dt)
     }
 }
 
+#pragma mark - TOUCH
+
 #pragma mark - CALLBACK
 
 void BattleScene::debugBtnCallback(cocos2d::Ref* pSender)
@@ -137,6 +143,8 @@ void BattleScene::debugBtnCallback(cocos2d::Ref* pSender)
         _debugDraw->SetFlags(DEBUG_DRAW_ALL);
     }
 }
+
+#pragma mark - DISTRUCTOR
 
 BattleScene::~BattleScene()
 {
