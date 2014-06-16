@@ -75,6 +75,8 @@ public:
 
         _singleton = dynamic_cast<T_c*>(this);
 
+        mpEventListener = NULL;
+
         initScene();
 
         setInterrupt(true);
@@ -89,6 +91,31 @@ public:
 
     virtual void initScene(){}
     virtual void termScene(){}
+
+    // Touch Mode: One by one
+    virtual bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event){return true;}
+    virtual void onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event){}
+    virtual void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event){}
+    virtual void onTouchCancelled(cocos2d::Touch* touch, cocos2d::Event* event){}
+
+    // Touch Mode: All at once
+
+    void enableTouch()
+    {
+        if (NULL != mpEventListener) { return; }
+
+        auto _eventListener = cocos2d::EventListenerTouchOneByOne::create();
+        _eventListener->setSwallowTouches(true);  // 设置其不想下传递
+        _eventListener->onTouchBegan     = CC_CALLBACK_2(T_c::onTouchBegan, this);
+        _eventListener->onTouchMoved     = CC_CALLBACK_2(T_c::onTouchMoved, this);
+        _eventListener->onTouchEnded     = CC_CALLBACK_2(T_c::onTouchEnded, this);
+        _eventListener->onTouchCancelled = CC_CALLBACK_2(T_c::onTouchCanceled, this);
+
+        auto _eventDipatcher = cocos2d::Director::getInstance()->getEventDispatcher();
+        _eventDipatcher->addEventListenerWithSceneGraphPriority(_eventListener, this);
+
+        mpEventListener = dynamic_cast<cocos2d::EventListener*>(_eventListener);
+    }
 
     template<class T_cPush> static void pushScene()
     {
@@ -122,6 +149,9 @@ public:
 
     SCENE_FUNC(T_c);
     CREATE_FUNC(T_c);
+
+private:
+    cocos2d::EventListener* mpEventListener;
 };
 
 template<class T_c> T_c* TTScene<T_c>::_singleton = NULL;
