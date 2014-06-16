@@ -185,19 +185,6 @@ private:
 
 template<class T_c> T_c* TTScene<T_c>::_singleton = NULL;
 
-# pragma mark - Physics Layer
-
-template<class T_c> class TTPhysicsScene : public TTScene<T_c>
-{
-    void setPhysicsWorld(cocos2d::PhysicsWorld* world){mWorld = world;}
-
-private:
-    cocos2d::PhysicsWorld* mWorld;
-
-public:
-    PHY_SCENE_FUNC(T_c);
-};
-
 NS_TT_END
 
 #endif /* defined(__Titan__TitanScene__) */

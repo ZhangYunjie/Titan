@@ -10,6 +10,8 @@
 
 USING_NS_CC;
 
+#pragma mark - INITLIZATION
+
 BattleScene::BattleScene():
 mWorld(NULL),
 _debugDraw(NULL)
@@ -21,13 +23,16 @@ void BattleScene::initScene()
 {
     mWinSize = Director::getInstance()->getWinSize();
 
-    this->initPhysics();
+    initPhysics();
+    initDebugMenu();
 
     scheduleUpdate();
 }
 
 void BattleScene::initPhysics()
 {
+    CCLOG("===== BattleScene#initPhysics =====");
+
     b2Vec2 gravity;
     gravity.Set(0.0f, BATTLE_GRAVITY);
     mWorld = new b2World(gravity);
@@ -35,12 +40,7 @@ void BattleScene::initPhysics()
     _debugDraw = new GLESDebugDraw(PTM_RATIO);
     mWorld->SetDebugDraw(_debugDraw);
 
-    uint32 flags = 0;
-    flags += b2Draw::e_shapeBit;
-    flags += b2Draw::e_aabbBit;
-    flags += b2Draw::e_pairBit;
-    flags += b2Draw::e_centerOfMassBit;
-    _debugDraw->SetFlags(flags);
+    _debugDraw->SetFlags(DEBUG_DRAW_ALL);
 
     {
         Sprite *ballSprite = CCSprite::create("circle.png");
@@ -84,6 +84,20 @@ void BattleScene::initPhysics()
     }
 }
 
+void BattleScene::initDebugMenu()
+{
+    auto debugBtn = MenuItemImage::create("CloseNormal.png", "CloseSelected.png", CC_CALLBACK_1(BattleScene::debugBtnCallback, this));
+    debugBtn->setPosition(Point(mWinSize.width-20.0f, 20.0f));
+    debugBtn->setTag(kTagDebugDraw);
+    
+    //メニューを作成
+    auto debugMenu = Menu::create(debugBtn, NULL);
+    debugMenu->setPosition(Point::ZERO);
+    this->addChild(debugMenu, kZOrderMenu, kTagDebug);
+}
+
+#pragma mark - UPDATE
+
 void BattleScene::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated)
 {
     Layer::draw(renderer, transform, transformUpdated);
@@ -107,6 +121,20 @@ void BattleScene::update(float dt)
             sprite->setPosition(body->GetPosition().x * PTM_RATIO, body->GetPosition().y * PTM_RATIO);
             sprite->setRotation( -1.0f * CC_RADIANS_TO_DEGREES(body->GetAngle()) );
         }
+    }
+}
+
+#pragma mark - CALLBACK
+
+void BattleScene::debugBtnCallback(cocos2d::Ref* pSender)
+{
+    if (_debugDraw->GetFlags())
+    {
+        _debugDraw->SetFlags(DEBUG_DRAW_NONE);
+    }
+    else
+    {
+        _debugDraw->SetFlags(DEBUG_DRAW_ALL);
     }
 }
 

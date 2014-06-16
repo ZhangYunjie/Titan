@@ -32,14 +32,24 @@ public:
     virtual void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated) override;
 
     void initPhysics();
+    void initDebugMenu();
     void update(float dt);
 
 private:
+    void debugBtnCallback(cocos2d::Ref* pSender);
 
 private:
     enum kTag
     {
         kTagCharacter = 1,
+
+        kTagDebug,
+        kTagDebugDraw,
+    };
+
+    enum kZOrder
+    {
+        kZOrderMenu = 1,
     };
 
     cocos2d::Size mWinSize;
