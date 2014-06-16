@@ -10,17 +10,13 @@
 #define __Titan__BattleScene__
 
 #include "cocos2d.h"
-#include "Box2D/Box2D.h"
-
-#include "GLES-Render.h"
 
 #include "TitanScene.h"
 
 USING_NS_TT;
 
 class  BattleScene :
-public TTScene<BattleScene>,
-public b2ContactListener
+public TTPhysicsScene<BattleScene>
 {
 public:
     CREATE_FUNC( BattleScene );
@@ -29,12 +25,12 @@ public:
     ~BattleScene();
     
     virtual void initScene();
-    virtual void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated) override;
 
-    void initPhysics();
-    void update(float dt);
+    void initPhysicsWorld();
+    void initMenu();
 
 private:
+    void btnDebugDrawCallback(cocos2d::Object* pSender);
 
 private:
     enum kTag
@@ -42,10 +38,12 @@ private:
         kTagCharacter = 1,
     };
 
-    cocos2d::Size mWinSize;
+    enum kZOrder
+    {
+        kZOrderMenu = 1,
+    };
 
-    b2World *mWorld;
-    GLESDebugDraw *_debugDraw;
+    cocos2d::Size mWinSize;
 };
 
 #endif /* defined(__Titan__BattleScene__) */
