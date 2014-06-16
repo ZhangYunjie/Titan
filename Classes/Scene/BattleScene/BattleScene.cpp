@@ -27,6 +27,7 @@ void BattleScene::initScene()
 
     initPhysics();
     initDebugMenu();
+    initTouch();
 
     scheduleUpdate();
 }

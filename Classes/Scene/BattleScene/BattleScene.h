@@ -33,6 +33,7 @@ public:
 
     void initPhysics();
     void initDebugMenu();
+    void initTouch();
     void update(float dt);
 
 private:
