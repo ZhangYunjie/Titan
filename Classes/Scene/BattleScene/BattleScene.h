@@ -36,6 +36,7 @@ public:
     void initTouch();
 
     void update(float dt);
+    void updateScene();
 
     bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
     void onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event);

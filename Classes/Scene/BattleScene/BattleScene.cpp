@@ -6,6 +6,7 @@
 //
 //
 #include "BattleBase.h"
+#include "BattleWorld.h"
 #include "BattleScene.h"
 
 USING_NS_CC;
@@ -37,38 +38,22 @@ void BattleScene::initPhysics()
 {
     CCLOG("===== BattleScene#initPhysics =====");
 
-    b2Vec2 gravity;
-    gravity.Set(0.0f, BATTLE_GRAVITY);
-    mWorld = new b2World(gravity);
+    mWorld = BattleWorld::getInstance()->createB2World();
 
     mDebugDraw = new GLESDebugDraw(PTM_RATIO);
-    mWorld->SetDebugDraw(mDebugDraw);
-
     mDebugDraw->SetFlags(DEBUG_DRAW_ALL);
 
-    {
-        Sprite *ballSprite = CCSprite::create("circle.png");
-        ballSprite->setPosition(Vec2(150.0f, 150.0f));
-        ballSprite->setScale(2.0f);
-        this->addChild(ballSprite);
+    mWorld->SetDebugDraw(mDebugDraw);
 
-        b2BodyDef bodyDef;
-        bodyDef.type = b2_dynamicBody;
-        bodyDef.userData = ballSprite;
-        bodyDef.position.Set(150.0f/PTM_RATIO, 150.0f/PTM_RATIO);
+    Sprite *ballSprite = CCSprite::create("circle.png");
+    ballSprite->setPosition(Vec2(150.0f, 150.0f));
+    ballSprite->setScale(2.0f);
+    this->addChild(ballSprite);
 
-        b2Body *body = mWorld->CreateBody(&bodyDef);
+    b2CircleShape circle;
+    circle.m_radius = ballSprite->getContentSize().width * ballSprite->getScale() / PTM_RATIO_2;
 
-        b2CircleShape circle;
-        circle.m_radius = 18.0f / PTM_RATIO;
-
-        b2FixtureDef fixtureDef;
-        fixtureDef.shape        = &circle;
-        fixtureDef.density      = 0.4f;
-        fixtureDef.friction     = 0.5f;
-
-        body->CreateFixture(&fixtureDef);
-    }
+    BattleWorld::getInstance()->createB2BodyWithSprite(ballSprite, b2_dynamicBody, circle, 0.4f, mWorld);
 
     {
         b2BodyDef boxBodyDef;
@@ -132,6 +117,11 @@ void BattleScene::update(float dt)
 {
     mWorld->Step(dt, 10, 10);
 
+    updateScene();
+}
+
+void BattleScene::updateScene()
+{
     b2Body *body = mWorld->GetBodyList();
     for (; NULL != body; body = body->GetNext())
     {
