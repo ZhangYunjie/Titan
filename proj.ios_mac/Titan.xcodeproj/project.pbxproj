@@ -67,6 +67,7 @@
 		89403C97195045C400345BA9 /* AbstractBQVFS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89403C8B195045C400345BA9 /* AbstractBQVFS.cpp */; };
 		89403C98195045C400345BA9 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 89403C8C195045C400345BA9 /* sqlite3.c */; };
 		89403C99195045C400345BA9 /* vfs_drv_hm40.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89403C91195045C400345BA9 /* vfs_drv_hm40.cpp */; };
+		89403C9E1950468800345BA9 /* JSON.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89403C9C1950468800345BA9 /* JSON.cpp */; };
 		89CED8F819486A0D0065CBFC /* A Damn Mess.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89CED8BB19486A0D0065CBFC /* A Damn Mess.ttf */; };
 		89CED8F919486A0D0065CBFC /* Abberancy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89CED8BC19486A0D0065CBFC /* Abberancy.ttf */; };
 		89CED8FA19486A0D0065CBFC /* Abduction.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89CED8BD19486A0D0065CBFC /* Abduction.ttf */; };
@@ -344,6 +345,8 @@
 		89403C92195045C400345BA9 /* vfs_drv_hm40.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vfs_drv_hm40.h; sourceTree = "<group>"; };
 		89403C93195045C400345BA9 /* vfs_drv_hm40_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vfs_drv_hm40_private.h; sourceTree = "<group>"; };
 		89403C95195045C400345BA9 /* picojson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = picojson.h; sourceTree = "<group>"; };
+		89403C9C1950468800345BA9 /* JSON.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JSON.cpp; sourceTree = "<group>"; };
+		89403C9D1950468800345BA9 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
 		89CED8BB19486A0D0065CBFC /* A Damn Mess.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "A Damn Mess.ttf"; sourceTree = "<group>"; };
 		89CED8BC19486A0D0065CBFC /* Abberancy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Abberancy.ttf; sourceTree = "<group>"; };
 		89CED8BD19486A0D0065CBFC /* Abduction.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Abduction.ttf; sourceTree = "<group>"; };
@@ -757,6 +760,8 @@
 			isa = PBXGroup;
 			children = (
 				89FA1A2419484595006B5499 /* GameDefine.h */,
+				89403C9C1950468800345BA9 /* JSON.cpp */,
+				89403C9D1950468800345BA9 /* JSON.h */,
 			);
 			name = Common;
 			path = ../Classes/Common;
@@ -1059,6 +1064,7 @@
 				8CF729DB194757490030B362 /* TitanScene.cpp in Sources */,
 				1AFAF8B716D35DE700DB1158 /* AppDelegate.cpp in Sources */,
 				89403C98195045C400345BA9 /* sqlite3.c in Sources */,
+				89403C9E1950468800345BA9 /* JSON.cpp in Sources */,
 				8C7706011947529600270F5D /* StartScene.cpp in Sources */,
 				89D02C6F194EBCBB004A759A /* GLES-Render.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
