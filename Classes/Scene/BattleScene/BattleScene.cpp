@@ -51,27 +51,26 @@ void BattleScene::initPhysics()
     this->addChild(ballSprite);
 
     b2CircleShape circle;
-    circle.m_radius = ballSprite->getContentSize().width / PTM_RATIO_2;
+    circle.m_radius = ballSprite->getContentSize().width * ballSprite->getScale() / PTM_RATIO_2;
 
     BattleWorld::getInstance()->createB2BodyWithSprite(ballSprite, b2_dynamicBody, circle, 0.4f, mWorld);
 
-//
-//    {
-//        b2BodyDef boxBodyDef;
-//        boxBodyDef.type = b2_staticBody;
-//        boxBodyDef.position.Set(150.0f/PTM_RATIO, 100.0f/PTM_RATIO);
-//        b2Body *boxBody = mWorld->CreateBody(&boxBodyDef);
-//
-//        b2PolygonShape rect;
-//        rect.SetAsBox(100.0f/PTM_RATIO, 25.0f/PTM_RATIO);
-//
-//        b2FixtureDef boxFixtureDef;
-//        boxFixtureDef.shape       = &rect;
-//        boxFixtureDef.density     = 0.4f;
-//        boxFixtureDef.friction    = 0.5f;
-//        boxFixtureDef.restitution = 0.6f;
-//        boxBody->CreateFixture(&boxFixtureDef);
-//    }
+    {
+        b2BodyDef boxBodyDef;
+        boxBodyDef.type = b2_staticBody;
+        boxBodyDef.position.Set(150.0f/PTM_RATIO, 100.0f/PTM_RATIO);
+        b2Body *boxBody = mWorld->CreateBody(&boxBodyDef);
+
+        b2PolygonShape rect;
+        rect.SetAsBox(100.0f/PTM_RATIO, 25.0f/PTM_RATIO);
+
+        b2FixtureDef boxFixtureDef;
+        boxFixtureDef.shape       = &rect;
+        boxFixtureDef.density     = 0.4f;
+        boxFixtureDef.friction    = 0.5f;
+        boxFixtureDef.restitution = 0.6f;
+        boxBody->CreateFixture(&boxFixtureDef);
+    }
 }
 
 void BattleScene::initDebugMenu()
@@ -118,6 +117,11 @@ void BattleScene::update(float dt)
 {
     mWorld->Step(dt, 10, 10);
 
+    updateScene();
+}
+
+void BattleScene::updateScene()
+{
     b2Body *body = mWorld->GetBodyList();
     for (; NULL != body; body = body->GetNext())
     {

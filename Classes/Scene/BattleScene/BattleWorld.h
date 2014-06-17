@@ -30,6 +30,7 @@ public:
     virtual ~BattleWorld(){};
 
     b2World* createB2World(b2Vec2 gravity = b2Vec2(0.0f, BATTLE_GRAVITY));
+
     b2Body* createB2Body(void* pUserData, b2BodyType bodyType, cocos2d::Point pos, const b2Shape& shape, float density, b2World* pWorld);
     b2Body* createB2BodyWithSprite(cocos2d::Sprite* sprite, b2BodyType bodyType, const b2Shape& shape, float density, b2World* pWorld);
 
