@@ -33,7 +33,14 @@ public:
 
     void initPhysics();
     void initDebugMenu();
+    void initTouch();
+
     void update(float dt);
+
+    bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
+    void onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event);
+    void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event);
+    void onTouchCancelled(cocos2d::Touch* touch, cocos2d::Event* event);
 
 private:
     void debugBtnCallback(cocos2d::Ref* pSender);
@@ -53,9 +60,10 @@ private:
     };
 
     cocos2d::Size mWinSize;
+    cocos2d::EventListenerTouchOneByOne* mpTouchEventListener;
 
     b2World *mWorld;
-    GLESDebugDraw *_debugDraw;
+    GLESDebugDraw *mDebugDraw;
 };
 
 #endif /* defined(__Titan__BattleScene__) */

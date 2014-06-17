@@ -92,60 +92,6 @@ public:
     virtual void initScene(){}
     virtual void termScene(){}
 
-    // Touch Mode: One by one
-    virtual bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event){return false;}
-    virtual void onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event){}
-    virtual void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event){}
-    virtual void onTouchCancelled(cocos2d::Touch* touch, cocos2d::Event* event){}
-
-    // Touch Mode: All at once
-    virtual bool onTouchesBegan(const std::vector<cocos2d::Touch*> touches, cocos2d::Event* event){return false;}
-    virtual void onTouchesMoved(const std::vector<cocos2d::Touch*> touches, cocos2d::Event* event){}
-    virtual void onTouchesEnded(const std::vector<cocos2d::Touch*> touches, cocos2d::Event* event){}
-    virtual void onTouchesCancelled(const std::vector<cocos2d::Touch*> touches, cocos2d::Event* event){}
-
-    void enableTouch(cocos2d::Touch::DispatchMode mode = cocos2d::Touch::DispatchMode::ONE_BY_ONE)
-    {
-        if (NULL != mpEventListener) { return; }
-
-        switch (mode)
-        {
-            case cocos2d::Touch::DispatchMode::ONE_BY_ONE:
-            {
-                auto _eventListener = cocos2d::EventListenerTouchOneByOne::create();
-                _eventListener->setSwallowTouches(true);  // 设置其不想下传递
-                _eventListener->onTouchBegan     = CC_CALLBACK_2(T_c::onTouchBegan, this);
-                _eventListener->onTouchMoved     = CC_CALLBACK_2(T_c::onTouchMoved, this);
-                _eventListener->onTouchEnded     = CC_CALLBACK_2(T_c::onTouchEnded, this);
-                _eventListener->onTouchCancelled = CC_CALLBACK_2(T_c::onTouchCanceled, this);
-
-                auto _eventDipatcher = cocos2d::Director::getInstance()->getEventDispatcher();
-                _eventDipatcher->addEventListenerWithSceneGraphPriority(_eventListener, this);
-
-                mpEventListener = dynamic_cast<cocos2d::EventListener*>(_eventListener);
-            }
-                break;
-
-            case cocos2d::Touch::DispatchMode::ALL_AT_ONCE:
-            {
-                auto _eventListener = cocos2d::EventListenerTouchAllAtOnce::create();
-                _eventListener->onTouchesBegan     = CC_CALLBACK_2(T_c::onTouchesBegan, this);
-                _eventListener->onTouchesMoved     = CC_CALLBACK_2(T_c::onTouchesMoved, this);
-                _eventListener->onTouchesEnded     = CC_CALLBACK_2(T_c::onTouchesEnded, this);
-                _eventListener->onTouchesCancelled = CC_CALLBACK_2(T_c::onTouchesCancelled, this);
-
-                auto _eventDispatcher = cocos2d::Director::getInstance()->getEventDispatcher();
-                _eventDispatcher->addEventListenerWithSceneGraphPriority(_eventListener, this);
-
-                mpEventListener = dynamic_cast<cocos2d::EventListener*>(_eventListener);
-            }
-                break;
-
-            default:
-                break;
-        }
-    }
-
     template<class T_cPush> static void pushScene()
     {
         _singleton->setInterrupt(false);

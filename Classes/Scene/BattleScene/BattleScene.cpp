@@ -14,17 +14,21 @@ USING_NS_CC;
 
 BattleScene::BattleScene():
 mWorld(NULL),
-_debugDraw(NULL)
+mDebugDraw(NULL),
+mpTouchEventListener(NULL)
 {
     
 }
 
 void BattleScene::initScene()
 {
+    CCLOG("===== BattleScene#initScene =====");
+
     mWinSize = Director::getInstance()->getWinSize();
 
     initPhysics();
     initDebugMenu();
+    initTouch();
 
     scheduleUpdate();
 }
@@ -37,10 +41,10 @@ void BattleScene::initPhysics()
     gravity.Set(0.0f, BATTLE_GRAVITY);
     mWorld = new b2World(gravity);
 
-    _debugDraw = new GLESDebugDraw(PTM_RATIO);
-    mWorld->SetDebugDraw(_debugDraw);
+    mDebugDraw = new GLESDebugDraw(PTM_RATIO);
+    mWorld->SetDebugDraw(mDebugDraw);
 
-    _debugDraw->SetFlags(DEBUG_DRAW_ALL);
+    mDebugDraw->SetFlags(DEBUG_DRAW_ALL);
 
     {
         Sprite *ballSprite = CCSprite::create("circle.png");
@@ -65,16 +69,16 @@ void BattleScene::initPhysics()
 
         body->CreateFixture(&fixtureDef);
     }
-    
+
     {
         b2BodyDef boxBodyDef;
         boxBodyDef.type = b2_staticBody;
         boxBodyDef.position.Set(150.0f/PTM_RATIO, 100.0f/PTM_RATIO);
         b2Body *boxBody = mWorld->CreateBody(&boxBodyDef);
-    
+
         b2PolygonShape rect;
         rect.SetAsBox(100.0f/PTM_RATIO, 25.0f/PTM_RATIO);
-    
+
         b2FixtureDef boxFixtureDef;
         boxFixtureDef.shape       = &rect;
         boxFixtureDef.density     = 0.4f;
@@ -86,6 +90,8 @@ void BattleScene::initPhysics()
 
 void BattleScene::initDebugMenu()
 {
+    CCLOG("===== BattleScene#initDebugMenu =====");
+
     auto debugBtn = MenuItemImage::create("CloseNormal.png", "CloseSelected.png", CC_CALLBACK_1(BattleScene::debugBtnCallback, this));
     debugBtn->setPosition(Point(mWinSize.width-20.0f, 20.0f));
     debugBtn->setTag(kTagDebugDraw);
@@ -94,6 +100,20 @@ void BattleScene::initDebugMenu()
     auto debugMenu = Menu::create(debugBtn, NULL);
     debugMenu->setPosition(Point::ZERO);
     this->addChild(debugMenu, kZOrderMenu, kTagDebug);
+}
+
+void BattleScene::initTouch()
+{
+    if (NULL != mpTouchEventListener) return;
+
+    CCLOG("===== BattleScene#initTouch ======");
+
+    mpTouchEventListener = cocos2d::EventListenerTouchOneByOne::create();
+    mpTouchEventListener->setSwallowTouches(true);
+    mpTouchEventListener->onTouchBegan     = CC_CALLBACK_2(BattleScene::onTouchBegan, this);
+    mpTouchEventListener->onTouchMoved     = CC_CALLBACK_2(BattleScene::onTouchMoved, this);
+    mpTouchEventListener->onTouchEnded     = CC_CALLBACK_2(BattleScene::onTouchEnded, this);
+    mpTouchEventListener->onTouchCancelled = CC_CALLBACK_2(BattleScene::onTouchCancelled, this);
 }
 
 #pragma mark - UPDATE
@@ -124,22 +144,46 @@ void BattleScene::update(float dt)
     }
 }
 
+#pragma mark - TOUCH
+
+bool BattleScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
+{
+    return false;
+}
+
+void BattleScene::onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event)
+{
+
+}
+
+void BattleScene::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
+{
+    
+}
+
+void BattleScene::onTouchCancelled(cocos2d::Touch* touch, cocos2d::Event* event)
+{
+    
+}
+
 #pragma mark - CALLBACK
 
 void BattleScene::debugBtnCallback(cocos2d::Ref* pSender)
 {
-    if (_debugDraw->GetFlags())
+    if (mDebugDraw->GetFlags())
     {
-        _debugDraw->SetFlags(DEBUG_DRAW_NONE);
+        mDebugDraw->SetFlags(DEBUG_DRAW_NONE);
     }
     else
     {
-        _debugDraw->SetFlags(DEBUG_DRAW_ALL);
+        mDebugDraw->SetFlags(DEBUG_DRAW_ALL);
     }
 }
 
+#pragma mark - DISTRUCTOR
+
 BattleScene::~BattleScene()
 {
-    CC_SAFE_DELETE(_debugDraw);
+    CC_SAFE_DELETE(mDebugDraw);
     CC_SAFE_DELETE(mWorld);
 }
