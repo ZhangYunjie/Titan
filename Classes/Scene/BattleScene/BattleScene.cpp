@@ -14,7 +14,8 @@ USING_NS_CC;
 
 BattleScene::BattleScene():
 mWorld(NULL),
-_debugDraw(NULL)
+mDebugDraw(NULL),
+mpTouchEventListener(NULL)
 {
     
 }
@@ -40,10 +41,10 @@ void BattleScene::initPhysics()
     gravity.Set(0.0f, BATTLE_GRAVITY);
     mWorld = new b2World(gravity);
 
-    _debugDraw = new GLESDebugDraw(PTM_RATIO);
-    mWorld->SetDebugDraw(_debugDraw);
+    mDebugDraw = new GLESDebugDraw(PTM_RATIO);
+    mWorld->SetDebugDraw(mDebugDraw);
 
-    _debugDraw->SetFlags(DEBUG_DRAW_ALL);
+    mDebugDraw->SetFlags(DEBUG_DRAW_ALL);
 
     {
         Sprite *ballSprite = CCSprite::create("circle.png");
@@ -101,6 +102,20 @@ void BattleScene::initDebugMenu()
     this->addChild(debugMenu, kZOrderMenu, kTagDebug);
 }
 
+void BattleScene::initTouch()
+{
+    if (NULL != mpTouchEventListener) return;
+
+    CCLOG("===== BattleScene#initTouch ======");
+
+    mpTouchEventListener = cocos2d::EventListenerTouchOneByOne::create();
+    mpTouchEventListener->setSwallowTouches(true);
+    mpTouchEventListener->onTouchBegan     = CC_CALLBACK_2(BattleScene::onTouchBegan, this);
+    mpTouchEventListener->onTouchMoved     = CC_CALLBACK_2(BattleScene::onTouchMoved, this);
+    mpTouchEventListener->onTouchEnded     = CC_CALLBACK_2(BattleScene::onTouchEnded, this);
+    mpTouchEventListener->onTouchCancelled = CC_CALLBACK_2(BattleScene::onTouchCancelled, this);
+}
+
 #pragma mark - UPDATE
 
 void BattleScene::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated)
@@ -131,17 +146,37 @@ void BattleScene::update(float dt)
 
 #pragma mark - TOUCH
 
+bool BattleScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
+{
+    return false;
+}
+
+void BattleScene::onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event)
+{
+
+}
+
+void BattleScene::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
+{
+    
+}
+
+void BattleScene::onTouchCancelled(cocos2d::Touch* touch, cocos2d::Event* event)
+{
+    
+}
+
 #pragma mark - CALLBACK
 
 void BattleScene::debugBtnCallback(cocos2d::Ref* pSender)
 {
-    if (_debugDraw->GetFlags())
+    if (mDebugDraw->GetFlags())
     {
-        _debugDraw->SetFlags(DEBUG_DRAW_NONE);
+        mDebugDraw->SetFlags(DEBUG_DRAW_NONE);
     }
     else
     {
-        _debugDraw->SetFlags(DEBUG_DRAW_ALL);
+        mDebugDraw->SetFlags(DEBUG_DRAW_ALL);
     }
 }
 
@@ -149,6 +184,6 @@ void BattleScene::debugBtnCallback(cocos2d::Ref* pSender)
 
 BattleScene::~BattleScene()
 {
-    CC_SAFE_DELETE(_debugDraw);
+    CC_SAFE_DELETE(mDebugDraw);
     CC_SAFE_DELETE(mWorld);
 }
