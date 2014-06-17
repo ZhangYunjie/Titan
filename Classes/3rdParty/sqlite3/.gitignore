@@ -1,0 +1,13 @@
+*.a
+*.o
+*.pc
+*.so
+*.la
+*.lo
+*.log
+*.status
+libtool
+sqlite3
+Makefile
+.deps/
+.libs/
