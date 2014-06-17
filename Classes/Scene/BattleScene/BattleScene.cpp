@@ -148,12 +148,12 @@ void BattleScene::onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event)
 
 void BattleScene::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
 {
-    
+
 }
 
 void BattleScene::onTouchCancelled(cocos2d::Touch* touch, cocos2d::Event* event)
 {
-    
+
 }
 
 #pragma mark - CALLBACK
