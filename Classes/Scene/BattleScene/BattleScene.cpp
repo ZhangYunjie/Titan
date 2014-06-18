@@ -5,6 +5,8 @@
 //  Created by zhang yunjie on 2014/06/11.
 //
 //
+#include "ShaderSprite.h"
+
 #include "BattleBase.h"
 #include "BattleWorld.h"
 #include "BattleScene.h"
@@ -18,7 +20,9 @@ mWorld(NULL),
 mDebugDraw(NULL),
 mpTouchEventListener(NULL)
 {
-    
+    mpEraser = DrawNode::create();
+    mpEraser->drawDot(Vec2(0, 0), 20, Color4F(0, 0, 0, 0));
+    mpEraser->retain();
 }
 
 void BattleScene::initScene()
@@ -27,11 +31,32 @@ void BattleScene::initScene()
 
     mWinSize = Director::getInstance()->getWinSize();
 
+    addBackground();
+
     initPhysics();
     initDebugMenu();
     initTouch();
 
     scheduleUpdate();
+}
+
+void BattleScene::addBackground()
+{
+    auto bgSprite = Sprite::create("img2.png");
+    bgSprite->setPosition(mWinSize / 2.0f);
+    // this->addChild(bgSprite);
+
+    mpRend = RenderTexture::create(mWinSize.width, mWinSize.height, Texture2D::PixelFormat::RGBA8888);
+    mpRend->setPosition(mWinSize / 2.0f);
+    
+
+//    Sprite* pBg = Sprite::create("img1.png");
+//    pBg->setPosition(mWinSize / 2.0f);
+//    addChild(pBg);
+    mpRend->begin();
+        bgSprite->visit();
+    mpRend->end();
+    addChild(mpRend);
 }
 
 void BattleScene::initPhysics()
@@ -93,12 +118,14 @@ void BattleScene::initTouch()
 
     CCLOG("===== BattleScene#initTouch ======");
 
+    auto dispatcher = Director::getInstance()->getEventDispatcher();
     mpTouchEventListener = cocos2d::EventListenerTouchOneByOne::create();
     mpTouchEventListener->setSwallowTouches(true);
     mpTouchEventListener->onTouchBegan     = CC_CALLBACK_2(BattleScene::onTouchBegan, this);
     mpTouchEventListener->onTouchMoved     = CC_CALLBACK_2(BattleScene::onTouchMoved, this);
     mpTouchEventListener->onTouchEnded     = CC_CALLBACK_2(BattleScene::onTouchEnded, this);
     mpTouchEventListener->onTouchCancelled = CC_CALLBACK_2(BattleScene::onTouchCancelled, this);
+    dispatcher->addEventListenerWithSceneGraphPriority(mpTouchEventListener, this);
 }
 
 #pragma mark - UPDATE
@@ -138,6 +165,23 @@ void BattleScene::updateScene()
 
 bool BattleScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 {
+    Point touchPoint = touch->getLocation();
+
+//    ShaderSprite* hole = ShaderSprite::create("img1.png");
+//    hole->setPosition(touchPoint);
+//    BlendFunc cbl = {GL_ONE, GL_ONE_MINUS_SRC_ALPHA};
+//    hole->setBlendFunc(cbl);
+//    this->addChild(hole);
+    mpEraser->setPosition(touchPoint);
+    
+    // 设置混合模式
+    BlendFunc blendFunc = { GL_ONE, GL_ZERO };
+    mpEraser->setBlendFunc(blendFunc);
+    
+    // 将橡皮擦的像素渲染到画布上，与原来的像素进行混合
+    mpRend->begin();
+        mpEraser->visit();
+    mpRend->end();
     return false;
 }
 

@@ -63,14 +63,11 @@
 		50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 50EF62A017ECD613001EB2F8 /* Icon-29.png */; };
 		50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 50EF62A117ECD613001EB2F8 /* Icon-50.png */; };
 		89068F52195002450003B243 /* BattleWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89068F50195002450003B243 /* BattleWorld.cpp */; };
-		89403C96195045C400345BA9 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 89403C8A195045C400345BA9 /* .gitignore */; };
-		89403C97195045C400345BA9 /* AbstractBQVFS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89403C8B195045C400345BA9 /* AbstractBQVFS.cpp */; };
-		89403C98195045C400345BA9 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 89403C8C195045C400345BA9 /* sqlite3.c */; };
-		89403C99195045C400345BA9 /* vfs_drv_hm40.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89403C91195045C400345BA9 /* vfs_drv_hm40.cpp */; };
 		89403C9E1950468800345BA9 /* JSON.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89403C9C1950468800345BA9 /* JSON.cpp */; };
 		89403CA21951882500345BA9 /* img3.png in Resources */ = {isa = PBXBuildFile; fileRef = 89403C9F1951882500345BA9 /* img3.png */; };
 		89403CA31951882500345BA9 /* img1.png in Resources */ = {isa = PBXBuildFile; fileRef = 89403CA01951882500345BA9 /* img1.png */; };
 		89403CA41951882500345BA9 /* img2.png in Resources */ = {isa = PBXBuildFile; fileRef = 89403CA11951882500345BA9 /* img2.png */; };
+		89403CA919518E3700345BA9 /* ShaderSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89403CA719518E3700345BA9 /* ShaderSprite.cpp */; };
 		89CED8F819486A0D0065CBFC /* A Damn Mess.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89CED8BB19486A0D0065CBFC /* A Damn Mess.ttf */; };
 		89CED8F919486A0D0065CBFC /* Abberancy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89CED8BC19486A0D0065CBFC /* Abberancy.ttf */; };
 		89CED8FA19486A0D0065CBFC /* Abduction.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89CED8BD19486A0D0065CBFC /* Abduction.ttf */; };
@@ -338,21 +335,15 @@
 		50EF62A117ECD613001EB2F8 /* Icon-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-50.png"; sourceTree = "<group>"; };
 		89068F50195002450003B243 /* BattleWorld.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BattleWorld.cpp; sourceTree = "<group>"; };
 		89068F51195002450003B243 /* BattleWorld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BattleWorld.h; sourceTree = "<group>"; };
-		89403C8A195045C400345BA9 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		89403C8B195045C400345BA9 /* AbstractBQVFS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AbstractBQVFS.cpp; sourceTree = "<group>"; };
-		89403C8C195045C400345BA9 /* sqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sqlite3.c; sourceTree = "<group>"; };
-		89403C8D195045C400345BA9 /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3.h; sourceTree = "<group>"; };
-		89403C8E195045C400345BA9 /* sqlite3ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3ext.h; sourceTree = "<group>"; };
-		89403C8F195045C400345BA9 /* sqlite_bbq.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite_bbq.h; sourceTree = "<group>"; };
-		89403C91195045C400345BA9 /* vfs_drv_hm40.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vfs_drv_hm40.cpp; sourceTree = "<group>"; };
-		89403C92195045C400345BA9 /* vfs_drv_hm40.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vfs_drv_hm40.h; sourceTree = "<group>"; };
-		89403C93195045C400345BA9 /* vfs_drv_hm40_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vfs_drv_hm40_private.h; sourceTree = "<group>"; };
 		89403C95195045C400345BA9 /* picojson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = picojson.h; sourceTree = "<group>"; };
 		89403C9C1950468800345BA9 /* JSON.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JSON.cpp; sourceTree = "<group>"; };
 		89403C9D1950468800345BA9 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
 		89403C9F1951882500345BA9 /* img3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img3.png; sourceTree = "<group>"; };
 		89403CA01951882500345BA9 /* img1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img1.png; sourceTree = "<group>"; };
 		89403CA11951882500345BA9 /* img2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img2.png; sourceTree = "<group>"; };
+		89403CA719518E3700345BA9 /* ShaderSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ShaderSprite.cpp; path = ../Classes/ShaderSprite.cpp; sourceTree = "<group>"; };
+		89403CA819518E3700345BA9 /* ShaderSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShaderSprite.h; path = ../Classes/ShaderSprite.h; sourceTree = "<group>"; };
+		89403CAB1951904600345BA9 /* tansparentshader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = tansparentshader.h; path = ../Classes/tansparentshader.h; sourceTree = "<group>"; };
 		89CED8BB19486A0D0065CBFC /* A Damn Mess.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "A Damn Mess.ttf"; sourceTree = "<group>"; };
 		89CED8BC19486A0D0065CBFC /* Abberancy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Abberancy.ttf; sourceTree = "<group>"; };
 		89CED8BD19486A0D0065CBFC /* Abduction.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Abduction.ttf; sourceTree = "<group>"; };
@@ -640,30 +631,6 @@
 			path = ../Resources;
 			sourceTree = "<group>";
 		};
-		89403C89195045C400345BA9 /* sqlite3 */ = {
-			isa = PBXGroup;
-			children = (
-				89403C8A195045C400345BA9 /* .gitignore */,
-				89403C8B195045C400345BA9 /* AbstractBQVFS.cpp */,
-				89403C8C195045C400345BA9 /* sqlite3.c */,
-				89403C8D195045C400345BA9 /* sqlite3.h */,
-				89403C8E195045C400345BA9 /* sqlite3ext.h */,
-				89403C8F195045C400345BA9 /* sqlite_bbq.h */,
-				89403C90195045C400345BA9 /* vfs_drv_hm40 */,
-			);
-			path = sqlite3;
-			sourceTree = "<group>";
-		};
-		89403C90195045C400345BA9 /* vfs_drv_hm40 */ = {
-			isa = PBXGroup;
-			children = (
-				89403C91195045C400345BA9 /* vfs_drv_hm40.cpp */,
-				89403C92195045C400345BA9 /* vfs_drv_hm40.h */,
-				89403C93195045C400345BA9 /* vfs_drv_hm40_private.h */,
-			);
-			path = vfs_drv_hm40;
-			sourceTree = "<group>";
-		};
 		89403C94195045C400345BA9 /* picojson */ = {
 			isa = PBXGroup;
 			children = (
@@ -756,7 +723,6 @@
 		89D02C6C194EBCBB004A759A /* 3rdParty */ = {
 			isa = PBXGroup;
 			children = (
-				89403C89195045C400345BA9 /* sqlite3 */,
 				89403C94195045C400345BA9 /* picojson */,
 				89D02C6D194EBCBB004A759A /* GLES-Render.cpp */,
 				89D02C6E194EBCBB004A759A /* GLES-Render.h */,
@@ -792,6 +758,9 @@
 				89D02C6B194EBC8E004A759A /* TitanBase.h */,
 				8CF729D9194757490030B362 /* TitanScene.cpp */,
 				8CF729DA194757490030B362 /* TitanScene.h */,
+				89403CA719518E3700345BA9 /* ShaderSprite.cpp */,
+				89403CA819518E3700345BA9 /* ShaderSprite.h */,
+				89403CAB1951904600345BA9 /* tansparentshader.h */,
 			);
 			name = Base;
 			sourceTree = "<group>";
@@ -976,7 +945,6 @@
 				89CED92919486A0D0065CBFC /* Roboto.bmf.fnt in Resources */,
 				89CED91119486A0D0065CBFC /* boundsTestFont.fnt in Resources */,
 				89CED91619486A0D0065CBFC /* font-issue1343-hd.fnt in Resources */,
-				89403C96195045C400345BA9 /* .gitignore in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
 				89CED91F19486A0D0065CBFC /* Japanese.ttf in Resources */,
 				89CED8F819486A0D0065CBFC /* A Damn Mess.ttf in Resources */,
@@ -1069,18 +1037,16 @@
 			files = (
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				89068F52195002450003B243 /* BattleWorld.cpp in Sources */,
-				89403C99195045C400345BA9 /* vfs_drv_hm40.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				89CED93B194873C40065CBFC /* BattleScene.cpp in Sources */,
-				89403C97195045C400345BA9 /* AbstractBQVFS.cpp in Sources */,
 				8CF729DB194757490030B362 /* TitanScene.cpp in Sources */,
 				1AFAF8B716D35DE700DB1158 /* AppDelegate.cpp in Sources */,
-				89403C98195045C400345BA9 /* sqlite3.c in Sources */,
 				89403C9E1950468800345BA9 /* JSON.cpp in Sources */,
 				8C7706011947529600270F5D /* StartScene.cpp in Sources */,
 				89D02C6F194EBCBB004A759A /* GLES-Render.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				1AFAF8B816D35DE700DB1158 /* HelloWorldScene.cpp in Sources */,
+				89403CA919518E3700345BA9 /* ShaderSprite.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

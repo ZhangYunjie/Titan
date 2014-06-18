@@ -44,6 +44,8 @@ public:
     void onTouchCancelled(cocos2d::Touch* touch, cocos2d::Event* event);
 
 private:
+    void addBackground();
+
     void debugBtnCallback(cocos2d::Ref* pSender);
 
 private:
@@ -62,6 +64,8 @@ private:
 
     cocos2d::Size mWinSize;
     cocos2d::EventListenerTouchOneByOne* mpTouchEventListener;
+    cocos2d::DrawNode* mpEraser;
+    cocos2d::RenderTexture* mpRend;
 
     b2World *mWorld;
     GLESDebugDraw *mDebugDraw;
