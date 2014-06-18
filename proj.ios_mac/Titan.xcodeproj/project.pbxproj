@@ -68,6 +68,9 @@
 		89403C98195045C400345BA9 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 89403C8C195045C400345BA9 /* sqlite3.c */; };
 		89403C99195045C400345BA9 /* vfs_drv_hm40.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89403C91195045C400345BA9 /* vfs_drv_hm40.cpp */; };
 		89403C9E1950468800345BA9 /* JSON.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89403C9C1950468800345BA9 /* JSON.cpp */; };
+		89403CA21951882500345BA9 /* img3.png in Resources */ = {isa = PBXBuildFile; fileRef = 89403C9F1951882500345BA9 /* img3.png */; };
+		89403CA31951882500345BA9 /* img1.png in Resources */ = {isa = PBXBuildFile; fileRef = 89403CA01951882500345BA9 /* img1.png */; };
+		89403CA41951882500345BA9 /* img2.png in Resources */ = {isa = PBXBuildFile; fileRef = 89403CA11951882500345BA9 /* img2.png */; };
 		89CED8F819486A0D0065CBFC /* A Damn Mess.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89CED8BB19486A0D0065CBFC /* A Damn Mess.ttf */; };
 		89CED8F919486A0D0065CBFC /* Abberancy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89CED8BC19486A0D0065CBFC /* Abberancy.ttf */; };
 		89CED8FA19486A0D0065CBFC /* Abduction.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89CED8BD19486A0D0065CBFC /* Abduction.ttf */; };
@@ -347,6 +350,9 @@
 		89403C95195045C400345BA9 /* picojson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = picojson.h; sourceTree = "<group>"; };
 		89403C9C1950468800345BA9 /* JSON.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JSON.cpp; sourceTree = "<group>"; };
 		89403C9D1950468800345BA9 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
+		89403C9F1951882500345BA9 /* img3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img3.png; sourceTree = "<group>"; };
+		89403CA01951882500345BA9 /* img1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img1.png; sourceTree = "<group>"; };
+		89403CA11951882500345BA9 /* img2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img2.png; sourceTree = "<group>"; };
 		89CED8BB19486A0D0065CBFC /* A Damn Mess.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "A Damn Mess.ttf"; sourceTree = "<group>"; };
 		89CED8BC19486A0D0065CBFC /* Abberancy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Abberancy.ttf; sourceTree = "<group>"; };
 		89CED8BD19486A0D0065CBFC /* Abduction.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Abduction.ttf; sourceTree = "<group>"; };
@@ -620,6 +626,9 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				89403C9F1951882500345BA9 /* img3.png */,
+				89403CA01951882500345BA9 /* img1.png */,
+				89403CA11951882500345BA9 /* img2.png */,
 				89D02C66194EB281004A759A /* circle.png */,
 				89CED93F1949B2350065CBFC /* bg.png */,
 				89CED8BA19486A0D0065CBFC /* fonts */,
@@ -992,6 +1001,7 @@
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
 				89CED90019486A0D0065CBFC /* arial-unicode-26.png in Resources */,
 				89CED90F19486A0D0065CBFC /* bitmapFontTest5.fnt in Resources */,
+				89403CA31951882500345BA9 /* img1.png in Resources */,
 				89CED92819486A0D0065CBFC /* Paint Boy.ttf in Resources */,
 				89CED8FE19486A0D0065CBFC /* arial-unicode-26.fnt in Resources */,
 				1AFAF8BD16D35E4900DB1158 /* CloseSelected.png in Resources */,
@@ -1010,6 +1020,7 @@
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
 				89CED91319486A0D0065CBFC /* Courier New.ttf in Resources */,
 				89CED90619486A0D0065CBFC /* bitmapFontTest.fnt in Resources */,
+				89403CA21951882500345BA9 /* img3.png in Resources */,
 				89CED92619486A0D0065CBFC /* markerFelt.fnt in Resources */,
 				89CED90719486A0D0065CBFC /* bitmapFontTest.png in Resources */,
 				89CED92A19486A0D0065CBFC /* Roboto.bmf_0.png in Resources */,
@@ -1025,6 +1036,7 @@
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
 				89CED92F19486A0D0065CBFC /* Thonburi.ttf in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
+				89403CA41951882500345BA9 /* img2.png in Resources */,
 				89CED90419486A0D0065CBFC /* bitmapFontChinese.fnt in Resources */,
 				89CED91219486A0D0065CBFC /* boundsTestFont.png in Resources */,
 				89D02C67194EB281004A759A /* circle.png in Resources */,

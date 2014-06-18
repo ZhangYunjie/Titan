@@ -10,7 +10,7 @@
 #define __Titan__JSON__
 
 #include "picojson.h"
-
+/*
 class JSON
 {
 public:
@@ -36,7 +36,12 @@ public:
     static void setObject(Object& base, const char* key, Array data);
     static void setObject(Object& base, const char* key, Object data);
     static void setObject(Object& base, const char* key, double data);
-    static void setObject
-};
+    static void setObject(Object& base, const char* key, int data);
+    static void setObject(Object& base, const char* key, const char* data);
+    static void setObject(Object& base, const char* key, std::string data);
+    static void setObject(Object& base, const char* key, bool data);
 
+    static std::string serialize(Object base);
+};
+*/
 #endif /* defined(__Titan__JSON__) */
