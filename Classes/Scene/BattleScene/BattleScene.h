@@ -52,6 +52,7 @@ private:
     enum kTag
     {
         kTagCharacter = 1,
+        kTagBackground,
 
         kTagDebug,
         kTagDebugDraw,
@@ -59,7 +60,8 @@ private:
 
     enum kZOrder
     {
-        kZOrderMenu = 1,
+        kZOrderBackground = 1,
+        kZOrderMenu,
     };
 
     cocos2d::Size mWinSize;
