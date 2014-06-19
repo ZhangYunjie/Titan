@@ -178,6 +178,27 @@ void BattleScene::showBombEffect(Vec2 point)
     hole->visit();
     effect->visit();
     mpRender->end();
+
+    auto img = mpRender->newImage(false);
+
+    int channel = 3;
+    if (img->hasAlpha()) channel = 4;
+
+    unsigned char* data = new unsigned char[img->getDataLen()*channel];
+    data = img->getData();
+
+    for(int i=0;i<img->getWidth();i++)
+    {
+        for(int j=0;j<img->getHeight();j++)
+        {
+            unsigned char *pixel = data + (i + j * img->getWidth())*channel;
+            
+            unsigned char r = *pixel;
+            unsigned char g = *(pixel + 1);
+            unsigned char b = *(pixel + 2) ;
+            unsigned char a = *(pixel + 3);
+        }
+    }
 }
 
 #pragma mark - TOUCH
