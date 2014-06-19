@@ -46,19 +46,7 @@ void BattleScene::addBackground()
     bgSprite->setScale(mWinSize.width/bgSprite->getContentSize().width);
     bgSprite->setAnchorPoint(Vec2::ZERO);
     bgSprite->setPosition(Vec2::ZERO);
-//    bgSprite->setPosition(mWinSize / 2.0f);
     this->addChild(bgSprite, kZOrderBackground, kTagBackground);
-
-//    mpRend = RenderTexture::create(mWinSize.width, mWinSize.height, Texture2D::PixelFormat::RGBA8888);
-//    mpRend->setPosition(mWinSize / 2.0f);
-
-//    Sprite* pBg = Sprite::create("img1.png");
-//    pBg->setPosition(mWinSize / 2.0f);
-//    addChild(pBg);
-//    mpRend->begin();
-//        bgSprite->visit();
-//    mpRend->end();
-//    addChild(mpRend);
 }
 
 void BattleScene::initPhysics()
@@ -175,16 +163,6 @@ bool BattleScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
     hole->setBlendFunc(cbl);
     bgSprite->addChild(hole);
 
-//    mpEraser->setPosition(touchPoint);
-//    
-//    // 设置混合模式
-//    BlendFunc blendFunc = { GL_ONE, GL_ZERO };
-//    mpEraser->setBlendFunc(blendFunc);
-//    
-//    // 将橡皮擦的像素渲染到画布上，与原来的像素进行混合
-//    mpRend->begin();
-//        mpEraser->visit();
-//    mpRend->end();
     return false;
 }
 
