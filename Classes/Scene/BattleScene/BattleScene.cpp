@@ -18,11 +18,10 @@ USING_NS_CC;
 BattleScene::BattleScene():
 mWorld(NULL),
 mDebugDraw(NULL),
-mpTouchEventListener(NULL)
+mpTouchEventListener(NULL),
+mpRender(NULL)
 {
-    mpEraser = DrawNode::create();
-    mpEraser->drawDot(Vec2(0, 0), 20, Color4F(0, 0, 0, 0));
-    mpEraser->retain();
+
 }
 
 void BattleScene::initScene()
@@ -32,6 +31,7 @@ void BattleScene::initScene()
     mWinSize = Director::getInstance()->getWinSize();
 
     addBackground();
+    addFrontground();
 
     initPhysics();
     initDebugMenu();
@@ -42,11 +42,22 @@ void BattleScene::initScene()
 
 void BattleScene::addBackground()
 {
-    auto bgSprite = Sprite::create("img2.png");
-    bgSprite->setScale(mWinSize.width/bgSprite->getContentSize().width);
-    bgSprite->setAnchorPoint(Vec2::ZERO);
-    bgSprite->setPosition(Vec2::ZERO);
+    auto bgSprite = Sprite::create("bg.png");
+    bgSprite->setPosition(mWinSize / 2.0f);
     this->addChild(bgSprite, kZOrderBackground, kTagBackground);
+}
+
+void BattleScene::addFrontground()
+{
+    mpRender = RenderTexture::create(mWinSize.width, mWinSize.height);
+    mpRender->setPosition(Vec2(mWinSize.width/2, mWinSize.height/2));
+    this->addChild(mpRender, 10);
+    
+    auto fgSprite = Sprite::create("img2.png");
+    fgSprite->setPosition(mWinSize / 2.0f);
+    mpRender->begin();
+    fgSprite->visit();
+    mpRender->end();
 }
 
 void BattleScene::initPhysics()
@@ -151,18 +162,30 @@ void BattleScene::updateScene()
     }
 }
 
+void BattleScene::showBombEffect(Vec2 point)
+{
+    Sprite* hole = Sprite::create("img1.png");
+    hole->setPosition(point);
+    BlendFunc cbl = {GL_ZERO ,GL_ONE_MINUS_SRC_ALPHA};
+    hole->setBlendFunc(cbl);
+    
+    auto effect = Sprite::create("img3.png");
+    effect->setPosition(point);
+    BlendFunc ebl = {GL_DST_ALPHA, GL_ONE_MINUS_SRC_ALPHA};
+    effect->setBlendFunc(ebl);
+    
+    mpRender->begin();
+    hole->visit();
+    effect->visit();
+    mpRender->end();
+}
+
 #pragma mark - TOUCH
 
 bool BattleScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
 {
     Point touchPoint = touch->getLocation();
-    auto bgSprite = dynamic_cast<Sprite*>(this->getChildByTag(kTagBackground));
-    Sprite* hole = Sprite::create("img1.png");
-    hole->setPosition(bgSprite->convertToNodeSpace(touchPoint));
-    BlendFunc cbl = {GL_ZERO ,GL_ONE_MINUS_SRC_ALPHA};
-    hole->setBlendFunc(cbl);
-    bgSprite->addChild(hole);
-
+    showBombEffect(touchPoint);
     return false;
 }
 

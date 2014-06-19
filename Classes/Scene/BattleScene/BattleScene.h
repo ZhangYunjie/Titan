@@ -45,6 +45,9 @@ public:
 
 private:
     void addBackground();
+    void addFrontground();
+
+    void showBombEffect(cocos2d::Vec2 point);
 
     void debugBtnCallback(cocos2d::Ref* pSender);
 
@@ -66,8 +69,7 @@ private:
 
     cocos2d::Size mWinSize;
     cocos2d::EventListenerTouchOneByOne* mpTouchEventListener;
-    cocos2d::DrawNode* mpEraser;
-    cocos2d::RenderTexture* mpRend;
+    cocos2d::RenderTexture* mpRender;
 
     b2World *mWorld;
     GLESDebugDraw *mDebugDraw;
