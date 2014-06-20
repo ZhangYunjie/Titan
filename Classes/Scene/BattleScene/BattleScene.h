@@ -45,7 +45,7 @@ public:
 
 private:
     void addBackground();
-    void addFrontground();
+    void addTerrain();
 
     void showBombEffect(cocos2d::Vec2 point);
 

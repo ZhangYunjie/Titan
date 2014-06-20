@@ -30,8 +30,8 @@ void BattleScene::initScene()
 
     mWinSize = Director::getInstance()->getWinSize();
 
-    addBackground();
-    addFrontground();
+    //addBackground();
+    addTerrain();
 
     initPhysics();
     initDebugMenu();
@@ -47,7 +47,7 @@ void BattleScene::addBackground()
     this->addChild(bgSprite, kZOrderBackground, kTagBackground);
 }
 
-void BattleScene::addFrontground()
+void BattleScene::addTerrain()
 {
     mpRender = RenderTexture::create(mWinSize.width, mWinSize.height);
     mpRender->setPosition(Vec2(mWinSize.width/2, mWinSize.height/2));
@@ -74,7 +74,7 @@ void BattleScene::initPhysics()
     Sprite *ballSprite = CCSprite::create("circle.png");
     ballSprite->setPosition(Vec2(150.0f, 150.0f));
     ballSprite->setScale(2.0f);
-    this->addChild(ballSprite);
+    this->addChild(ballSprite, 100);
 
     b2CircleShape circle;
     circle.m_radius = ballSprite->getContentSize().width * ballSprite->getScale() / PTM_RATIO_2;
@@ -89,9 +89,13 @@ void BattleScene::initPhysics()
 
         b2PolygonShape rect;
         rect.SetAsBox(100.0f/PTM_RATIO, 25.0f/PTM_RATIO);
+        
+        b2ChainShape edge;
+        b2Vec2 mv[3] = {b2Vec2(-50.f/PTM_RATIO, 0.f/PTM_RATIO), b2Vec2(50.f/PTM_RATIO, 0.f/PTM_RATIO), b2Vec2(100.f/PTM_RATIO, 100.f/PTM_RATIO)};
+        edge.CreateChain(mv, 3);
 
         b2FixtureDef boxFixtureDef;
-        boxFixtureDef.shape       = &rect;
+        boxFixtureDef.shape       = &edge;
         boxFixtureDef.density     = 0.4f;
         boxFixtureDef.friction    = 0.5f;
         boxFixtureDef.restitution = 0.6f;
@@ -186,6 +190,7 @@ void BattleScene::showBombEffect(Vec2 point)
 
     unsigned char* data = new unsigned char[img->getDataLen()*channel];
     data = img->getData();
+    b2ChainShape edge;
 
     for(int i=0;i<img->getWidth();i++)
     {
@@ -193,10 +198,14 @@ void BattleScene::showBombEffect(Vec2 point)
         {
             unsigned char *pixel = data + (i + j * img->getWidth())*channel;
             
-            unsigned char r = *pixel;
-            unsigned char g = *(pixel + 1);
-            unsigned char b = *(pixel + 2) ;
+//            unsigned char r = *pixel;
+//            unsigned char g = *(pixel + 1);
+//            unsigned char b = *(pixel + 2) ;
             unsigned char a = *(pixel + 3);
+            if (a != 0)
+            {
+//                edge.SetNextVertex(b2Vec2(-i, j));
+            }
         }
     }
 }
