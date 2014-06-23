@@ -14,40 +14,44 @@
 #include "box2d.h"
 #include "cocos2d.h"
 
+#define MAX_VALUE 2147483647
+
 class b2Separator
 {
 public:
     b2Separator(){}
     
-    void separator(b2Body& body, b2FixtureDef& fixtureDef, std::vector<b2Vec2> verticesVec, float scale=30.f)
+    void separator(b2Body* body, b2FixtureDef* fixtureDef, std::vector<b2Vec2>* verticesVec, int scale=30)
     {
-        std::vector<b2Vec2>* vec = new std::vector<b2Vec2>();
-        for (int i = 0; i < verticesVec.size(); i++)
+        std::vector<b2Vec2> vec;
+        std::vector<std::vector<b2Vec2>> figsVec;
+        for (int i = 0; i < verticesVec->size(); i++)
         {
-            vec->push_back(b2Vec2(verticesVec.at(i).x*scale, verticesVec.at(i).y*scale));
+            vec.push_back(b2Vec2(verticesVec->at(i).x*scale, verticesVec->at(i).y*scale));
         }
 
-        std::vector<std::vector<b2Vec2> *> figsVec = calcShapes(vec);
+        calcShapes(vec, figsVec);
         
-        for(int i = 0; i < verticesVec.size(); i++)
+        for(int i = 0; i < figsVec.size(); i++)
         {
-            vec = figsVec.at(i);
-            b2Vec2* vertices = new b2Vec2[vec->size()];
+            vec = figsVec[i];
+            b2Vec2* vertices = new b2Vec2[vec.size()];
 
             int j = 0;
-            for(; j < vec->size(); j++)
+            for(; j < vec.size(); j++)
             {
-                vertices[j] = b2Vec2(vec->at(j).x/scale, vec->at(j).y/scale);
+                vertices[j] = b2Vec2(vec[j].x/scale, vec[j].y/scale);
             }
             
             b2PolygonShape polyShape;
-            polyShape.Set(vertices, vec->size());
-            fixtureDef.shape = &polyShape;
-            body.CreateFixture(&fixtureDef);
+            polyShape.Set(vertices, vec.size());
+            delete[] vertices;
+            fixtureDef->shape = &polyShape;
+            body->CreateFixture(fixtureDef);
         }
     }
     
-    int validate(std::vector<b2Vec2> &verticesVec)
+    int validate(const std::vector<b2Vec2>& verticesVec)
     {
         int n = verticesVec.size(), i2, i3, ret = 0;
         bool fl2 = false;
@@ -90,42 +94,44 @@ public:
     }
     
 private:
-    std::vector<std::vector<b2Vec2> *> calcShapes(std::vector<b2Vec2> *vertivesVec)
+    void calcShapes(std::vector<b2Vec2>& vertivesVec, std::vector<std::vector<b2Vec2>> &result)
     {
-        std::vector<std::vector<b2Vec2> *> figsVec;
-        std::vector<std::vector<b2Vec2> *> queue;
-        queue.push_back(vertivesVec);
+        b2Vec2 p1, p2, p3;
+        int i1, i2, i3;
+        int j1, j2;
+        int h = 0, k = 0;
+        
+        b2Vec2 v1, v2;
+        b2Vec2 *pv, hitV(0, 0);
+
+        std::vector<b2Vec2> vec;
+        std::vector<std::vector<b2Vec2> > figsVec;
+        std::queue<std::vector<b2Vec2> > queue;
+        queue.push(vertivesVec);
+        
         bool isConvex;
         
         while (!queue.empty())
         {
-            std::vector<b2Vec2>* vec = queue.front();
-            int n = vec->size();
+            vec = queue.front();
+            int n = vec.size();
             isConvex = true;
 
             for(int i = 0; i<n; i++)
             {
-                int i1 = i;
-                int i2 = i < n - 1 ? i + 1 : i + 1 - n;
-                int i3 = i < n - 2 ? i + 2 : i + 2 - n;
+                i1 = i;
+                i2 = i < n - 1 ? i + 1 : i + 1 - n;
+                i3 = i < n - 2 ? i + 2 : i + 2 - n;
                 
-                b2Vec2 p1 = vec->at(i1);
-                b2Vec2 p2 = vec->at(i2);
-                b2Vec2 p3 = vec->at(i3);
+                p1 = vec[i1];
+                p2 = vec[i2];
+                p3 = vec[i3];
                 
                 float d = det(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y);
                 if(d<0)
                 {
                     isConvex = false;
-                    float minLen = FLT_MAX;
-                    
-                    int j1;
-                    int j2;
-                    int h = 0, k = 0;
-                    
-                    b2Vec2 v1;
-                    b2Vec2 v2;
-                    b2Vec2 hitV;
+                    int minLen = MAX_VALUE;
                     
                     for(int j = 0; j<n; j++)
                     {
@@ -134,21 +140,22 @@ private:
                             j1 = j;
                             j2 = j < n - 1 ? j + 1 : 0;
                             
-                            v1 = vec->at(j1);
-                            v2 = vec->at(j2);
+                            v1 = vec[j1];
+                            v2 = vec[j2];
                             
-                            b2Vec2* v = hitRay(p1.x, p1.y, p2.x, p2.y, v1.x, v1.y, v2.x, v2.y);
-                            if(NULL != v)
+                            pv = hitRay(p1.x, p1.y, p2.x, p2.y, v1.x, v1.y, v2.x, v2.y);
+                            if(pv)
                             {
-                                float dx = p2.x - v->x;
-                                float dy = p2.y - v->y;
+                                b2Vec2 v = *pv;
+                                float dx = p2.x - v.x;
+                                float dy = p2.y - v.y;
                                 float t = dx * dx + dy * dy;
                                 
                                 if(t < minLen)
                                 {
                                     h = j1;
                                     k = j2;
-                                    hitV = *v;
+                                    hitV = v;
                                     minLen = t;
                                 }
                             }
@@ -162,8 +169,8 @@ private:
                     
                     j1 = h;
                     j2 = k;
-                    v1 = vec->at(j1);
-                    v2 = vec->at(j2);
+                    v1 = vec[j1];
+                    v2 = vec[j2];
                     
                     if(!pointsMatch(hitV.x, hitV.y, v2.x, v2.y)) vec1->push_back(hitV);
                     if(!pointsMatch(hitV.x, hitV.y, v1.x, v2.y)) vec2->push_back(hitV);
@@ -173,59 +180,52 @@ private:
                     while(true)
                     {
                         if(k != j2)
-                            vec1->push_back(vec->at(k));
+                            vec1->push_back(vec[k]);
                         else
                         {
                             assert(h>=0 && h<n);
-                            if(!isOnSegment(v2.x, v2.y, vec->at(h).x, vec->at(h).y, p1.x, p1.y))
-                               vec1->push_back(vec->at(k));
+                            if(!isOnSegment(v2.x, v2.y, vec[h].x, vec[h].y, p1.x, p1.y))
+                               vec1->push_back(vec[k]);
                             break;
                         }
                         
                         h = k;
-                        if(k+1>n-1) k = n-1;
+                        if(k-1<0) k = n-1;
                         else k--;
                     }
                     
-                    std::vector<b2Vec2>* vec1_reverse;
-                    vec1_reverse->clear();
-                    while (vec1->size())
-                    {
-                        vec1_reverse->push_back(vec1->back());
-                        vec1->pop_back();
-                    }
-
-                    vec1 = vec1_reverse;
+                    reverse(vec1->begin(), vec1->end());
+    
                     h = -1;
                     k = i2;
                     while(true)
                     {
                         if(k!=j1)
-                            vec2->push_back(vec->at(k));
+                            vec2->push_back(vec[k]);
                         else
                         {
                             assert(h >= 0 || h < n);
-                            if(k == j1 && !isOnSegment(v1.x, v1.y, vec->at(h).x, vec->at(h).y, p2.x, p2.y))
-                                vec2->push_back(vec->at(k));
+                            if(k == j1 && !isOnSegment(v1.x, v1.y, vec[h].x, vec[h].y, p2.x, p2.y))
+                                vec2->push_back(vec[k]);
                             break;
                         }
                         h = k;
                         if(k+1>n-1) k = 0;
                         else k++;
                     }
-                    queue.push_back(vec1);
-                    queue.push_back(vec2);
-                    queue.erase(queue.begin());
+                    queue.push(*vec1);
+                    queue.push(*vec2);
+                    queue.pop();
                     break;
                 }
             }
             if(isConvex)
             {
                 figsVec.push_back(queue.front());
-                queue.erase(queue.begin());
+                queue.pop();
             }
         }
-        return figsVec;
+        result = figsVec;
     }
     
     b2Vec2* hitRay(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4)
@@ -237,9 +237,12 @@ private:
         float t5 = x4 - x3;
         float t6 = y4 - y3;
         float t7 = t4 * t5 - t3 * t6;
+        
+        if(t7 == 0) return NULL;
 
         float a = ( t5 * t2 - t6 * t1 ) / t7;
-        float px = x1 + a * t3, py = y1 + a * t4;
+        float px = x1 + a * t3;
+        float py = y1 + a * t4;
         bool b1 = isOnSegment(x2, y2, x1, y1, px, py);
         bool b2 = isOnSegment(px, py, x3, y3, x4, y4);
         
@@ -257,6 +260,8 @@ private:
         float t5 = x4 - x3;
         float t6 = y4 - y3;
         float t7 = t4 * t5 - t3 * t6;
+        
+        if(t7 == 0) return NULL;
 
         float a = ( t5 * t2 - t6 * t1 ) / t7;
         float px = x1 + a * t3, py = y1 + a * t4;
@@ -278,8 +283,8 @@ private:
     
     bool pointsMatch(float x1, float y1, float x2, float y2)
     {
-        float dx = x2 >= x1 ? x2 - x1 : x1 - x2;
-        float dy = y2 >= y1 ? y2 - y1 : y1 - y2;
+        float dx = (x2 >= x1) ? x2 - x1 : x1 - x2;
+        float dy = (y2 >= y1) ? y2 - y1 : y1 - y2;
 
         return (dx < 0.1 && dy < 0.1);
     }
@@ -297,7 +302,7 @@ private:
         return px - x1 < 0.1 || x1 - px < 0.1f ;
     }
     
-    int det(float x1, float y1, float x2, float y2, float x3, float y3)
+    float det(float x1, float y1, float x2, float y2, float x3, float y3)
     {
         return x1 * y2 + x2 * y3 + x3 * y1 - y1 * x2 -y2 * x3 - y3 * x1;
     }

@@ -62,35 +62,34 @@ void BattleScene::addTerrain()
     mpRender->end();
     
     b2Separator* sep = new b2Separator();
-    b2BodyDef bodyDef;
-    bodyDef.type = b2_staticBody;
-    bodyDef.position.Set(mWinSize.width/2.f, mWinSize.height/2.f);
-    b2Body *body = mWorld->CreateBody(&bodyDef);
+    b2BodyDef* bodyDef = new b2BodyDef();
+    bodyDef->type = b2_staticBody;
+    bodyDef->position.Set(mWinSize.width/2.f, mWinSize.height/2.f);
+    b2Body *body = mWorld->CreateBody(bodyDef);
     
-    b2FixtureDef fixtureDef;
-    fixtureDef.restitution = 0.4;
-    fixtureDef.friction = 0.2;
-    fixtureDef.density = 4;
+    b2FixtureDef* fixtureDef;
+    fixtureDef->restitution = 0.4;
+    fixtureDef->friction = 0.2;
+    fixtureDef->density = 4;
 
-    std::vector<b2Vec2> vec;
-    vec.clear();
+    std::vector<b2Vec2>* vec = new std::vector<b2Vec2>();
     
-    vec.push_back(b2Vec2(-100/30, -100/30));
-    vec.push_back(b2Vec2(100/30, -100/30));
-    vec.push_back(b2Vec2(100/30, 0));
-    vec.push_back(b2Vec2(0, 0));
-    vec.push_back(b2Vec2(-100/30, 100/30));
+    vec->push_back(b2Vec2(-3, -3));
+    vec->push_back(b2Vec2(3, -3));
+    vec->push_back(b2Vec2(3, 0));
+    vec->push_back(b2Vec2(0, 0));
+    vec->push_back(b2Vec2(-3, 3));
     
-    if (sep->validate(vec) == 0)
+    if (sep->validate(*vec) == 0)
     {
-        CCLOG("are good to go");
+        //
     }
     else
     {
         CCLOG("something are wrong!");
     }
     
-    sep->separator(*body, fixtureDef, vec);
+    sep->separator(body, fixtureDef, vec);
 
 }
 
