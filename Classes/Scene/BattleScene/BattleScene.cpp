@@ -6,6 +6,7 @@
 //
 //
 #include "ShaderSprite.h"
+#include "b2Sperator.h"
 
 #include "BattleBase.h"
 #include "BattleWorld.h"
@@ -31,11 +32,12 @@ void BattleScene::initScene()
     mWinSize = Director::getInstance()->getWinSize();
 
     //addBackground();
-    addTerrain();
 
     initPhysics();
     initDebugMenu();
     initTouch();
+    
+    addTerrain();
 
     scheduleUpdate();
 }
@@ -58,6 +60,12 @@ void BattleScene::addTerrain()
     mpRender->begin();
     fgSprite->visit();
     mpRender->end();
+    
+    b2Separator* sep = new b2Separator();
+    b2BodyDef bodyDef;
+    bodyDef.type = b2_staticBody;
+    bodyDef.position.Set(mWinSize.width/2.f, mWinSize.height/2.f);
+    b2Body *body = mWorld->CreateBody(&bodyDef);
 }
 
 void BattleScene::initPhysics()
