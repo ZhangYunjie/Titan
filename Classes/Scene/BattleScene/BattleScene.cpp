@@ -66,6 +66,32 @@ void BattleScene::addTerrain()
     bodyDef.type = b2_staticBody;
     bodyDef.position.Set(mWinSize.width/2.f, mWinSize.height/2.f);
     b2Body *body = mWorld->CreateBody(&bodyDef);
+    
+    b2FixtureDef fixtureDef;
+    fixtureDef.restitution = 0.4;
+    fixtureDef.friction = 0.2;
+    fixtureDef.density = 4;
+
+    std::vector<b2Vec2> vec;
+    vec.clear();
+    
+    vec.push_back(b2Vec2(-100/30, -100/30));
+    vec.push_back(b2Vec2(100/30, -100/30));
+    vec.push_back(b2Vec2(100/30, 0));
+    vec.push_back(b2Vec2(0, 0));
+    vec.push_back(b2Vec2(-100/30, 100/30));
+    
+    if (sep->validate(vec) == 0)
+    {
+        CCLOG("are good to go");
+    }
+    else
+    {
+        CCLOG("something are wrong!");
+    }
+    
+    sep->separator(*body, fixtureDef, vec);
+
 }
 
 void BattleScene::initPhysics()
