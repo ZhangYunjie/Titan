@@ -14,8 +14,6 @@
 #include "box2d.h"
 #include "cocos2d.h"
 
-#define MAX_INT 32767
-
 class b2Separator
 {
 public:
