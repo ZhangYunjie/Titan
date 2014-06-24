@@ -44,12 +44,18 @@ public:
     void onTouchCancelled(cocos2d::Touch* touch, cocos2d::Event* event);
 
 private:
+    void addBackground();
+    void addTerrain();
+
+    void showBombEffect(cocos2d::Vec2 point);
+
     void debugBtnCallback(cocos2d::Ref* pSender);
 
 private:
     enum kTag
     {
         kTagCharacter = 1,
+        kTagBackground,
 
         kTagDebug,
         kTagDebugDraw,
@@ -57,11 +63,13 @@ private:
 
     enum kZOrder
     {
-        kZOrderMenu = 1,
+        kZOrderBackground = 1,
+        kZOrderMenu,
     };
 
     cocos2d::Size mWinSize;
     cocos2d::EventListenerTouchOneByOne* mpTouchEventListener;
+    cocos2d::RenderTexture* mpRender;
 
     b2World *mWorld;
     GLESDebugDraw *mDebugDraw;
