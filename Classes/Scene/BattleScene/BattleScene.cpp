@@ -64,7 +64,7 @@ void BattleScene::addTerrain()
     b2Separator* sep = new b2Separator();
     b2BodyDef* bodyDef = new b2BodyDef();
     bodyDef->type = b2_staticBody;
-    bodyDef->position.Set(mWinSize.width/2.f, mWinSize.height/2.f);
+    bodyDef->position.Set(mWinSize.width/PTM_RATIO_2, mWinSize.height/PTM_RATIO_2);
     b2Body *body = mWorld->CreateBody(bodyDef);
     
     b2FixtureDef* fixtureDef;
@@ -74,22 +74,19 @@ void BattleScene::addTerrain()
 
     std::vector<b2Vec2>* vec = new std::vector<b2Vec2>();
     
-    vec->push_back(b2Vec2(-3, -3));
-    vec->push_back(b2Vec2(3, -3));
-    vec->push_back(b2Vec2(3, 0));
-    vec->push_back(b2Vec2(0, 0));
-    vec->push_back(b2Vec2(-3, 3));
+    vec->push_back(b2Vec2(-2.f, -2.f));
+    vec->push_back(b2Vec2(2.f, -2.f));
+    vec->push_back(b2Vec2(2.f, 0.f));
+    vec->push_back(b2Vec2(0.f, 0.f));
+    vec->push_back(b2Vec2(-2.f, 2.f));
     
     if (sep->validate(*vec) == 0)
     {
-        //
-    }
-    else
-    {
-        CCLOG("something are wrong!");
+        sep->separator(body, fixtureDef, vec, PTM_RATIO);
     }
     
-    sep->separator(body, fixtureDef, vec);
+    vec->clear();
+    CC_SAFE_DELETE(vec);
 
 }
 
@@ -215,32 +212,6 @@ void BattleScene::showBombEffect(Vec2 point)
     hole->visit();
     effect->visit();
     mpRender->end();
-
-    auto img = mpRender->newImage(false);
-
-    int channel = 3;
-    if (img->hasAlpha()) channel = 4;
-
-    unsigned char* data = new unsigned char[img->getDataLen()*channel];
-    data = img->getData();
-    b2ChainShape edge;
-
-    for(int i=0;i<img->getWidth();i++)
-    {
-        for(int j=0;j<img->getHeight();j++)
-        {
-            unsigned char *pixel = data + (i + j * img->getWidth())*channel;
-            
-//            unsigned char r = *pixel;
-//            unsigned char g = *(pixel + 1);
-//            unsigned char b = *(pixel + 2) ;
-            unsigned char a = *(pixel + 3);
-            if (a != 0)
-            {
-//                edge.SetNextVertex(b2Vec2(-i, j));
-            }
-        }
-    }
 }
 
 #pragma mark - TOUCH
