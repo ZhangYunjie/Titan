@@ -99,6 +99,31 @@ void BattleScene::addTerrain()
     BattleWorld::getInstance()->RDP(pointVector, 0.2, marchingVector);
     pointVector.clear();
     
+    b2Separator* sep = new b2Separator();
+    b2BodyDef* bodyDef = new b2BodyDef();
+    bodyDef->type = b2_staticBody;
+    bodyDef->position.Set(mWinSize.width/PTM_RATIO_2, mWinSize.height/PTM_RATIO_2);
+    b2Body *body = mWorld->CreateBody(bodyDef);
+    
+    b2FixtureDef* fixtureDef = new b2FixtureDef();
+    fixtureDef->restitution = 0.4;
+    fixtureDef->friction = 0.2;
+    fixtureDef->density = 4;
+    
+    std::vector<b2Vec2> vec;
+    for(int i = marchingVector.size() - 1; i >= 0; i--)
+    {
+        if (i%10 == 0)
+        {
+            vec.push_back(b2Vec2(marchingVector[i].x/PTM_RATIO, marchingVector[i].y/PTM_RATIO));
+        }
+    }
+    
+    if (sep->validate(vec) == 0)
+    {
+        sep->separator(body, fixtureDef, &vec);
+    }
+    
 }
 
 void BattleScene::initPhysics()

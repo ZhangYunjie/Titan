@@ -224,7 +224,7 @@ cocos2d::Vec2* BattleWorld::getStartingPixel()
             offsetPoint->x = j;
             offsetPoint->y = i;
             
-            if (getPixel(_image, j, i).color.r >= tolerance)
+            if (getPixel(_image, j, i).color.a >= tolerance)
             {
                 return offsetPoint;
             }
