@@ -163,6 +163,55 @@ void BattleWorld::RDP(std::vector<cocos2d::Vec2> &v, float epsilon, std::vector<
     {
         resultVector = v;
     }
+    int index = -1;
+    int dist = 0;
+    for(int i = 1; i < v.size() - 1; i++)
+    {
+        int cDist = findPerpendicularDisatance(v[i], firstPoint, lastPoint);
+        if ( cDist > dist)
+        {
+            dist = cDist;
+            index = i;
+        }
+    }
+    if(dist > epsilon)
+    {
+        std::vector<cocos2d::Vec2> l1;
+        std::vector<cocos2d::Vec2> l2;
+        for (int i = 0; i<index; i++) {
+            l1.push_back(v.at(i));
+        }
+        for (int i = index; i < v.size(); i++)
+        {
+            l2.push_back(v.at(i));
+        }
+    
+        std::vector<cocos2d::Vec2> r1;
+        std::vector<cocos2d::Vec2> r2;
+        RDP(l1, epsilon, r1);
+        RDP(l2, epsilon, r2);
+        l1.clear();
+        l2.clear();
+        
+        resultVector.clear();
+        for (int i = 0; i < r1.size(); i++)
+        {
+            resultVector.push_back(r1.at(i));
+        }
+        r1.clear();
+        
+        for (int i = 0; i < r2.size(); i++)
+        {
+            resultVector.push_back(r2.at(i));
+        }
+        r2.clear();
+    }
+    else
+    {
+        resultVector.clear();
+        resultVector.push_back(firstPoint);
+        resultVector.push_back(lastPoint);
+    }
 }
 
 cocos2d::Vec2* BattleWorld::getStartingPixel()

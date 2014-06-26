@@ -61,33 +61,44 @@ void BattleScene::addTerrain()
     fgSprite->visit();
     mpRender->end();
     
-    b2Separator* sep = new b2Separator();
-    b2BodyDef* bodyDef = new b2BodyDef();
-    bodyDef->type = b2_staticBody;
-    bodyDef->position.Set(mWinSize.width/PTM_RATIO_2, mWinSize.height/PTM_RATIO_2);
-    b2Body *body = mWorld->CreateBody(bodyDef);
-    
-    b2FixtureDef* fixtureDef;
-    fixtureDef->restitution = 0.4;
-    fixtureDef->friction = 0.2;
-    fixtureDef->density = 4;
+    ///////////////////////////////////////////////
 
-    std::vector<b2Vec2>* vec = new std::vector<b2Vec2>();
+//    b2Separator* sep = new b2Separator();
+//    b2BodyDef* bodyDef = new b2BodyDef();
+//    bodyDef->type = b2_staticBody;
+//    bodyDef->position.Set(mWinSize.width/PTM_RATIO_2, mWinSize.height/PTM_RATIO_2);
+//    b2Body *body = mWorld->CreateBody(bodyDef);
+//    
+//    b2FixtureDef* fixtureDef;
+//    fixtureDef->restitution = 0.4;
+//    fixtureDef->friction = 0.2;
+//    fixtureDef->density = 4;
+//
+//    std::vector<b2Vec2>* vec = new std::vector<b2Vec2>();
+//    
+//    vec->push_back(b2Vec2(-2.f, -2.f));
+//    vec->push_back(b2Vec2(2.f, -2.f));
+//    vec->push_back(b2Vec2(2.f, 0.f));
+//    vec->push_back(b2Vec2(0.f, 0.f));
+//    vec->push_back(b2Vec2(-2.f, 2.f));
+//    
+//    if (sep->validate(*vec) == 0)
+//    {
+//        sep->separator(body, fixtureDef, vec, PTM_RATIO);
+//    }
+//    
+//    vec->clear();
+//    CC_SAFE_DELETE(vec);
     
-    vec->push_back(b2Vec2(-2.f, -2.f));
-    vec->push_back(b2Vec2(2.f, -2.f));
-    vec->push_back(b2Vec2(2.f, 0.f));
-    vec->push_back(b2Vec2(0.f, 0.f));
-    vec->push_back(b2Vec2(-2.f, 2.f));
+    //////////////////////////////////////////////
     
-    if (sep->validate(*vec) == 0)
-    {
-        sep->separator(body, fixtureDef, vec, PTM_RATIO);
-    }
+    Image *img = mpRender->newImage();
+    std::vector<Vec2> pointVector;
+    std::vector<Vec2> marchingVector;
+    BattleWorld::getInstance()->marchingSquares(img, pointVector);
+    BattleWorld::getInstance()->RDP(pointVector, 0.2, marchingVector);
+    pointVector.clear();
     
-    vec->clear();
-    CC_SAFE_DELETE(vec);
-
 }
 
 void BattleScene::initPhysics()
