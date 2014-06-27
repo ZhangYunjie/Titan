@@ -18,7 +18,7 @@ b2World* BattleWorld::createB2World(b2Vec2 gravity)
     return world;
 }
 
-b2Body* BattleWorld::createB2Body(void* pUserData, b2BodyType bodyType, Point pos, const b2Shape& shape, float density, b2World* pWorld)
+b2Body* BattleWorld::createB2Body(void* pUserData, b2BodyType bodyType, Vec2 pos, const b2Shape& shape, float density, b2World* pWorld)
 {
     if (NULL == pWorld) return NULL;
 
@@ -272,13 +272,18 @@ BattleWorld::Pixel BattleWorld::getPixel(Image* image, int x, int y)
     {
         return _pixel;
     }
-    
+
     _pixel.color.r = data[(y * mPixelW * 4 + x * 4) + 0];
     _pixel.color.g = data[(y * mPixelW * 4 + x * 4) + 1];
     _pixel.color.b = data[(y * mPixelW * 4 + x * 4) + 2];
     _pixel.color.a = data[(y * mPixelW * 4 + x * 4) + 3];
     
     _pixel.position = cocos2d::Vec2(x, y);
+    
+    if (_pixel.color.a > 0)
+    {
+        int i ;
+    }
     
     return _pixel;
 }

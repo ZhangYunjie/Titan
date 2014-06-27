@@ -61,7 +61,7 @@ bool ShaderSprite::initWithTexture(Texture2D *pTexture, const Rect& rect)
     return false;
 }
 
-void ShaderSprite::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated)
+void ShaderSprite::draw(Renderer* renderer, const Mat4 &transform, uint32_t flags)
 {
     CC_PROFILER_START_CATEGORY(kCCProfilerCategorySprite, "CCSprite - draw");
     

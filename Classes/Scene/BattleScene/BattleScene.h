@@ -29,7 +29,7 @@ public:
     ~BattleScene();
     
     virtual void initScene();
-    virtual void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated) override;
+    virtual void draw(cocos2d::Renderer* renderer, const cocos2d::Mat4 &transform, uint32_t flags) override;
 
     void initPhysics();
     void initDebugMenu();

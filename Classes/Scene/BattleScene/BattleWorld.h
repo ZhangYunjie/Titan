@@ -31,15 +31,15 @@ public:
 
     b2World* createB2World(b2Vec2 gravity = b2Vec2(0.0f, BATTLE_GRAVITY));
 
-    b2Body* createB2Body(void* pUserData, b2BodyType bodyType, cocos2d::Point pos, const b2Shape& shape, float density, b2World* pWorld);
+    b2Body* createB2Body(void* pUserData, b2BodyType bodyType, cocos2d::Vec2 pos, const b2Shape& shape, float density, b2World* pWorld);
     b2Body* createB2BodyWithSprite(cocos2d::Sprite* sprite, b2BodyType bodyType, const b2Shape& shape, float density, b2World* pWorld);
     
     void marchingSquares(cocos2d::Image* image, std::vector<cocos2d::Vec2>& pointVector);
     void RDP(std::vector<cocos2d::Vec2> &v, float epsilon, std::vector<cocos2d::Vec2> &resultVector);
     
     struct Pixel{
-        cocos2d::Color4B color;
-        cocos2d::Vec2    position;
+        cocos2d::Color4B color = cocos2d::Color4B(0, 0, 0, 0);
+        cocos2d::Vec2    position = cocos2d::Vec2::ZERO;
     };
     
     Pixel getPixel(cocos2d::Image* image, int x, int y);
