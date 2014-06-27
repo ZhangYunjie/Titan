@@ -17,7 +17,7 @@ class ShaderSprite : public Sprite {
 public:
     static ShaderSprite* create(const char* pszFileName);
     virtual bool initWithTexture(Texture2D *pTexture, const Rect& rect) override;
-    virtual void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated) override;
+    virtual void draw(Renderer* renderer, const Mat4 &transform, uint32_t flags) override;
 
 private:
     GLProgram* mpShaderProgram;

@@ -31,7 +31,7 @@ void BattleScene::initScene()
 
     mWinSize = Director::getInstance()->getWinSize();
 
-    //addBackground();
+    // addBackground();
 
     initPhysics();
     initDebugMenu();
@@ -57,7 +57,7 @@ void BattleScene::addTerrain()
     
     auto fgSprite = Sprite::create("img2.png");
     fgSprite->setPosition(mWinSize / 2.0f);
-    mpRender->begin();
+    mpRender->beginWithClear(0, 0, 0, 0);
     fgSprite->visit();
     mpRender->end();
     
@@ -91,39 +91,40 @@ void BattleScene::addTerrain()
 //    CC_SAFE_DELETE(vec);
     
     //////////////////////////////////////////////
-    
+    mpRender->saveToFile("test1.png", Image::Format::PNG);
     Image *img = mpRender->newImage();
-    std::vector<Vec2> pointVector;
-    std::vector<Vec2> marchingVector;
-    BattleWorld::getInstance()->marchingSquares(img, pointVector);
-    BattleWorld::getInstance()->RDP(pointVector, 0.2, marchingVector);
-    pointVector.clear();
-    
-    b2Separator* sep = new b2Separator();
-    b2BodyDef* bodyDef = new b2BodyDef();
-    bodyDef->type = b2_staticBody;
-    bodyDef->position.Set(mWinSize.width/PTM_RATIO_2, mWinSize.height/PTM_RATIO_2);
-    b2Body *body = mWorld->CreateBody(bodyDef);
-    
-    b2FixtureDef* fixtureDef = new b2FixtureDef();
-    fixtureDef->restitution = 0.4;
-    fixtureDef->friction = 0.2;
-    fixtureDef->density = 4;
-    
-    std::vector<b2Vec2> vec;
-    for(int i = marchingVector.size() - 1; i >= 0; i--)
-    {
-        if (i%10 == 0)
-        {
-            vec.push_back(b2Vec2(marchingVector[i].x/PTM_RATIO, marchingVector[i].y/PTM_RATIO));
-        }
-    }
-    
-    if (sep->validate(vec) == 0)
-    {
-        sep->separator(body, fixtureDef, &vec);
-    }
-    
+    bool s = img->saveToFile("sss21.png");
+//    std::vector<Vec2> pointVector;
+//    std::vector<Vec2> marchingVector;
+//    BattleWorld::getInstance()->marchingSquares(img, pointVector);
+//    BattleWorld::getInstance()->RDP(pointVector, 0.2, marchingVector);
+//    pointVector.clear();
+//    
+//    b2Separator* sep = new b2Separator();
+//    b2BodyDef* bodyDef = new b2BodyDef();
+//    bodyDef->type = b2_staticBody;
+//    bodyDef->position.Set(mWinSize.width/PTM_RATIO_2, mWinSize.height/PTM_RATIO_2);
+//    b2Body *body = mWorld->CreateBody(bodyDef);
+//    
+//    b2FixtureDef* fixtureDef = new b2FixtureDef();
+//    fixtureDef->restitution = 0.4;
+//    fixtureDef->friction = 0.2;
+//    fixtureDef->density = 4;
+//    
+//    std::vector<b2Vec2> vec;
+//    for(int i = marchingVector.size() - 1; i >= 0; i--)
+//    {
+//        if (i%10 == 0)
+//        {
+//            vec.push_back(b2Vec2(marchingVector[i].x/PTM_RATIO, marchingVector[i].y/PTM_RATIO));
+//        }
+//    }
+//    
+//    if (sep->validate(vec) == 0)
+//    {
+//        sep->separator(body, fixtureDef, &vec);
+//    }
+//    
 }
 
 void BattleScene::initPhysics()
@@ -201,9 +202,9 @@ void BattleScene::initTouch()
 
 #pragma mark - UPDATE
 
-void BattleScene::draw(cocos2d::Renderer *renderer, const cocos2d::Mat4 &transform, bool transformUpdated)
+void BattleScene::draw(Renderer* renderer, const Mat4 &transform, uint32_t flags)
 {
-    Layer::draw(renderer, transform, transformUpdated);
+    Layer::draw(renderer, transform, flags);
 
     GL::enableVertexAttribs(GL::VERTEX_ATTRIB_FLAG_POSITION);
     Director::getInstance()->pushMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW);
