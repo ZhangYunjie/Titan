@@ -267,6 +267,7 @@ BattleWorld::Pixel BattleWorld::getPixel(Image* image, int x, int y)
     int mPixelH = image->getHeight();
     
     Pixel _pixel;
+    _pixel.color = Color4B(0,0,0,0);
     
     if (x<0 || x > mPixelW || y<0 || y > mPixelH)
     {
