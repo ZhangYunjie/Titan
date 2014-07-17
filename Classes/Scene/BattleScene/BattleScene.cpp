@@ -37,7 +37,7 @@ void BattleScene::initScene()
     initPhysics();
     initDebugMenu();
     initTouch();
-    
+
     addTerrain();
 
     scheduleUpdate();
@@ -55,15 +55,15 @@ void BattleScene::addTerrain()
     mpRender = RenderTexture::create(mWinSize.width, mWinSize.height);
     mpRender->setPosition(Vec2(mWinSize.width/2, mWinSize.height/2));
     this->addChild(mpRender, 10);
-    
-    auto fgSprite = Sprite::create("img4.png");
+
+    auto fgSprite = Sprite::create("tileC2.png");
     fgSprite->setPosition(mWinSize / 2.0f);
     mpRender->beginWithClear(0, 0, 0, 0);
     fgSprite->visit();
     mpRender->end();
-    
+
     Image *img = new Image();
-    img->initWithImageFile("img4.png");
+    img->initWithImageFile("tileC2.png");
 
     std::vector<Vec2> pointVector;
     std::vector<Vec2> marchingVector;
@@ -77,22 +77,24 @@ void BattleScene::addTerrain()
     // 清空临时vector
     pointVector.clear();
     std::vector<Vec2>().swap(pointVector);
-    
+
     // 由于生成顶点的锚点位置在左下角
     // 而cocos2dx的精灵锚点位置在中心
     // 因此将所有顶点位置移动半幅
+    /*
     for (int i = 0; i < marchingVector.size(); i++ )
     {
         marchingVector.at(i).x -= img->getWidth() / 2.0f;
         marchingVector.at(i).y -= img->getHeight() / 2.0f;
         marchingVector.at(i).y *= -1;
     }
+     */
 
     b2BodyDef* bodyDef = new b2BodyDef();
     bodyDef->type = b2_staticBody;
     bodyDef->position.Set(mWinSize.width/PTM_RATIO_2, mWinSize.height/PTM_RATIO_2);
     b2Body *body = mWorld->CreateBody(bodyDef);
-    
+
     b2FixtureDef* fixtureDef = new b2FixtureDef();
     fixtureDef->restitution = 0.4;
     fixtureDef->friction = 0.2;
@@ -104,7 +106,7 @@ void BattleScene::addTerrain()
     {
         doSample = true;
     }
-    for(int i = 0; i <= marchingVector.size() - 1; i++)
+    for(int i = marchingVector.size() - 1; i >= 0; i--)
     {
         if (i%10 == 0 || !doSample)
         {
@@ -159,7 +161,7 @@ void BattleScene::initPhysics()
 
         b2PolygonShape rect;
         rect.SetAsBox(100.0f/PTM_RATIO, 25.0f/PTM_RATIO);
-        
+
         b2ChainShape edge;
         b2Vec2 mv[3] = {b2Vec2(-50.f/PTM_RATIO, 0.f/PTM_RATIO), b2Vec2(50.f/PTM_RATIO, 0.f/PTM_RATIO), b2Vec2(100.f/PTM_RATIO, 100.f/PTM_RATIO)};
         edge.CreateChain(mv, 3);
@@ -180,7 +182,7 @@ void BattleScene::initDebugMenu()
     auto debugBtn = MenuItemImage::create("CloseNormal.png", "CloseSelected.png", CC_CALLBACK_1(BattleScene::debugBtnCallback, this));
     debugBtn->setPosition(Point(mWinSize.width-20.0f, 20.0f));
     debugBtn->setTag(kTagDebugDraw);
-    
+
     //メニューを作成
     auto debugMenu = Menu::create(debugBtn, NULL);
     debugMenu->setPosition(Point::ZERO);
@@ -242,12 +244,12 @@ void BattleScene::showBombEffect(Vec2 point)
     hole->setPosition(point);
     BlendFunc cbl = {GL_ZERO ,GL_ONE_MINUS_SRC_ALPHA};
     hole->setBlendFunc(cbl);
-    
+
     auto effect = Sprite::create("img3.png");
     effect->setPosition(point);
     BlendFunc ebl = {GL_DST_ALPHA, GL_ONE_MINUS_SRC_ALPHA};
     effect->setBlendFunc(ebl);
-    
+
     mpRender->begin();
     hole->visit();
     effect->visit();

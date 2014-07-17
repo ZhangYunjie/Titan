@@ -69,7 +69,7 @@ void BattleWorld::marchingSquares(cocos2d::Image *image, std::vector<cocos2d::Ve
 
     _image = image;
     tolerance = 1;
-    
+
     // get the starting point
     cocos2d::Vec2* startPoint = getStartingPixel();
     if (startPoint != NULL)
@@ -77,7 +77,7 @@ void BattleWorld::marchingSquares(cocos2d::Image *image, std::vector<cocos2d::Ve
         // px and py are the coordinates of the starting points
         int px = startPoint->x;
         int py = startPoint->y;
-        
+
         // stepx and stepy can be -1, 0 or 1 and represent the step in pixels to reach
         // next contour point
         int stepx, stepy;
@@ -85,7 +85,7 @@ void BattleWorld::marchingSquares(cocos2d::Image *image, std::vector<cocos2d::Ve
         int prevx, prevy;
         // closeLoop wille be true once we traced the full contour
         bool closedLoop = false;
-        
+
         while (!closedLoop)
         {
             // the core of the script is getting the 2x2 suqare value of each pixel
@@ -98,7 +98,7 @@ void BattleWorld::marchingSquares(cocos2d::Image *image, std::vector<cocos2d::Ve
                  +---+---+   +---+---+   +---+---+
                  |   |   |   | 4 |   |   | 4 | 8 |
                  +---+---+   +---+---+   +---+---+
-                 
+
                  */
                 case 1:
                 case 5:
@@ -106,15 +106,15 @@ void BattleWorld::marchingSquares(cocos2d::Image *image, std::vector<cocos2d::Ve
                     stepx = 0;
                     stepy = -1;
                     break;
-                    
+
                 /* going DOWN with these cases:
-                 
+
                  +---+---+   +---+---+   +---+---+
                  |   |   |   |   | 2 |   | 1 | 2 |
                  +---+---+   +---+---+   +---+---+
                  |   | 8 |   |   | 8 |   |   | 8 |
                  +---+---+   +---+---+  +---+---+
-                 
+
                  */
                 case 8:
                 case 10:
@@ -122,15 +122,15 @@ void BattleWorld::marchingSquares(cocos2d::Image *image, std::vector<cocos2d::Ve
                     stepx = 0;
                     stepy = 1;
                     break;
-                    
+
                 /* going LEFT with these cases:
-                 
+
                  +---+---+   +---+---+   +---+---+
                  |   |   |   |   |   |   |   | 2 |
                  +---+---+   +---+---+   +---+---+
                  | 4 |   |   | 4 | 8 |   | 4 | 8 |
                  +---+---+   +---+---+  +---+---+
-                 
+
                  */
                 case 4:
                 case 12:
@@ -138,7 +138,7 @@ void BattleWorld::marchingSquares(cocos2d::Image *image, std::vector<cocos2d::Ve
                     stepx = -1;
                     stepy = 0;
                     break;
-                   
+
                 /* going RIGHT with these cases:
 
                  +---+---+   +---+---+   +---+---+
@@ -154,7 +154,7 @@ void BattleWorld::marchingSquares(cocos2d::Image *image, std::vector<cocos2d::Ve
                     stepx = 1;
                     stepy = 0;
                     break;
-                
+
                 /* special saddle point case 1:
 
                  +---+---+
@@ -179,18 +179,18 @@ void BattleWorld::marchingSquares(cocos2d::Image *image, std::vector<cocos2d::Ve
                         stepy = 0;
                     }
                     break;
-                
+
                 /* special saddle point case 2:
-                 
+
                  +---+---+
                  | 1 |   |
                  +---+---+
                  |   | 8 |
                  +---+---+
-                 
+
                  going UP if coming from RIGHT
                  else going DOWN
-                 
+
                  */
                 case 9:
                     if(prevx == 1 && prevy == 0)
@@ -258,7 +258,7 @@ void BattleWorld::RDP(std::vector<cocos2d::Vec2> &v, float epsilon, std::vector<
         {
             l2.push_back(v.at(i));
         }
-    
+
         std::vector<cocos2d::Vec2> r1;
         std::vector<cocos2d::Vec2> r2;
         RDP(l1, epsilon, r1);
@@ -267,7 +267,7 @@ void BattleWorld::RDP(std::vector<cocos2d::Vec2> &v, float epsilon, std::vector<
         std::vector<cocos2d::Vec2>().swap(l1);
         l2.clear();
         std::vector<cocos2d::Vec2>().swap(l2);
-        
+
         resultVector.clear();
         for (int i = 0; i < r1.size()-1; i++)
         {
@@ -275,7 +275,7 @@ void BattleWorld::RDP(std::vector<cocos2d::Vec2> &v, float epsilon, std::vector<
         }
         r1.clear();
         std::vector<cocos2d::Vec2>().swap(r1);
-        
+
         for (int i = 0; i < r2.size(); i++)
         {
             resultVector.push_back(r2.at(i));
@@ -301,7 +301,7 @@ cocos2d::Vec2* BattleWorld::getStartingPixel()
         {
             offsetPoint->x = j;
             offsetPoint->y = i;
-            
+
             if (getPixel(_image, j, i).color.a >= tolerance)
             {
                 return offsetPoint;
@@ -314,15 +314,15 @@ cocos2d::Vec2* BattleWorld::getStartingPixel()
 int BattleWorld::getSquareValue(int px, int py)
 {
     /*
-     
+
      checking the 2x2 pixel grid, assigning these values to each pixel, if not transparent
-     
+
      +---+---+
      | 1 | 2 |
      +---+---+
      | 4 | 8 | <- current pixel (pX,pY)
      +---+---+
-     
+
      */
 
     int squareValue = 0;
@@ -346,7 +346,7 @@ int BattleWorld::getSquareValue(int px, int py)
     {
         squareValue += 8;
     }
-    
+
     return squareValue;
 }
 
@@ -355,10 +355,10 @@ BattleWorld::Pixel BattleWorld::getPixel(Image* image, int x, int y)
     unsigned char * data = image->getData();
     int mPixelW = image->getWidth();
     int mPixelH = image->getHeight();
-    
+
     Pixel _pixel;
     _pixel.color = Color4B(0,0,0,0);
-    
+
     if (x<0 || x >= mPixelW || y<0 || y >= mPixelH)
     {
         return _pixel;
@@ -368,8 +368,8 @@ BattleWorld::Pixel BattleWorld::getPixel(Image* image, int x, int y)
     _pixel.color.g = data[(y * mPixelW * 4 + x * 4) + 1];
     _pixel.color.b = data[(y * mPixelW * 4 + x * 4) + 2];
     _pixel.color.a = data[(y * mPixelW * 4 + x * 4) + 3];
-    
+
     _pixel.position = cocos2d::Vec2(x, y);
-    
+
     return _pixel;
 }

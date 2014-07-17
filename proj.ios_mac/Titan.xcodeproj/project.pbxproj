@@ -142,6 +142,7 @@
 		89F9E9AE1977DCB600A60A4D /* cdt.cc in Sources */ = {isa = PBXBuildFile; fileRef = 89F9E9A61977DCB600A60A4D /* cdt.cc */; };
 		89F9E9AF1977DCB600A60A4D /* sweep.cc in Sources */ = {isa = PBXBuildFile; fileRef = 89F9E9A81977DCB600A60A4D /* sweep.cc */; };
 		89F9E9B01977DCB600A60A4D /* sweep_context.cc in Sources */ = {isa = PBXBuildFile; fileRef = 89F9E9AA1977DCB600A60A4D /* sweep_context.cc */; };
+		8C3C8F2D197AB5520044B48E /* charactor_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C3C8F2C197AB5520044B48E /* charactor_1.png */; };
 		8C7706011947529600270F5D /* StartScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C7705FF1947529600270F5D /* StartScene.cpp */; };
 		8CF729DB194757490030B362 /* TitanScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CF729D9194757490030B362 /* TitanScene.cpp */; };
 		8CF729F119572DD10030B362 /* b2Sperator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CF729EF19572DD10030B362 /* b2Sperator.cpp */; };
@@ -440,6 +441,7 @@
 		89F9E9AA1977DCB600A60A4D /* sweep_context.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sweep_context.cc; sourceTree = "<group>"; };
 		89F9E9AB1977DCB600A60A4D /* sweep_context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sweep_context.h; sourceTree = "<group>"; };
 		89FA1A2419484595006B5499 /* GameDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDefine.h; sourceTree = "<group>"; };
+		8C3C8F2C197AB5520044B48E /* charactor_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = charactor_1.png; sourceTree = "<group>"; };
 		8C7705FF1947529600270F5D /* StartScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StartScene.cpp; path = ../Classes/Scene/StartScene.cpp; sourceTree = "<group>"; };
 		8C7706001947529600270F5D /* StartScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StartScene.h; path = ../Classes/Scene/StartScene.h; sourceTree = "<group>"; };
 		8CF729D9194757490030B362 /* TitanScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TitanScene.cpp; path = ../Classes/Base/TitanScene.cpp; sourceTree = "<group>"; };
@@ -645,6 +647,7 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8C3C8F2C197AB5520044B48E /* charactor_1.png */,
 				8900CCD41977B68B0069F670 /* background.png */,
 				8900CCD01977B37A0069F670 /* tileC2.png */,
 				891B6DFA1975172400549E61 /* img4.png */,
@@ -1060,6 +1063,7 @@
 				89CED91819486A0D0065CBFC /* font-issue1343.fnt in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
 				89CED91319486A0D0065CBFC /* Courier New.ttf in Resources */,
+				8C3C8F2D197AB5520044B48E /* charactor_1.png in Resources */,
 				89CED90619486A0D0065CBFC /* bitmapFontTest.fnt in Resources */,
 				89403CA21951882500345BA9 /* img3.png in Resources */,
 				89CED92619486A0D0065CBFC /* markerFelt.fnt in Resources */,

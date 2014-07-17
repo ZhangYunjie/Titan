@@ -20,7 +20,7 @@ class b2Separator
 {
 public:
     b2Separator(){}
-    
+
     void separator(b2Body* body, b2FixtureDef* fixtureDef, std::vector<b2Vec2>* verticesVec, float scale=30.f);
     int validate(const std::vector<b2Vec2>& verticesVec);
 

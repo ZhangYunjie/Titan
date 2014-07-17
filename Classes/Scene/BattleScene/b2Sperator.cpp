@@ -16,15 +16,15 @@ void b2Separator::separator(b2Body* body, b2FixtureDef* fixtureDef, std::vector<
     {
         vec.push_back(b2Vec2(verticesVec->at(i).x*scale, verticesVec->at(i).y*scale));
     }
-    
+
     calcShapes(vec, figsVec);
-    
+
     for(int i = 0; i < figsVec.size(); i++)
     {
         vec = figsVec[i];
 
         b2Vec2* vertices = new b2Vec2[vec.size()];
-        
+
         int j = 0;
         for(; j < vec.size(); j++)
         {
@@ -42,10 +42,10 @@ void b2Separator::separator(b2Body* body, b2FixtureDef* fixtureDef, std::vector<
 
             b2PolygonShape polyShape;
             polyShape.Set(vecTr, 3);
-            
+
             fixtureDef->shape = &polyShape;
             body->CreateFixture(fixtureDef);
-            
+
             delete[] vecTr;
         }
         delete[] vertices;
@@ -69,7 +69,7 @@ int b2Separator::validate(const std::vector<b2Vec2>& verticesVec)
     {
         i2 = (i<n-1)?i+1:0;
         i3 = (i>0)?i-1:n-1;
-        
+
         bool fl = false;
         for (int j = 0; j < n; j++)
         {
@@ -90,16 +90,16 @@ int b2Separator::validate(const std::vector<b2Vec2>& verticesVec)
                 }
             }
         }
-        
+
         if(!fl) fl2 = true;
     }
-    
+
     if(fl2)
     {
         if(ret==1) ret = 3;
         else ret = 2;
     }
-    
+
     return ret;
 }
 
@@ -109,49 +109,49 @@ void b2Separator::calcShapes(std::vector<b2Vec2>& vertivesVec, std::vector<std::
     int i1, i2, i3;
     int j1, j2;
     int h = 0, k = 0;
-    
+
     b2Vec2 v1, v2;
     b2Vec2 *pv, hitV(0, 0);
-    
+
     std::vector<b2Vec2> vec;
     std::vector<std::vector<b2Vec2> > figsVec;
     std::queue<std::vector<b2Vec2> > queue;
     queue.push(vertivesVec);
-    
+
     bool isConvex;
-    
+
     while (!queue.empty())
     {
         vec = queue.front();
         int n = vec.size();
         isConvex = true;
-        
+
         for(int i = 0; i<n; i++)
         {
             i1 = i;
             i2 = i < n - 1 ? i + 1 : i + 1 - n;
             i3 = i < n - 2 ? i + 2 : i + 2 - n;
-            
+
             p1 = vec[i1];
             p2 = vec[i2];
             p3 = vec[i3];
-            
+
             float d = det(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y);
             if(d<0)
             {
                 isConvex = false;
                 int minLen = MAX_VALUE;
-                
+
                 for(int j = 0; j<n; j++)
                 {
                     if(j!=i1&&j!=i2)
                     {
                         j1 = j;
                         j2 = j < n - 1 ? j + 1 : 0;
-                        
+
                         v1 = vec[j1];
                         v2 = vec[j2];
-                        
+
                         pv = hitRay(p1.x, p1.y, p2.x, p2.y, v1.x, v1.y, v2.x, v2.y);
                         if(pv)
                         {
@@ -159,7 +159,7 @@ void b2Separator::calcShapes(std::vector<b2Vec2>& vertivesVec, std::vector<std::
                             float dx = p2.x - v.x;
                             float dy = p2.y - v.y;
                             float t = dx * dx + dy * dy;
-                            
+
                             if(t < minLen)
                             {
                                 h = j1;
@@ -170,20 +170,20 @@ void b2Separator::calcShapes(std::vector<b2Vec2>& vertivesVec, std::vector<std::
                         }
                     }
                 }
-                
+
                 assert(minLen != FLT_MAX);
-                
+
                 std::vector<b2Vec2>* vec1 = new std::vector<b2Vec2>();
                 std::vector<b2Vec2>* vec2 = new std::vector<b2Vec2>();
-                
+
                 j1 = h;
                 j2 = k;
                 v1 = vec[j1];
                 v2 = vec[j2];
-                
+
                 if(!pointsMatch(hitV.x, hitV.y, v2.x, v2.y)) vec1->push_back(hitV);
                 if(!pointsMatch(hitV.x, hitV.y, v1.x, v2.y)) vec2->push_back(hitV);
-                
+
                 h = -1;
                 k = i1;
                 while(true)
@@ -197,14 +197,14 @@ void b2Separator::calcShapes(std::vector<b2Vec2>& vertivesVec, std::vector<std::
                             vec1->push_back(vec[k]);
                         break;
                     }
-                    
+
                     h = k;
                     if(k-1<0) k = n-1;
                     else k--;
                 }
-                
+
                 reverse(vec1->begin(), vec1->end());
-                
+
                 h = -1;
                 k = i2;
                 while(true)
@@ -246,17 +246,17 @@ b2Vec2* b2Separator::hitRay(float x1, float y1, float x2, float y2, float x3, fl
     float t5 = x4 - x3;
     float t6 = y4 - y3;
     float t7 = t4 * t5 - t3 * t6;
-    
+
     if(t7 == 0) return NULL;
-    
+
     float a = ( t5 * t2 - t6 * t1 ) / t7;
     float px = x1 + a * t3;
     float py = y1 + a * t4;
     bool b1 = isOnSegment(x2, y2, x1, y1, px, py);
     bool b2 = isOnSegment(px, py, x3, y3, x4, y4);
-    
+
     if(b1&&b2) return new b2Vec2(px, py);
-    
+
     return NULL;
 }
 
@@ -269,16 +269,16 @@ b2Vec2* b2Separator::hitSegment(float x1, float y1, float x2, float y2, float x3
     float t5 = x4 - x3;
     float t6 = y4 - y3;
     float t7 = t4 * t5 - t3 * t6;
-    
+
     if(t7 == 0) return NULL;
-    
+
     float a = ( t5 * t2 - t6 * t1 ) / t7;
     float px = x1 + a * t3, py = y1 + a * t4;
     bool b1 = isOnSegment(px, py, x1, y1, x2, y2);
     bool b2 = isOnSegment(px, py, x3, y3, x4, y4);
-    
+
     if(b1&&b2) return new b2Vec2(px, py);
-    
+
     return NULL;
 }
 
@@ -286,7 +286,7 @@ bool b2Separator::isOnSegment(float px, float py, float x1, float y1, float x2, 
 {
     bool b1 = ((x1 + 0.1 >= px && px >= x2 - 0.1) || (x1 - 0.1 <= px && px <= x2 + 0.1));
     bool b2 = ((y1 + 0.1 >= py && py >= y2 - 0.1) || (y1 - 0.1 <= py && py <= y2 + 0.1));
-    
+
     return (b1&&b2&&isOnLine(px, py, x1, y1, x2, y2));
 }
 
@@ -294,7 +294,7 @@ bool b2Separator::pointsMatch(float x1, float y1, float x2, float y2)
 {
     float dx = (x2 >= x1) ? x2 - x1 : x1 - x2;
     float dy = (y2 >= y1) ? y2 - y1 : y1 - y2;
-    
+
     return (dx < 0.1 && dy < 0.1);
 }
 
@@ -305,7 +305,7 @@ bool b2Separator::isOnLine(float px, float py, float x1, float y1, float x2, flo
         float a = ( y2 - y1 ) / ( x2 - x1 );
         float possibleY = a * ( px - x1 ) + y1;
         float diff = possibleY > py ? possibleY - py: py - possibleY;
-        
+
         return diff < 0.1;
     }
     return px - x1 < 0.1 || x1 - px < 0.1f ;
