@@ -8,7 +8,7 @@
 
 #include "b2Sperator.h"
 
-void b2Separator::separator(b2Body* body, b2FixtureDef* fixtureDef, std::vector<b2Vec2>* verticesVec, int scale)
+void b2Separator::separator(b2Body* body, b2FixtureDef* fixtureDef, std::vector<b2Vec2>* verticesVec, float scale)
 {
     std::vector<b2Vec2> vec;
     std::vector<std::vector<b2Vec2>> figsVec;
@@ -22,6 +22,7 @@ void b2Separator::separator(b2Body* body, b2FixtureDef* fixtureDef, std::vector<
     for(int i = 0; i < figsVec.size(); i++)
     {
         vec = figsVec[i];
+
         b2Vec2* vertices = new b2Vec2[vec.size()];
         
         int j = 0;
@@ -29,15 +30,37 @@ void b2Separator::separator(b2Body* body, b2FixtureDef* fixtureDef, std::vector<
         {
             vertices[j] = b2Vec2(vec[j].x/scale, vec[j].y/scale);
         }
-        
-        b2PolygonShape polyShape;
-        polyShape.Set(vertices, vec.size());
+
+        // 将面片三角化
+        j = 1;
+        for (; j < vec.size() - 1; j++)
+        {
+            b2Vec2* vecTr = new b2Vec2[3];
+            vecTr[0] = vertices[0];
+            vecTr[1] = vertices[j];
+            vecTr[2] = vertices[j+1];
+
+            b2PolygonShape polyShape;
+            polyShape.Set(vecTr, 3);
+            
+            fixtureDef->shape = &polyShape;
+            body->CreateFixture(fixtureDef);
+            
+            delete[] vecTr;
+        }
         delete[] vertices;
-        fixtureDef->shape = &polyShape;
-        body->CreateFixture(fixtureDef);
     }
 }
 
+/*
+ @brief 验证
+
+ ## 返回
+ 0: 正常
+ 1: 有交叉的连线
+ 2: 点没有按照顺时针的方式排列
+ 3: 有相交叉的连线且点未按照顺时针的方式排列
+ */
 int b2Separator::validate(const std::vector<b2Vec2>& verticesVec)
 {
     int n = verticesVec.size(), i2, i3, ret = 0;
@@ -62,7 +85,7 @@ int b2Separator::validate(const std::vector<b2Vec2>& verticesVec)
                     int j2 = (j<n-1?j+1:0);
                     b2Vec2* vec = hitSegment(verticesVec[i].x, verticesVec[i].y, verticesVec[i2].x, verticesVec[i2].y, verticesVec[j].x, verticesVec[j].y, verticesVec[j2].x, verticesVec[j2].y);
                     if(NULL != vec){
-                        ret = 1;
+                        // ret = 1; //需要修正
                     }
                 }
             }

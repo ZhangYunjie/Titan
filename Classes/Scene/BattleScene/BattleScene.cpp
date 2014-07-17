@@ -7,6 +7,7 @@
 //
 #include "ShaderSprite.h"
 #include "b2Sperator.h"
+#include "poly2tri.h"
 
 #include "BattleBase.h"
 #include "BattleWorld.h"
@@ -55,78 +56,78 @@ void BattleScene::addTerrain()
     mpRender->setPosition(Vec2(mWinSize.width/2, mWinSize.height/2));
     this->addChild(mpRender, 10);
     
-    auto fgSprite = Sprite::create("img2.png");
+    auto fgSprite = Sprite::create("img4.png");
     fgSprite->setPosition(mWinSize / 2.0f);
     mpRender->beginWithClear(0, 0, 0, 0);
     fgSprite->visit();
     mpRender->end();
     
-    ///////////////////////////////////////////////
-
-//    b2Separator* sep = new b2Separator();
-//    b2BodyDef* bodyDef = new b2BodyDef();
-//    bodyDef->type = b2_staticBody;
-//    bodyDef->position.Set(mWinSize.width/PTM_RATIO_2, mWinSize.height/PTM_RATIO_2);
-//    b2Body *body = mWorld->CreateBody(bodyDef);
-//    
-//    b2FixtureDef* fixtureDef;
-//    fixtureDef->restitution = 0.4;
-//    fixtureDef->friction = 0.2;
-//    fixtureDef->density = 4;
-//
-//    std::vector<b2Vec2>* vec = new std::vector<b2Vec2>();
-//    
-//    vec->push_back(b2Vec2(-2.f, -2.f));
-//    vec->push_back(b2Vec2(2.f, -2.f));
-//    vec->push_back(b2Vec2(2.f, 0.f));
-//    vec->push_back(b2Vec2(0.f, 0.f));
-//    vec->push_back(b2Vec2(-2.f, 2.f));
-//    
-//    if (sep->validate(*vec) == 0)
-//    {
-//        sep->separator(body, fixtureDef, vec, PTM_RATIO);
-//    }
-//    
-//    vec->clear();
-//    CC_SAFE_DELETE(vec);
-    
-    //////////////////////////////////////////////
-    mpRender->saveToFile("test1.png", Image::Format::PNG);
     Image *img = new Image();
-    std::string fullpath = FileUtils::getInstance()->getWritablePath() + "test1.png";
-    img->initWithImageFile(fullpath);
+    img->initWithImageFile("img4.png");
 
     std::vector<Vec2> pointVector;
     std::vector<Vec2> marchingVector;
+
+    // 对图片进行边界顶点化
+    // 并通过RDP算法减少顶点个数
+    float epsilon = 0.2f; // 阈值
     BattleWorld::getInstance()->marchingSquares(img, pointVector);
-    BattleWorld::getInstance()->RDP(pointVector, 0.2, marchingVector);
+    BattleWorld::getInstance()->RDP(pointVector, epsilon, marchingVector);
+
+    // 清空临时vector
     pointVector.clear();
+    std::vector<Vec2>().swap(pointVector);
     
-    b2Separator* sep = new b2Separator();
+    // 由于生成顶点的锚点位置在左下角
+    // 而cocos2dx的精灵锚点位置在中心
+    // 因此将所有顶点位置移动半幅
+    for (int i = 0; i < marchingVector.size(); i++ )
+    {
+        marchingVector.at(i).x -= img->getWidth() / 2.0f;
+        marchingVector.at(i).y -= img->getHeight() / 2.0f;
+        marchingVector.at(i).y *= -1;
+    }
+
     b2BodyDef* bodyDef = new b2BodyDef();
     bodyDef->type = b2_staticBody;
-    bodyDef->position.Set(0, 0);
+    bodyDef->position.Set(mWinSize.width/PTM_RATIO_2, mWinSize.height/PTM_RATIO_2);
     b2Body *body = mWorld->CreateBody(bodyDef);
     
     b2FixtureDef* fixtureDef = new b2FixtureDef();
     fixtureDef->restitution = 0.4;
     fixtureDef->friction = 0.2;
     fixtureDef->density = 4;
-    
+
     std::vector<b2Vec2> vec;
-    for(int i = marchingVector.size() - 1; i >= 0; i--)
+    bool doSample = false;
+    if (marchingVector.size() > 100)
     {
-        if (i%10 == 0)
+        doSample = true;
+    }
+    for(int i = 0; i <= marchingVector.size() - 1; i++)
+    {
+        if (i%10 == 0 || !doSample)
         {
             vec.push_back(b2Vec2(marchingVector[i].x/PTM_RATIO_2, marchingVector[i].y/PTM_RATIO_2));
         }
     }
-    
+    marchingVector.clear();
+    std::vector<Vec2>().swap(marchingVector);
+
+    // b2Separator用于将顶点组成面片
+    b2Separator* sep = new b2Separator();
     if (sep->validate(vec) == 0)
     {
-        sep->separator(body, fixtureDef, &vec);
+        CCLOG("Yey! Those vertices are goood to go");
+        sep->separator(body, fixtureDef, &vec, PTM_RATIO_2);
     }
-    
+    else
+    {
+        CCLOG("I guess you messed something up! Error %d", sep->validate(vec));
+    }
+    vec.clear();
+    std::vector<b2Vec2>().swap(vec);
+
 }
 
 void BattleScene::initPhysics()
@@ -279,6 +280,9 @@ void BattleScene::onTouchCancelled(cocos2d::Touch* touch, cocos2d::Event* event)
 
 #pragma mark - CALLBACK
 
+/*
+ @brief 开关debug视图
+ */
 void BattleScene::debugBtnCallback(cocos2d::Ref* pSender)
 {
     if (mDebugDraw->GetFlags())

@@ -51,7 +51,7 @@ private:
 
     float findPerpendicularDisatance(cocos2d::Vec2 point, cocos2d::Vec2 p1, cocos2d::Vec2 p);
     cocos2d::Vec2* getStartingPixel();
-    int getSquareValue(float px, float py);
+    int getSquareValue(int px, int py);
 };
 
 #endif /* defined(__Titan__BattleWorld__) */
