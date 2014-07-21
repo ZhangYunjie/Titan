@@ -26,7 +26,7 @@ public:
 private:
     void showStartButton();
 
-    void startCallback(Ref* sender);
+    void btnCallback(Ref* sender);
 
 private:
     cocos2d::Size mWinSize;
@@ -34,6 +34,8 @@ private:
     enum kTag
     {
         kTagStartButton = 1,
+        kTagPhysicsEditorButton,
+        kTagPoly2triButton,
     };
 
     enum kZOrder

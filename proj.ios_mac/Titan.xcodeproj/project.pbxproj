@@ -818,11 +818,19 @@
 		8C770604194752BA00270F5D /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				8CE0EAFC197B5C57003453AF /* DebugScene */,
 				89CED938194873AB0065CBFC /* BattleScene */,
 				8C7705FF1947529600270F5D /* StartScene.cpp */,
 				8C7706001947529600270F5D /* StartScene.h */,
 			);
 			name = Scene;
+			sourceTree = "<group>";
+		};
+		8CE0EAFC197B5C57003453AF /* DebugScene */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DebugScene;
 			sourceTree = "<group>";
 		};
 		8CF729D6194757040030B362 /* Base */ = {

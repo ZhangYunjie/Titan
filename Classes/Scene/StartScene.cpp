@@ -23,15 +23,32 @@ void StartScene::initScene()
 
 void StartScene::showStartButton()
 {
-    TTFConfig ttfConfig(FONT_ARIAL, 40.0f);
-    auto startLabel = Label::createWithTTF(ttfConfig, "START");
+    // 使用marching squares构造box2d
+    TTFConfig ttfConfig(FONT_ARIAL, 20.0f);
+    auto startLabel = Label::createWithTTF(ttfConfig, "Marching Squares");
     startLabel->setColor(Color3B::WHITE);
-    auto menuItem = MenuItemLabel::create(startLabel, CC_CALLBACK_1(StartScene::startCallback, this));
+    auto menuItem = MenuItemLabel::create(startLabel, CC_CALLBACK_1(StartScene::btnCallback, this));
     menuItem->setTag(kTagStartButton);
-    menuItem->setPosition( mWinSize / 2.0f );
+    menuItem->setPosition( Vec2(mWinSize.width/2.0f, mWinSize.height/2.0f - 30.0f) );
+    
+    // 使用physics editor构造box2d
+    auto physicsEditorLabel = Label::createWithTTF(ttfConfig, "Physics Editor");
+    physicsEditorLabel->setColor(Color3B::WHITE);
+    auto physicsEditorItem = MenuItemLabel::create(physicsEditorLabel, CC_CALLBACK_1(StartScene::btnCallback, this));
+    physicsEditorItem->setTag(kTagPhysicsEditorButton);
+    physicsEditorItem->setPosition(Vec2(mWinSize.width/2.0f, mWinSize.height/2.0f));
+    
+    // 使用poly2tri
+    auto poly2triLabel = Label::createWithTTF(ttfConfig, "poly2tri");
+    poly2triLabel->setColor(Color3B::WHITE);
+    auto poly2triItem = MenuItemLabel::create(poly2triLabel, CC_CALLBACK_1(StartScene::btnCallback, this));
+    poly2triItem->setTag(kTagPoly2triButton);
+    poly2triItem->setPosition(Vec2(mWinSize.width/2.0f, mWinSize.height/2.0f + 30.0f));
 
     auto menu = Menu::create();
     menu->addChild(menuItem);
+    menu->addChild(physicsEditorItem);
+    menu->addChild(poly2triItem);
     menu->setPosition(Vec2::ZERO);
 
     this->addChild(menu, kZOrderMenu);
@@ -39,8 +56,21 @@ void StartScene::showStartButton()
 
 #pragma mark - Callback
 
-void StartScene::startCallback(Ref *sender)
+void StartScene::btnCallback(Ref *sender)
 {
-    // TODO: test
-    replaceScene<BattleScene>();
+    Node* node = dynamic_cast<Node*>(sender);
+    kTag tag = (kTag)node->getTag();
+    switch (tag)
+    {
+        case kTagStartButton:
+            replaceScene<BattleScene>();
+            break;
+            
+            
+        case kTagPhysicsEditorButton:
+            break;
+            
+        default:
+            break;
+    }
 }
