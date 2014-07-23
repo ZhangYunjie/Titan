@@ -142,6 +142,8 @@
 		89F9E9AE1977DCB600A60A4D /* cdt.cc in Sources */ = {isa = PBXBuildFile; fileRef = 89F9E9A61977DCB600A60A4D /* cdt.cc */; };
 		89F9E9AF1977DCB600A60A4D /* sweep.cc in Sources */ = {isa = PBXBuildFile; fileRef = 89F9E9A81977DCB600A60A4D /* sweep.cc */; };
 		89F9E9B01977DCB600A60A4D /* sweep_context.cc in Sources */ = {isa = PBXBuildFile; fileRef = 89F9E9AA1977DCB600A60A4D /* sweep_context.cc */; };
+		89F9E9CE197E1BEF00A60A4D /* GB2ShapeCache-x.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89F9E9CC197E1BEF00A60A4D /* GB2ShapeCache-x.cpp */; };
+		89F9E9D7197E1C6600A60A4D /* PhysicsEditorScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89F9E9D5197E1C6600A60A4D /* PhysicsEditorScene.cpp */; };
 		8C3C8F2D197AB5520044B48E /* charactor_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C3C8F2C197AB5520044B48E /* charactor_1.png */; };
 		8C7706011947529600270F5D /* StartScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C7705FF1947529600270F5D /* StartScene.cpp */; };
 		8CF729DB194757490030B362 /* TitanScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CF729D9194757490030B362 /* TitanScene.cpp */; };
@@ -440,6 +442,10 @@
 		89F9E9A91977DCB600A60A4D /* sweep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sweep.h; sourceTree = "<group>"; };
 		89F9E9AA1977DCB600A60A4D /* sweep_context.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sweep_context.cc; sourceTree = "<group>"; };
 		89F9E9AB1977DCB600A60A4D /* sweep_context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sweep_context.h; sourceTree = "<group>"; };
+		89F9E9CC197E1BEF00A60A4D /* GB2ShapeCache-x.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "GB2ShapeCache-x.cpp"; sourceTree = "<group>"; };
+		89F9E9CD197E1BEF00A60A4D /* GB2ShapeCache-x.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GB2ShapeCache-x.h"; sourceTree = "<group>"; };
+		89F9E9D5197E1C6600A60A4D /* PhysicsEditorScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PhysicsEditorScene.cpp; sourceTree = "<group>"; };
+		89F9E9D6197E1C6600A60A4D /* PhysicsEditorScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicsEditorScene.h; sourceTree = "<group>"; };
 		89FA1A2419484595006B5499 /* GameDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDefine.h; sourceTree = "<group>"; };
 		8C3C8F2C197AB5520044B48E /* charactor_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = charactor_1.png; sourceTree = "<group>"; };
 		8C7705FF1947529600270F5D /* StartScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StartScene.cpp; path = ../Classes/Scene/StartScene.cpp; sourceTree = "<group>"; };
@@ -760,6 +766,7 @@
 		89D02C6C194EBCBB004A759A /* 3rdParty */ = {
 			isa = PBXGroup;
 			children = (
+				89F9E9CB197E1BEF00A60A4D /* generic-box2d-plist */,
 				89F9E99D1977DCB600A60A4D /* poly2tri */,
 				89403C94195045C400345BA9 /* picojson */,
 				89D02C6D194EBCBB004A759A /* GLES-Render.cpp */,
@@ -804,6 +811,25 @@
 			path = sweep;
 			sourceTree = "<group>";
 		};
+		89F9E9CB197E1BEF00A60A4D /* generic-box2d-plist */ = {
+			isa = PBXGroup;
+			children = (
+				89F9E9CC197E1BEF00A60A4D /* GB2ShapeCache-x.cpp */,
+				89F9E9CD197E1BEF00A60A4D /* GB2ShapeCache-x.h */,
+			);
+			path = "generic-box2d-plist";
+			sourceTree = "<group>";
+		};
+		89F9E9D4197E1C6600A60A4D /* PhysicsEditorScene */ = {
+			isa = PBXGroup;
+			children = (
+				89F9E9D5197E1C6600A60A4D /* PhysicsEditorScene.cpp */,
+				89F9E9D6197E1C6600A60A4D /* PhysicsEditorScene.h */,
+			);
+			name = PhysicsEditorScene;
+			path = ../Classes/Scene/PhysicsEditorScene;
+			sourceTree = "<group>";
+		};
 		89FA1A2219484341006B5499 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -818,6 +844,7 @@
 		8C770604194752BA00270F5D /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				89F9E9D4197E1C6600A60A4D /* PhysicsEditorScene */,
 				8CE0EAFC197B5C57003453AF /* DebugScene */,
 				89CED938194873AB0065CBFC /* BattleScene */,
 				8C7705FF1947529600270F5D /* StartScene.cpp */,
@@ -1122,6 +1149,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				89F9E9B01977DCB600A60A4D /* sweep_context.cc in Sources */,
+				89F9E9CE197E1BEF00A60A4D /* GB2ShapeCache-x.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				89F9E9AC1977DCB600A60A4D /* shapes.cc in Sources */,
 				8CF729F119572DD10030B362 /* b2Sperator.cpp in Sources */,
@@ -1131,6 +1159,7 @@
 				89F9E9AD1977DCB600A60A4D /* advancing_front.cc in Sources */,
 				89CED93B194873C40065CBFC /* BattleScene.cpp in Sources */,
 				8CF729DB194757490030B362 /* TitanScene.cpp in Sources */,
+				89F9E9D7197E1C6600A60A4D /* PhysicsEditorScene.cpp in Sources */,
 				1AFAF8B716D35DE700DB1158 /* AppDelegate.cpp in Sources */,
 				89403C9E1950468800345BA9 /* JSON.cpp in Sources */,
 				8C7706011947529600270F5D /* StartScene.cpp in Sources */,
