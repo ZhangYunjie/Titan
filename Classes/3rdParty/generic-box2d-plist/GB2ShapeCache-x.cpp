@@ -1,6 +1,6 @@
 //
 //  GB2ShapeCache-x.cpp
-//  
+//
 //  Loads physics sprites created with http://www.PhysicsEditor.de
 //  To be used with cocos2d-x
 //
@@ -11,7 +11,7 @@
 //      http://www.PhysicsEditor.de
 //      http://texturepacker.com
 //      http://www.code-and-web.de
-//  
+//
 //  All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -20,10 +20,10 @@
 //  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 //  copies of the Software, and to permit persons to whom the Software is
 //  furnished to do so, subject to the following conditions:
-//  
+//
 //  The above copyright notice and this permission notice shall be included in
 //  all copies or substantial portions of the Software.
-//  
+//
 //  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 //  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -46,12 +46,12 @@ class FixtureDef {
 public:
     FixtureDef()
     : next(NULL) {}
-    
+
     ~FixtureDef() {
         delete next;
         delete fixture.shape;
     }
-    
+
     FixtureDef *next;
     b2FixtureDef fixture;
     int callbackData;
@@ -117,28 +117,28 @@ cocos2d::Vec2 GB2ShapeCache::anchorPointForShape(const std::string &shape) {
 
 
 void GB2ShapeCache::addShapesWithFile(const std::string &plist) {
-    
+
 	//const char *fullName = CCFileUtils::sharedFileUtils()->fullPathForFilename(plist.c_str()).c_str();
-    
+
     __Dictionary *dict = __Dictionary::createWithContentsOfFile(plist.c_str());
     // not triggered - cocos2dx delivers empty dict if non was found
 
 	CCAssert(dict != NULL, "Shape-file not found");
-    
+
     CCAssert(dict->count() != 0, "plist file empty or not existing");
 	
 	__Dictionary *metadataDict = (__Dictionary *)dict->objectForKey("metadata");
-    
+
     int format = static_cast<__String *>(metadataDict->objectForKey("format"))->intValue();
     ptmRatio = static_cast<__String *>(metadataDict->objectForKey("ptm_ratio"))->floatValue();
     CCLOG("ptmRatio = %f",ptmRatio);
 	CCAssert(format == 1, "Format not supported");
 
-    
+
 	__Dictionary *bodyDict = (__Dictionary *)dict->objectForKey("bodies");
 
     b2Vec2 vertices[b2_maxPolygonVertices];
-    
+
     DictElement *dictElem;
     std::string bodyName;
 	__Dictionary *bodyData;
@@ -147,34 +147,34 @@ void GB2ShapeCache::addShapesWithFile(const std::string &plist) {
     {
         bodyData = (__Dictionary*)dictElem->getObject();
         bodyName = dictElem->getStrKey();
-        
-        
+
+
         BodyDef *bodyDef = new BodyDef();
         bodyDef->anchorPoint = PointFromString(static_cast<__String *>(bodyData->objectForKey("anchorpoint"))->getCString());
         __Array *fixtureList = (__Array*)(bodyData->objectForKey("fixtures"));
         FixtureDef **nextFixtureDef = &(bodyDef->fixtures);
-        
+
         //iterate fixture list
         Ref *arrayElem;
         CCARRAY_FOREACH(fixtureList, arrayElem)
         {
             b2FixtureDef basicData;
             __Dictionary* fixtureData = (__Dictionary*)arrayElem;
-            
+
             basicData.filter.categoryBits = static_cast<__String *>(fixtureData->objectForKey("filter_categoryBits"))->intValue();
-            
+
             basicData.filter.maskBits = static_cast<__String *>(fixtureData->objectForKey("filter_maskBits"))->intValue();
             basicData.filter.groupIndex = static_cast<__String *>(fixtureData->objectForKey("filter_groupIndex"))->intValue();
             basicData.friction = static_cast<__String *>(fixtureData->objectForKey("friction"))->floatValue();
-            
+
             basicData.density = static_cast<__String *>(fixtureData->objectForKey("density"))->floatValue();
-            
+
             basicData.restitution = static_cast<__String *>(fixtureData->objectForKey("restitution"))->floatValue();
-            
+
             basicData.isSensor = (bool)static_cast<__String *>(fixtureData->objectForKey("isSensor"))->intValue();
-           
+
             __String *cb = static_cast<__String *>(fixtureData->objectForKey("userdataCbValue"));
-            
+
             int callbackData = 0;
 
 			if (cb)
@@ -191,14 +191,14 @@ void GB2ShapeCache::addShapesWithFile(const std::string &plist) {
                     FixtureDef *fix = new FixtureDef();
                     fix->fixture = basicData; // copy basic data
                     fix->callbackData = callbackData;
-                    
+
                     b2PolygonShape *polyshape = new b2PolygonShape();
                     int vindex = 0;
-                    
+
                     __Array *polygonArray = (__Array*)dicArrayElem;
-                    
+
                     assert(polygonArray->count() <= b2_maxPolygonVertices);
-                    
+
                     Ref *piter;
                     CCARRAY_FOREACH(polygonArray, piter)
                     {
@@ -208,10 +208,10 @@ void GB2ShapeCache::addShapesWithFile(const std::string &plist) {
                         vertices[vindex].y = (offset.y / ptmRatio) ;
                         vindex++;
                     }
-                    
+
                     polyshape->Set(vertices, vindex);
                     fix->fixture.shape = polyshape;
-                    
+
                     // create a list
                     *nextFixtureDef = fix;
                     nextFixtureDef = &(fix->next);

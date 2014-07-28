@@ -38,6 +38,7 @@ public:
 
 private:
     void showBombEffect(cocos2d::Vec2 point);
+    void addNewSpriteWithCoords(cocos2d::Vec2 location, cocos2d::Sprite *sprite);
 
 private:
     cocos2d::Size mWinSize;

@@ -258,24 +258,24 @@ void BattleScene::showBombEffect(Vec2 point)
 
 #pragma mark - TOUCH
 
-bool BattleScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
+bool BattleScene::onTouchBegan(Touch* touch, Event* event)
 {
     Point touchPoint = touch->getLocation();
     showBombEffect(touchPoint);
     return false;
 }
 
-void BattleScene::onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event)
+void BattleScene::onTouchMoved(Touch* touch, Event* event)
 {
 
 }
 
-void BattleScene::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
+void BattleScene::onTouchEnded(Touch* touch, Event* event)
 {
 
 }
 
-void BattleScene::onTouchCancelled(cocos2d::Touch* touch, cocos2d::Event* event)
+void BattleScene::onTouchCancelled(Touch* touch, Event* event)
 {
 
 }

@@ -21,39 +21,39 @@ mDebugDraw(NULL),
 mpTouchEventListener(NULL),
 mpRender(NULL)
 {
-    
+
 }
 
 void PhysicsEditorScene::initScene()
 {
     // load physics shapes
-    GB2ShapeCache::sharedGB2ShapeCache()->addShapesWithFile("charactpr.plist");
-    
+    GB2ShapeCache::sharedGB2ShapeCache()->addShapesWithFile("charactor.plist");
+
     mWinSize = Director::getInstance()->getWinSize();
-    
+
     // Define the gravity vector.
     b2Vec2 gravity;
     gravity.Set(0.0f, -10.0f);
-    
+
     // Do we want to let bodies sleep
     bool doSleep = true;
-    
+
     // Construct a world object, which will hold and simulate the rigid bodies.
     mWorld = new b2World(gravity);
     mWorld->SetAllowSleeping(doSleep);
     mWorld->SetContinuousPhysics(true);
-    
+
     mDebugDraw = new GLESDebugDraw(PTM_RATIO);
     mWorld->SetDebugDraw(mDebugDraw);
-    
+
     uint32 flags = DEBUG_DRAW_NONE;
     flags += b2Draw::e_shapeBit;
     flags += b2Draw::e_jointBit;
     mDebugDraw->SetFlags(flags);
-    
+
     b2BodyDef groundBodyDef;
     groundBodyDef.position.Set(mWinSize.width/PTM_RATIO_2, mWinSize.height/PTM_RATIO_2);
-    
+
     // Call the body factory which allocate memory for the ground body
     // form a pool and creates the ground box shape ( also from a pool).
     // The body is als added to the world.
@@ -61,11 +61,11 @@ void PhysicsEditorScene::initScene()
 
     // Define the ground box shape.
     b2PolygonShape groundBox;
-    
+
     // bottom
     groundBox.SetAsBox(mWinSize.width/PTM_RATIO_2, 0, b2Vec2(0, -mWinSize.height/PTM_RATIO_2), 0);
     groundBody->CreateFixture(&groundBox, 0);
-    
+
     // top
     groundBox.SetAsBox(mWinSize.width/PTM_RATIO_2, 0, b2Vec2(0, mWinSize.height/PTM_RATIO_2), 0);
     groundBody->CreateFixture(&groundBox, 0);
@@ -77,22 +77,43 @@ void PhysicsEditorScene::initScene()
     // right
     groundBox.SetAsBox(0, mWinSize.height/PTM_RATIO_2, b2Vec2(mWinSize.width/PTM_RATIO_2, 0), 0);
     groundBody->CreateFixture(&groundBox, 0);
-    
+
     // Set up sprite
 
     mpRender = RenderTexture::create(mWinSize.width, mWinSize.height);
     mpRender->setPosition(Vec2(mWinSize.width/2, mWinSize.height/2));
     this->addChild(mpRender, 10);
-    
-    auto fgSprite = Sprite::create("tileC2.png");
+
+    auto fgSprite = Sprite::create("charactor_1.png");
     fgSprite->setPosition(mWinSize / 2.0f);
+    fgSprite->retain();
     mpRender->beginWithClear(0, 0, 0, 0);
     fgSprite->visit();
     mpRender->end();
 
+    Vec2 location = Director::getInstance()->convertToGL(fgSprite->getPosition());
+    addNewSpriteWithCoords(location, fgSprite);
+
     initTouch();
 
     scheduleUpdate();
+}
+
+
+void PhysicsEditorScene::addNewSpriteWithCoords(Vec2 location, Sprite *sprite)
+{
+    b2BodyDef bodyDef;
+    bodyDef.type = b2_dynamicBody;
+
+    bodyDef.position.Set(location.x/PTM_RATIO, location.y/PTM_RATIO);
+    bodyDef.userData = sprite;
+    b2Body *body = mWorld->CreateBody(&bodyDef);
+
+    // add the fixture definitions to the body
+
+    GB2ShapeCache *sc = GB2ShapeCache::sharedGB2ShapeCache();
+    sc->addFixturesToBody(body, "charactor_1");
+    sprite->setAnchorPoint(sc->anchorPointForShape("charactor_1"));
 }
 
 void PhysicsEditorScene::initTouch()
@@ -150,4 +171,46 @@ void PhysicsEditorScene::showBombEffect(Vec2 point)
     hole->setPosition(point);
     BlendFunc cbl = { GL_ZERO, GL_ONE_MINUS_SRC_ALPHA};
     hole->setBlendFunc(cbl);
+
+    auto effect = Sprite::create();
+    effect->setPosition(point);
+    BlendFunc ebl = {GL_DST_ALPHA, GL_ONE_MINUS_SRC_ALPHA};
+    effect->setBlendFunc(ebl);
+
+    mpRender->begin();
+    hole->visit();
+    effect->visit();
+    mpRender->end();
+}
+
+#pragma mark - TOUCH
+
+bool PhysicsEditorScene::onTouchBegan(Touch* touch, Event* event)
+{
+    Point touchPoint = touch->getLocation();
+    showBombEffect(touchPoint);
+    return false;
+}
+
+void PhysicsEditorScene::onTouchMoved(Touch* touch, Event* event)
+{
+
+}
+
+void PhysicsEditorScene::onTouchEnded(Touch* touch, Event *event)
+{
+
+}
+
+void PhysicsEditorScene::onTouchCancelled(Touch* touch, Event *event)
+{
+
+}
+
+#pragma mark - DISTRUCTOR
+
+PhysicsEditorScene::~PhysicsEditorScene()
+{
+    CC_SAFE_DELETE(mDebugDraw);
+    CC_SAFE_DELETE(mWorld);
 }
