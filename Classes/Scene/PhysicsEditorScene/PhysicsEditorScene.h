@@ -41,6 +41,12 @@ private:
     void addNewSpriteWithCoords(cocos2d::Vec2 location, cocos2d::Sprite *sprite);
 
 private:
+    
+    enum kTag
+    {
+        kTagCharacter = 1,
+    };
+
     cocos2d::Size mWinSize;
     cocos2d::RenderTexture *mpRender;
     cocos2d::EventListenerTouchOneByOne* mpTouchEventListener;

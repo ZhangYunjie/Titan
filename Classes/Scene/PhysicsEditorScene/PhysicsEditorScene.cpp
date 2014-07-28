@@ -86,6 +86,7 @@ void PhysicsEditorScene::initScene()
 
     auto fgSprite = Sprite::create("charactor_1.png");
     fgSprite->setPosition(mWinSize / 2.0f);
+    fgSprite->setTag(kTagCharacter);
     fgSprite->retain();
     mpRender->beginWithClear(0, 0, 0, 0);
     fgSprite->visit();
@@ -113,6 +114,8 @@ void PhysicsEditorScene::addNewSpriteWithCoords(Vec2 location, Sprite *sprite)
 
     GB2ShapeCache *sc = GB2ShapeCache::sharedGB2ShapeCache();
     sc->addFixturesToBody(body, "charactor_1");
+    
+    // (0.5, 0.5)
     sprite->setAnchorPoint(sc->anchorPointForShape("charactor_1"));
 }
 
@@ -159,14 +162,20 @@ void PhysicsEditorScene::updateScene()
         if ( NULL != body->GetUserData() )
         {
             Sprite* sprite = (Sprite*)body->GetUserData();
-            sprite->setPosition(body->GetPosition().x * PTM_RATIO, body->GetPosition().y * PTM_RATIO);
-            sprite->setRotation( -1.0f + CC_RADIANS_TO_DEGREES(body->GetAngle()));
+            int tag = sprite->getTag();
+            if (tag == kTagCharacter)
+            {
+                mpRender->setPosition(body->GetPosition().x * PTM_RATIO, body->GetPosition().y * PTM_RATIO);
+                mpRender->setRotation( -1.0f + CC_RADIANS_TO_DEGREES(body->GetAngle()));
+            }
         }
     }
 }
 
 void PhysicsEditorScene::showBombEffect(Vec2 point)
 {
+    Vec2 now = point;
+    Vec2 location = mpRender->convertToNodeSpaceAR(point);
     auto hole = Sprite::create("img1.png");
     hole->setPosition(point);
     BlendFunc cbl = { GL_ZERO, GL_ONE_MINUS_SRC_ALPHA};
