@@ -9,6 +9,7 @@
 
 #include "StartScene.h"
 #include "BattleScene.h"
+#include "PhysicsEditorScene.h"
 
 USING_NS_CC;
 
@@ -30,14 +31,14 @@ void StartScene::showStartButton()
     auto menuItem = MenuItemLabel::create(startLabel, CC_CALLBACK_1(StartScene::btnCallback, this));
     menuItem->setTag(kTagStartButton);
     menuItem->setPosition( Vec2(mWinSize.width/2.0f, mWinSize.height/2.0f - 30.0f) );
-    
+
     // 使用physics editor构造box2d
     auto physicsEditorLabel = Label::createWithTTF(ttfConfig, "Physics Editor");
     physicsEditorLabel->setColor(Color3B::WHITE);
     auto physicsEditorItem = MenuItemLabel::create(physicsEditorLabel, CC_CALLBACK_1(StartScene::btnCallback, this));
     physicsEditorItem->setTag(kTagPhysicsEditorButton);
     physicsEditorItem->setPosition(Vec2(mWinSize.width/2.0f, mWinSize.height/2.0f));
-    
+
     // 使用poly2tri
     auto poly2triLabel = Label::createWithTTF(ttfConfig, "poly2tri");
     poly2triLabel->setColor(Color3B::WHITE);
@@ -65,11 +66,12 @@ void StartScene::btnCallback(Ref *sender)
         case kTagStartButton:
             replaceScene<BattleScene>();
             break;
-            
-            
+
+
         case kTagPhysicsEditorButton:
+            replaceScene<PhysicsEditorScene>();
             break;
-            
+
         default:
             break;
     }

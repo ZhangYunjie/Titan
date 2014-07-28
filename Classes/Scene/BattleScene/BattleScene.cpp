@@ -196,7 +196,7 @@ void BattleScene::initTouch()
     CCLOG("===== BattleScene#initTouch ======");
 
     auto dispatcher = Director::getInstance()->getEventDispatcher();
-    mpTouchEventListener = cocos2d::EventListenerTouchOneByOne::create();
+    mpTouchEventListener = EventListenerTouchOneByOne::create();
     mpTouchEventListener->setSwallowTouches(true);
     mpTouchEventListener->onTouchBegan     = CC_CALLBACK_2(BattleScene::onTouchBegan, this);
     mpTouchEventListener->onTouchMoved     = CC_CALLBACK_2(BattleScene::onTouchMoved, this);
@@ -233,14 +233,14 @@ void BattleScene::updateScene()
         {
             Sprite* sprite = (Sprite*)body->GetUserData();
             sprite->setPosition(body->GetPosition().x * PTM_RATIO, body->GetPosition().y * PTM_RATIO);
-            sprite->setRotation( -1.0f * CC_RADIANS_TO_DEGREES(body->GetAngle()) );
+            sprite->setRotation( -1.0f * CC_RADIANS_TO_DEGREES(body->GetAngle()));
         }
     }
 }
 
 void BattleScene::showBombEffect(Vec2 point)
 {
-    Sprite* hole = Sprite::create("img1.png");
+    auto hole = Sprite::create("img1.png");
     hole->setPosition(point);
     BlendFunc cbl = {GL_ZERO ,GL_ONE_MINUS_SRC_ALPHA};
     hole->setBlendFunc(cbl);
@@ -258,24 +258,24 @@ void BattleScene::showBombEffect(Vec2 point)
 
 #pragma mark - TOUCH
 
-bool BattleScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
+bool BattleScene::onTouchBegan(Touch* touch, Event* event)
 {
     Point touchPoint = touch->getLocation();
     showBombEffect(touchPoint);
     return false;
 }
 
-void BattleScene::onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event)
+void BattleScene::onTouchMoved(Touch* touch, Event* event)
 {
 
 }
 
-void BattleScene::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
+void BattleScene::onTouchEnded(Touch* touch, Event* event)
 {
 
 }
 
-void BattleScene::onTouchCancelled(cocos2d::Touch* touch, cocos2d::Event* event)
+void BattleScene::onTouchCancelled(Touch* touch, Event* event)
 {
 
 }

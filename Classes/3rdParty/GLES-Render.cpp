@@ -51,7 +51,7 @@ void GLESDebugDraw::DrawPolygon(const b2Vec2* old_vertices, int vertexCount, con
     mShaderProgram->setUniformsForBuiltins();
 
     b2Vec2* vertices = new b2Vec2[vertexCount];
-    for( int i=0;i<vertexCount;i++) 
+    for( int i=0;i<vertexCount;i++)
     {
         vertices[i] = old_vertices[i];
         vertices[i] *= mRatio;
@@ -80,7 +80,7 @@ void GLESDebugDraw::DrawSolidPolygon(const b2Vec2* old_vertices, int vertexCount
         vertices[i] = old_vertices[i];
         vertices[i] *= mRatio;
     }
-    
+
     mShaderProgram->setUniformLocationWith4f(mColorLocation, color.r*0.5f, color.g*0.5f, color.b*0.5f, 0.5f);
 
     glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, vertices);
@@ -106,7 +106,7 @@ void GLESDebugDraw::DrawCircle(const b2Vec2& center, float32 radius, const b2Col
     int vertexCount=16;
     const float32 k_increment = 2.0f * b2_pi / k_segments;
     float32 theta = 0.0f;
-    
+
     GLfloat*    glVertices = new GLfloat[vertexCount*2];
     for (int i = 0; i < k_segments; ++i)
     {
@@ -115,7 +115,7 @@ void GLESDebugDraw::DrawCircle(const b2Vec2& center, float32 radius, const b2Col
         glVertices[i*2+1]=v.y * mRatio;
         theta += k_increment;
     }
-    
+
     mShaderProgram->setUniformLocationWith4f(mColorLocation, color.r, color.g, color.b, 1);
     glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, glVertices);
 
@@ -137,7 +137,7 @@ void GLESDebugDraw::DrawSolidCircle(const b2Vec2& center, float32 radius, const 
     int vertexCount=16;
     const float32 k_increment = 2.0f * b2_pi / k_segments;
     float32 theta = 0.0f;
-    
+
     GLfloat*    glVertices = new GLfloat[vertexCount*2];
     for (int i = 0; i < k_segments; ++i)
     {
@@ -146,7 +146,7 @@ void GLESDebugDraw::DrawSolidCircle(const b2Vec2& center, float32 radius, const 
         glVertices[i*2+1]=v.y * mRatio;
         theta += k_increment;
     }
-    
+
     mShaderProgram->setUniformLocationWith4f(mColorLocation, color.r*0.5f, color.g*0.5f, color.b*0.5f, 0.5f);
     glVertexAttribPointer(GLProgram::VERTEX_ATTRIB_POSITION, 2, GL_FLOAT, GL_FALSE, 0, glVertices);
     glDrawArrays(GL_TRIANGLE_FAN, 0, vertexCount);
@@ -172,7 +172,7 @@ void GLESDebugDraw::DrawSegment(const b2Vec2& p1, const b2Vec2& p2, const b2Colo
 
     mShaderProgram->setUniformLocationWith4f(mColorLocation, color.r, color.g, color.b, 1);
 
-    GLfloat    glVertices[] = 
+    GLfloat    glVertices[] =
     {
         p1.x * mRatio, p1.y * mRatio,
         p2.x * mRatio, p2.y * mRatio

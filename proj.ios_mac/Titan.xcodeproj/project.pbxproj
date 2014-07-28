@@ -65,6 +65,7 @@
 		8900CCD11977B37A0069F670 /* tileC2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8900CCD01977B37A0069F670 /* tileC2.png */; };
 		8900CCD51977B68B0069F670 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 8900CCD41977B68B0069F670 /* background.png */; };
 		89068F52195002450003B243 /* BattleWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89068F50195002450003B243 /* BattleWorld.cpp */; };
+		8909A5BB197F8B3D00384F45 /* charactor.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8909A5BA197F8B3D00384F45 /* charactor.plist */; };
 		891B6DF91975034600549E61 /* enemy.png in Resources */ = {isa = PBXBuildFile; fileRef = 891B6DF81975034600549E61 /* enemy.png */; };
 		891B6DFB1975172400549E61 /* img4.png in Resources */ = {isa = PBXBuildFile; fileRef = 891B6DFA1975172400549E61 /* img4.png */; };
 		89403C9E1950468800345BA9 /* JSON.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89403C9C1950468800345BA9 /* JSON.cpp */; };
@@ -350,6 +351,7 @@
 		8900CCD41977B68B0069F670 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		89068F50195002450003B243 /* BattleWorld.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BattleWorld.cpp; sourceTree = "<group>"; };
 		89068F51195002450003B243 /* BattleWorld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BattleWorld.h; sourceTree = "<group>"; };
+		8909A5BA197F8B3D00384F45 /* charactor.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = charactor.plist; sourceTree = "<group>"; };
 		891B6DF81975034600549E61 /* enemy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy.png; sourceTree = "<group>"; };
 		891B6DFA1975172400549E61 /* img4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img4.png; sourceTree = "<group>"; };
 		89403C95195045C400345BA9 /* picojson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = picojson.h; sourceTree = "<group>"; };
@@ -653,6 +655,7 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8909A5BA197F8B3D00384F45 /* charactor.plist */,
 				8C3C8F2C197AB5520044B48E /* charactor_1.png */,
 				8900CCD41977B68B0069F670 /* background.png */,
 				8900CCD01977B37A0069F670 /* tileC2.png */,
@@ -1066,6 +1069,7 @@
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
 				89CED90319486A0D0065CBFC /* arial16.png in Resources */,
 				89CED90119486A0D0065CBFC /* arial.ttf in Resources */,
+				8909A5BB197F8B3D00384F45 /* charactor.plist in Resources */,
 				89CED91C19486A0D0065CBFC /* geneva-32.fnt in Resources */,
 				89CED8FD19486A0D0065CBFC /* arial-26-en-ru_0.png in Resources */,
 				89CED92B19486A0D0065CBFC /* Schwarzwald Regular.ttf in Resources */,
