@@ -78,23 +78,28 @@ void PhysicsEditorScene::initScene()
     groundBox.SetAsBox(0, mWinSize.height/PTM_RATIO_2, b2Vec2(mWinSize.width/PTM_RATIO_2, 0), 0);
     groundBody->CreateFixture(&groundBox, 0);
 
-    // Set up sprite
-    mpRender = RenderTexture::create(mWinSize.width, mWinSize.height);
-    mpRender->setPosition(Vec2(mWinSize.width/2, mWinSize.height/2));
-    this->addChild(mpRender, 10);
-
     auto fgSprite = Sprite::create("charactor_1.png");
-    fgSprite->setPosition((mWinSize.width + 100.0f) / 2.0f, mWinSize.height / 2.0f);
-    fgSprite->setTag(kTagCharacter);
-    fgSprite->retain();
+    fgSprite->setPosition(fgSprite->getContentSize() / 2.0f);
+
+    auto charactor = Sprite::create();
+    charactor->setContentSize(fgSprite->getContentSize());
+    charactor->setPosition((mWinSize.width + 100.0f) / 2.0f, mWinSize.height / 2.0f);
+    charactor->setTag(kTagCharacter);
+    this->addChild(charactor);
+
+    // Set up sprite
+    mpRender = RenderTexture::create(fgSprite->getContentSize().width, fgSprite->getContentSize().height);
+    mpRender->setPosition(fgSprite->getContentSize() / 2.0f);
+    charactor->addChild(mpRender);
+
     mpRender->beginWithClear(0, 0, 0, 0);
     fgSprite->visit();
     mpRender->end();
 
     // 没有变化的坐标转换？？？
     // OpenGL坐标系原点再屏幕左下角，X轴向右，y轴向上
-    Vec2 location = Director::getInstance()->convertToGL(fgSprite->getPosition());
-    addNewSpriteWithCoords(location, fgSprite);
+    Vec2 location = Director::getInstance()->convertToGL(charactor->getPosition());
+    addNewSpriteWithCoords(location, charactor);
 
     initTouch();
 
@@ -163,27 +168,28 @@ void PhysicsEditorScene::updateScene()
         if ( NULL != body->GetUserData() )
         {
             Sprite* sprite = (Sprite*)body->GetUserData();
-            int tag = sprite->getTag();
-            if (tag == kTagCharacter)
-            {
-                // 问题：当不可以根据物体的位置来设置画布的位置（of cource, 因为两个根本不是一个东西）
-                // 难点：对于可破坏地形，无法移动
-                //mpRender->setPosition(body->GetPosition().x * PTM_RATIO, body->GetPosition().y * PTM_RATIO);
-                //mpRender->setRotation( -1.0f * CC_RADIANS_TO_DEGREES(body->GetAngle()));
-            }
+
+            // 问题：当不可以根据物体的位置来设置画布的位置（of cource, 因为两个根本不是一个东西）
+            // 难点：对于可破坏地形，无法移动
+            // 选取合适大小的texture将其添加到物体上
+            sprite->setPosition(body->GetPosition().x * PTM_RATIO, body->GetPosition().y * PTM_RATIO);
+            sprite->setRotation( -1.0f * CC_RADIANS_TO_DEGREES(body->GetAngle()));
         }
     }
 }
 
 void PhysicsEditorScene::showBombEffect(Vec2 point)
 {
+    Sprite* charactor = (Sprite*)this->getChildByTag(kTagCharacter);
+    Vec2 location = charactor->convertToNodeSpace(point);
+
     auto hole = Sprite::create("img1.png");
-    hole->setPosition(point);
+    hole->setPosition(location);
     BlendFunc cbl = { GL_ZERO, GL_ONE_MINUS_SRC_ALPHA};
     hole->setBlendFunc(cbl);
 
     auto effect = Sprite::create();
-    effect->setPosition(point);
+    effect->setPosition(location);
     BlendFunc ebl = {GL_DST_ALPHA, GL_ONE_MINUS_SRC_ALPHA};
     effect->setBlendFunc(ebl);
 
