@@ -51,61 +51,81 @@ void PhysicsEditorScene::initScene()
     flags += b2Draw::e_jointBit;
     mDebugDraw->SetFlags(flags);
 
+    initTouch();
+    initDebugMenu();
+    initBox2DGround();
+
+    addNewCharactor();
+
+    scheduleUpdate();
+}
+
+void PhysicsEditorScene::initDebugMenu()
+{
+    auto debugBtn = MenuItemImage::create("CloseNormal.png", "CloseSelected.png", CC_CALLBACK_1(PhysicsEditorScene::debugBtnCallBack, this));
+    debugBtn->setPosition(Point(mWinSize.width-20.0f, 20.0f));
+    debugBtn->setTag(kTagDebugMenu);
+    
+    auto debugMenu = Menu::create(debugBtn, NULL);
+    debugMenu->setPosition(Point::ZERO);
+    this->addChild(debugMenu, kZOrderMenu, kTagDebugMenu);
+}
+
+void PhysicsEditorScene::initBox2DGround()
+{
     b2BodyDef groundBodyDef;
     groundBodyDef.position.Set(mWinSize.width/PTM_RATIO_2, mWinSize.height/PTM_RATIO_2);
-
+    
     // Call the body factory which allocate memory for the ground body
     // form a pool and creates the ground box shape ( also from a pool).
     // The body is als added to the world.
     b2Body* groundBody = mWorld->CreateBody(&groundBodyDef);
-
+    
     // Define the ground box shape.
     b2PolygonShape groundBox;
-
+    
     // bottom
     groundBox.SetAsBox(mWinSize.width/PTM_RATIO_2, 0, b2Vec2(0, -mWinSize.height/PTM_RATIO_2), 0);
     groundBody->CreateFixture(&groundBox, 0);
-
+    
     // top
     groundBox.SetAsBox(mWinSize.width/PTM_RATIO_2, 0, b2Vec2(0, mWinSize.height/PTM_RATIO_2), 0);
     groundBody->CreateFixture(&groundBox, 0);
-
+    
     // left
     groundBox.SetAsBox(0, mWinSize.height/PTM_RATIO_2, b2Vec2(-mWinSize.width/PTM_RATIO_2, 0), 0);
     groundBody->CreateFixture(&groundBox, 0);
-
+    
     // right
     groundBox.SetAsBox(0, mWinSize.height/PTM_RATIO_2, b2Vec2(mWinSize.width/PTM_RATIO_2, 0), 0);
     groundBody->CreateFixture(&groundBox, 0);
+}
 
+void PhysicsEditorScene::addNewCharactor()
+{
     auto fgSprite = Sprite::create("charactor_1.png");
     fgSprite->setPosition(fgSprite->getContentSize() / 2.0f);
-
+    
     auto charactor = Sprite::create();
     charactor->setContentSize(fgSprite->getContentSize());
     charactor->setPosition((mWinSize.width + 100.0f) / 2.0f, mWinSize.height / 2.0f);
     charactor->setTag(kTagCharacter);
     this->addChild(charactor);
-
+    
     // Set up sprite
     mpRender = RenderTexture::create(fgSprite->getContentSize().width, fgSprite->getContentSize().height);
     mpRender->setPosition(fgSprite->getContentSize() / 2.0f);
     charactor->addChild(mpRender);
-
+    
     mpRender->beginWithClear(0, 0, 0, 0);
     fgSprite->visit();
     mpRender->end();
-
+    
     // 没有变化的坐标转换？？？
     // OpenGL坐标系原点再屏幕左下角，X轴向右，y轴向上
     Vec2 location = Director::getInstance()->convertToGL(charactor->getPosition());
     addNewSpriteWithCoords(location, charactor);
-
-    initTouch();
-
-    scheduleUpdate();
 }
-
 
 void PhysicsEditorScene::addNewSpriteWithCoords(Vec2 location, Sprite *sprite)
 {
@@ -221,6 +241,21 @@ void PhysicsEditorScene::onTouchEnded(Touch* touch, Event *event)
 void PhysicsEditorScene::onTouchCancelled(Touch* touch, Event *event)
 {
 
+}
+
+#pragma mark - CALLBACK
+
+void PhysicsEditorScene::debugBtnCallBack(Ref *pSender)
+{
+    Vector<Node*> children = this->getChildren();
+    Vector<Node*>::iterator it = children.begin();
+    for(; it != children.end(); it++)
+    {
+        if((*it)->getTag() != kTagDebugMenu)
+        {
+            (*it)->setVisible(!(*it)->isVisible());
+        }
+    }
 }
 
 #pragma mark - DISTRUCTOR

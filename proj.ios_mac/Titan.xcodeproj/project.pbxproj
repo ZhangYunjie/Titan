@@ -71,6 +71,7 @@
 		89403CA31951882500345BA9 /* img1.png in Resources */ = {isa = PBXBuildFile; fileRef = 89403CA01951882500345BA9 /* img1.png */; };
 		89403CA41951882500345BA9 /* img2.png in Resources */ = {isa = PBXBuildFile; fileRef = 89403CA11951882500345BA9 /* img2.png */; };
 		89403CA919518E3700345BA9 /* ShaderSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89403CA719518E3700345BA9 /* ShaderSprite.cpp */; };
+		89926D81199307880096AE38 /* GLES-Render.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89926D7F199307880096AE38 /* GLES-Render.cpp */; };
 		89CED8F819486A0D0065CBFC /* A Damn Mess.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89CED8BB19486A0D0065CBFC /* A Damn Mess.ttf */; };
 		89CED8F919486A0D0065CBFC /* Abberancy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89CED8BC19486A0D0065CBFC /* Abberancy.ttf */; };
 		89CED8FA19486A0D0065CBFC /* Abduction.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89CED8BD19486A0D0065CBFC /* Abduction.ttf */; };
@@ -135,7 +136,6 @@
 		89CED93B194873C40065CBFC /* BattleScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89CED939194873C40065CBFC /* BattleScene.cpp */; };
 		89CED9401949B2350065CBFC /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 89CED93F1949B2350065CBFC /* bg.png */; };
 		89D02C67194EB281004A759A /* circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 89D02C66194EB281004A759A /* circle.png */; };
-		89D02C6F194EBCBB004A759A /* GLES-Render.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89D02C6D194EBCBB004A759A /* GLES-Render.cpp */; };
 		89F9E9AC1977DCB600A60A4D /* shapes.cc in Sources */ = {isa = PBXBuildFile; fileRef = 89F9E99F1977DCB600A60A4D /* shapes.cc */; };
 		89F9E9AD1977DCB600A60A4D /* advancing_front.cc in Sources */ = {isa = PBXBuildFile; fileRef = 89F9E9A41977DCB600A60A4D /* advancing_front.cc */; };
 		89F9E9AE1977DCB600A60A4D /* cdt.cc in Sources */ = {isa = PBXBuildFile; fileRef = 89F9E9A61977DCB600A60A4D /* cdt.cc */; };
@@ -359,6 +359,8 @@
 		89403CA719518E3700345BA9 /* ShaderSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ShaderSprite.cpp; path = ../Classes/ShaderSprite.cpp; sourceTree = "<group>"; };
 		89403CA819518E3700345BA9 /* ShaderSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShaderSprite.h; path = ../Classes/ShaderSprite.h; sourceTree = "<group>"; };
 		89403CAB1951904600345BA9 /* tansparentshader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = tansparentshader.h; path = ../Classes/tansparentshader.h; sourceTree = "<group>"; };
+		89926D7F199307880096AE38 /* GLES-Render.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "GLES-Render.cpp"; sourceTree = "<group>"; };
+		89926D80199307880096AE38 /* GLES-Render.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLES-Render.h"; sourceTree = "<group>"; };
 		89CED8BB19486A0D0065CBFC /* A Damn Mess.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "A Damn Mess.ttf"; sourceTree = "<group>"; };
 		89CED8BC19486A0D0065CBFC /* Abberancy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Abberancy.ttf; sourceTree = "<group>"; };
 		89CED8BD19486A0D0065CBFC /* Abduction.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Abduction.ttf; sourceTree = "<group>"; };
@@ -426,8 +428,6 @@
 		89D02C66194EB281004A759A /* circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle.png; sourceTree = "<group>"; };
 		89D02C6A194EB7C4004A759A /* BattleBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BattleBase.h; sourceTree = "<group>"; };
 		89D02C6B194EBC8E004A759A /* TitanBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TitanBase.h; path = ../Classes/Base/TitanBase.h; sourceTree = "<group>"; };
-		89D02C6D194EBCBB004A759A /* GLES-Render.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "GLES-Render.cpp"; sourceTree = "<group>"; };
-		89D02C6E194EBCBB004A759A /* GLES-Render.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLES-Render.h"; sourceTree = "<group>"; };
 		89F9E99F1977DCB600A60A4D /* shapes.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shapes.cc; sourceTree = "<group>"; };
 		89F9E9A01977DCB600A60A4D /* shapes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shapes.h; sourceTree = "<group>"; };
 		89F9E9A11977DCB600A60A4D /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
@@ -677,6 +677,15 @@
 			path = picojson;
 			sourceTree = "<group>";
 		};
+		89926D7E199307880096AE38 /* GLES-Render */ = {
+			isa = PBXGroup;
+			children = (
+				89926D7F199307880096AE38 /* GLES-Render.cpp */,
+				89926D80199307880096AE38 /* GLES-Render.h */,
+			);
+			path = "GLES-Render";
+			sourceTree = "<group>";
+		};
 		89CED8BA19486A0D0065CBFC /* fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -763,11 +772,10 @@
 		89D02C6C194EBCBB004A759A /* 3rdParty */ = {
 			isa = PBXGroup;
 			children = (
+				89926D7E199307880096AE38 /* GLES-Render */,
 				89F9E9CB197E1BEF00A60A4D /* generic-box2d-plist */,
 				89F9E99D1977DCB600A60A4D /* poly2tri */,
 				89403C94195045C400345BA9 /* picojson */,
-				89D02C6D194EBCBB004A759A /* GLES-Render.cpp */,
-				89D02C6E194EBCBB004A759A /* GLES-Render.h */,
 			);
 			name = 3rdParty;
 			path = ../Classes/3rdParty;
@@ -1138,6 +1146,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89926D81199307880096AE38 /* GLES-Render.cpp in Sources */,
 				89F9E9B01977DCB600A60A4D /* sweep_context.cc in Sources */,
 				89F9E9CE197E1BEF00A60A4D /* GB2ShapeCache-x.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
@@ -1153,7 +1162,6 @@
 				1AFAF8B716D35DE700DB1158 /* AppDelegate.cpp in Sources */,
 				89403C9E1950468800345BA9 /* JSON.cpp in Sources */,
 				8C7706011947529600270F5D /* StartScene.cpp in Sources */,
-				89D02C6F194EBCBB004A759A /* GLES-Render.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				89F9E9AF1977DCB600A60A4D /* sweep.cc in Sources */,
 				89403CA919518E3700345BA9 /* ShaderSprite.cpp in Sources */,
