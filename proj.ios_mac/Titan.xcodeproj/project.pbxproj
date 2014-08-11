@@ -72,6 +72,7 @@
 		89403CA41951882500345BA9 /* img2.png in Resources */ = {isa = PBXBuildFile; fileRef = 89403CA11951882500345BA9 /* img2.png */; };
 		89403CA919518E3700345BA9 /* ShaderSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89403CA719518E3700345BA9 /* ShaderSprite.cpp */; };
 		89926D81199307880096AE38 /* GLES-Render.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89926D7F199307880096AE38 /* GLES-Render.cpp */; };
+		89926D871998AEEC0096AE38 /* b2Sperator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89926D851998AEEC0096AE38 /* b2Sperator.cpp */; };
 		89CED8F819486A0D0065CBFC /* A Damn Mess.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89CED8BB19486A0D0065CBFC /* A Damn Mess.ttf */; };
 		89CED8F919486A0D0065CBFC /* Abberancy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89CED8BC19486A0D0065CBFC /* Abberancy.ttf */; };
 		89CED8FA19486A0D0065CBFC /* Abduction.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89CED8BD19486A0D0065CBFC /* Abduction.ttf */; };
@@ -146,7 +147,6 @@
 		8C3C8F2D197AB5520044B48E /* charactor_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C3C8F2C197AB5520044B48E /* charactor_1.png */; };
 		8C7706011947529600270F5D /* StartScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C7705FF1947529600270F5D /* StartScene.cpp */; };
 		8CF729DB194757490030B362 /* TitanScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CF729D9194757490030B362 /* TitanScene.cpp */; };
-		8CF729F119572DD10030B362 /* b2Sperator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CF729EF19572DD10030B362 /* b2Sperator.cpp */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
@@ -361,6 +361,8 @@
 		89403CAB1951904600345BA9 /* tansparentshader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = tansparentshader.h; path = ../Classes/tansparentshader.h; sourceTree = "<group>"; };
 		89926D7F199307880096AE38 /* GLES-Render.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "GLES-Render.cpp"; sourceTree = "<group>"; };
 		89926D80199307880096AE38 /* GLES-Render.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLES-Render.h"; sourceTree = "<group>"; };
+		89926D851998AEEC0096AE38 /* b2Sperator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2Sperator.cpp; sourceTree = "<group>"; };
+		89926D861998AEEC0096AE38 /* b2Sperator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = b2Sperator.h; sourceTree = "<group>"; };
 		89CED8BB19486A0D0065CBFC /* A Damn Mess.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "A Damn Mess.ttf"; sourceTree = "<group>"; };
 		89CED8BC19486A0D0065CBFC /* Abberancy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Abberancy.ttf; sourceTree = "<group>"; };
 		89CED8BD19486A0D0065CBFC /* Abduction.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Abduction.ttf; sourceTree = "<group>"; };
@@ -450,8 +452,6 @@
 		8C7706001947529600270F5D /* StartScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StartScene.h; path = ../Classes/Scene/StartScene.h; sourceTree = "<group>"; };
 		8CF729D9194757490030B362 /* TitanScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TitanScene.cpp; path = ../Classes/Base/TitanScene.cpp; sourceTree = "<group>"; };
 		8CF729DA194757490030B362 /* TitanScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TitanScene.h; path = ../Classes/Base/TitanScene.h; sourceTree = "<group>"; };
-		8CF729EF19572DD10030B362 /* b2Sperator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2Sperator.cpp; sourceTree = "<group>"; };
-		8CF729F019572DD10030B362 /* b2Sperator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = b2Sperator.h; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -686,6 +686,15 @@
 			path = "GLES-Render";
 			sourceTree = "<group>";
 		};
+		89926D841998AEEC0096AE38 /* b2Separator */ = {
+			isa = PBXGroup;
+			children = (
+				89926D851998AEEC0096AE38 /* b2Sperator.cpp */,
+				89926D861998AEEC0096AE38 /* b2Sperator.h */,
+			);
+			path = b2Separator;
+			sourceTree = "<group>";
+		};
 		89CED8BA19486A0D0065CBFC /* fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -762,8 +771,6 @@
 				89D02C6A194EB7C4004A759A /* BattleBase.h */,
 				89068F50195002450003B243 /* BattleWorld.cpp */,
 				89068F51195002450003B243 /* BattleWorld.h */,
-				8CF729EF19572DD10030B362 /* b2Sperator.cpp */,
-				8CF729F019572DD10030B362 /* b2Sperator.h */,
 			);
 			name = BattleScene;
 			path = ../Classes/Scene/BattleScene;
@@ -838,6 +845,7 @@
 		89FA1A2219484341006B5499 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				89926D841998AEEC0096AE38 /* b2Separator */,
 				89FA1A2419484595006B5499 /* GameDefine.h */,
 				89403C9C1950468800345BA9 /* JSON.cpp */,
 				89403C9D1950468800345BA9 /* JSON.h */,
@@ -1151,7 +1159,7 @@
 				89F9E9CE197E1BEF00A60A4D /* GB2ShapeCache-x.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				89F9E9AC1977DCB600A60A4D /* shapes.cc in Sources */,
-				8CF729F119572DD10030B362 /* b2Sperator.cpp in Sources */,
+				89926D871998AEEC0096AE38 /* b2Sperator.cpp in Sources */,
 				89068F52195002450003B243 /* BattleWorld.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				89F9E9AE1977DCB600A60A4D /* cdt.cc in Sources */,
