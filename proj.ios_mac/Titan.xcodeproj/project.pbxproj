@@ -72,7 +72,7 @@
 		89403CA41951882500345BA9 /* img2.png in Resources */ = {isa = PBXBuildFile; fileRef = 89403CA11951882500345BA9 /* img2.png */; };
 		89403CA919518E3700345BA9 /* ShaderSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89403CA719518E3700345BA9 /* ShaderSprite.cpp */; };
 		89926D81199307880096AE38 /* GLES-Render.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89926D7F199307880096AE38 /* GLES-Render.cpp */; };
-		89926D871998AEEC0096AE38 /* b2Sperator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89926D851998AEEC0096AE38 /* b2Sperator.cpp */; };
+		89926D871998AEEC0096AE38 /* b2Separator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89926D851998AEEC0096AE38 /* b2Separator.cpp */; };
 		89CED8F819486A0D0065CBFC /* A Damn Mess.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89CED8BB19486A0D0065CBFC /* A Damn Mess.ttf */; };
 		89CED8F919486A0D0065CBFC /* Abberancy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89CED8BC19486A0D0065CBFC /* Abberancy.ttf */; };
 		89CED8FA19486A0D0065CBFC /* Abduction.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89CED8BD19486A0D0065CBFC /* Abduction.ttf */; };
@@ -361,8 +361,8 @@
 		89403CAB1951904600345BA9 /* tansparentshader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = tansparentshader.h; path = ../Classes/tansparentshader.h; sourceTree = "<group>"; };
 		89926D7F199307880096AE38 /* GLES-Render.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "GLES-Render.cpp"; sourceTree = "<group>"; };
 		89926D80199307880096AE38 /* GLES-Render.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLES-Render.h"; sourceTree = "<group>"; };
-		89926D851998AEEC0096AE38 /* b2Sperator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2Sperator.cpp; sourceTree = "<group>"; };
-		89926D861998AEEC0096AE38 /* b2Sperator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = b2Sperator.h; sourceTree = "<group>"; };
+		89926D851998AEEC0096AE38 /* b2Separator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2Separator.cpp; sourceTree = "<group>"; };
+		89926D861998AEEC0096AE38 /* b2Separator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = b2Separator.h; sourceTree = "<group>"; };
 		89CED8BB19486A0D0065CBFC /* A Damn Mess.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "A Damn Mess.ttf"; sourceTree = "<group>"; };
 		89CED8BC19486A0D0065CBFC /* Abberancy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Abberancy.ttf; sourceTree = "<group>"; };
 		89CED8BD19486A0D0065CBFC /* Abduction.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Abduction.ttf; sourceTree = "<group>"; };
@@ -689,8 +689,8 @@
 		89926D841998AEEC0096AE38 /* b2Separator */ = {
 			isa = PBXGroup;
 			children = (
-				89926D851998AEEC0096AE38 /* b2Sperator.cpp */,
-				89926D861998AEEC0096AE38 /* b2Sperator.h */,
+				89926D851998AEEC0096AE38 /* b2Separator.cpp */,
+				89926D861998AEEC0096AE38 /* b2Separator.h */,
 			);
 			path = b2Separator;
 			sourceTree = "<group>";
@@ -1159,7 +1159,7 @@
 				89F9E9CE197E1BEF00A60A4D /* GB2ShapeCache-x.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				89F9E9AC1977DCB600A60A4D /* shapes.cc in Sources */,
-				89926D871998AEEC0096AE38 /* b2Sperator.cpp in Sources */,
+				89926D871998AEEC0096AE38 /* b2Separator.cpp in Sources */,
 				89068F52195002450003B243 /* BattleWorld.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				89F9E9AE1977DCB600A60A4D /* cdt.cc in Sources */,

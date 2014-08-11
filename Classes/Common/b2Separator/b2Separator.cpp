@@ -6,7 +6,7 @@
 //
 //
 
-#include "b2Sperator.h"
+#include "b2Separator.h"
 
 void b2Separator::separator(b2Body* body, b2FixtureDef* fixtureDef, std::vector<b2Vec2>* verticesVec, float scale)
 {

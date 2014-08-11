@@ -6,7 +6,7 @@
 //
 //
 #include "ShaderSprite.h"
-#include "b2Sperator.h"
+#include "b2Separator.h"
 #include "poly2tri.h"
 
 #include "BattleBase.h"
