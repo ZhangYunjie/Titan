@@ -85,7 +85,7 @@ int b2Separator::validate(const std::vector<b2Vec2>& verticesVec)
                     int j2 = (j<n-1?j+1:0);
                     b2Vec2* vec = hitSegment(verticesVec[i].x, verticesVec[i].y, verticesVec[i2].x, verticesVec[i2].y, verticesVec[j].x, verticesVec[j].y, verticesVec[j2].x, verticesVec[j2].y);
                     if(NULL != vec){
-                        // ret = 1; //需要修正
+                        ret = 1; //需要修正
                     }
                 }
             }

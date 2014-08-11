@@ -73,6 +73,8 @@
 		89403CA919518E3700345BA9 /* ShaderSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89403CA719518E3700345BA9 /* ShaderSprite.cpp */; };
 		89926D81199307880096AE38 /* GLES-Render.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89926D7F199307880096AE38 /* GLES-Render.cpp */; };
 		89926D871998AEEC0096AE38 /* b2Separator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89926D851998AEEC0096AE38 /* b2Separator.cpp */; };
+		89926DA91998BBF70096AE38 /* clipper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89926D891998BBF70096AE38 /* clipper.cpp */; };
+		89926DAA1998BBF70096AE38 /* CMakeLists.txt in Resources */ = {isa = PBXBuildFile; fileRef = 89926D8B1998BBF70096AE38 /* CMakeLists.txt */; };
 		89CED8F819486A0D0065CBFC /* A Damn Mess.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89CED8BB19486A0D0065CBFC /* A Damn Mess.ttf */; };
 		89CED8F919486A0D0065CBFC /* Abberancy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89CED8BC19486A0D0065CBFC /* Abberancy.ttf */; };
 		89CED8FA19486A0D0065CBFC /* Abduction.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89CED8BD19486A0D0065CBFC /* Abduction.ttf */; };
@@ -363,6 +365,9 @@
 		89926D80199307880096AE38 /* GLES-Render.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLES-Render.h"; sourceTree = "<group>"; };
 		89926D851998AEEC0096AE38 /* b2Separator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2Separator.cpp; sourceTree = "<group>"; };
 		89926D861998AEEC0096AE38 /* b2Separator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = b2Separator.h; sourceTree = "<group>"; };
+		89926D891998BBF70096AE38 /* clipper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = clipper.cpp; sourceTree = "<group>"; };
+		89926D8A1998BBF70096AE38 /* clipper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = clipper.hpp; sourceTree = "<group>"; };
+		89926D8B1998BBF70096AE38 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		89CED8BB19486A0D0065CBFC /* A Damn Mess.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "A Damn Mess.ttf"; sourceTree = "<group>"; };
 		89CED8BC19486A0D0065CBFC /* Abberancy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Abberancy.ttf; sourceTree = "<group>"; };
 		89CED8BD19486A0D0065CBFC /* Abduction.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Abduction.ttf; sourceTree = "<group>"; };
@@ -695,6 +700,16 @@
 			path = b2Separator;
 			sourceTree = "<group>";
 		};
+		89926D881998BBF70096AE38 /* Clipper */ = {
+			isa = PBXGroup;
+			children = (
+				89926D891998BBF70096AE38 /* clipper.cpp */,
+				89926D8A1998BBF70096AE38 /* clipper.hpp */,
+				89926D8B1998BBF70096AE38 /* CMakeLists.txt */,
+			);
+			path = Clipper;
+			sourceTree = "<group>";
+		};
 		89CED8BA19486A0D0065CBFC /* fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -779,6 +794,7 @@
 		89D02C6C194EBCBB004A759A /* 3rdParty */ = {
 			isa = PBXGroup;
 			children = (
+				89926D881998BBF70096AE38 /* Clipper */,
 				89926D7E199307880096AE38 /* GLES-Render */,
 				89F9E9CB197E1BEF00A60A4D /* generic-box2d-plist */,
 				89F9E99D1977DCB600A60A4D /* poly2tri */,
@@ -1054,6 +1070,7 @@
 				89CED93419486A0D0065CBFC /* west_england-64.png in Resources */,
 				89CED91519486A0D0065CBFC /* cyrillic.ttf in Resources */,
 				89CED90B19486A0D0065CBFC /* bitmapFontTest3.fnt in Resources */,
+				89926DAA1998BBF70096AE38 /* CMakeLists.txt in Resources */,
 				89CED91A19486A0D0065CBFC /* futura-48.fnt in Resources */,
 				89CED90A19486A0D0065CBFC /* bitmapFontTest2.png in Resources */,
 				89CED92919486A0D0065CBFC /* Roboto.bmf.fnt in Resources */,
@@ -1165,6 +1182,7 @@
 				89F9E9AE1977DCB600A60A4D /* cdt.cc in Sources */,
 				89F9E9AD1977DCB600A60A4D /* advancing_front.cc in Sources */,
 				89CED93B194873C40065CBFC /* BattleScene.cpp in Sources */,
+				89926DA91998BBF70096AE38 /* clipper.cpp in Sources */,
 				8CF729DB194757490030B362 /* TitanScene.cpp in Sources */,
 				89F9E9D7197E1C6600A60A4D /* PhysicsEditorScene.cpp in Sources */,
 				1AFAF8B716D35DE700DB1158 /* AppDelegate.cpp in Sources */,
@@ -1266,7 +1284,10 @@
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				LIBRARY_SEARCH_PATHS = "/Users/zhang_yunjie/Workspace/workspace/Titan/Classes/3rdParty/ChipmunkPro-iPhone-Trial";
+				LIBRARY_SEARCH_PATHS = (
+					"/Users/zhang_yunjie/Workspace/workspace/Titan/Classes/3rdParty/ChipmunkPro-iPhone-Trial",
+					/Users/zhang_yunjie/Workspace/workspace/Titan/Classes/3rdParty/Clipper/cpp_cairo,
+				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -1296,7 +1317,10 @@
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				LIBRARY_SEARCH_PATHS = "/Users/zhang_yunjie/Workspace/workspace/Titan/Classes/3rdParty/ChipmunkPro-iPhone-Trial";
+				LIBRARY_SEARCH_PATHS = (
+					"/Users/zhang_yunjie/Workspace/workspace/Titan/Classes/3rdParty/ChipmunkPro-iPhone-Trial",
+					/Users/zhang_yunjie/Workspace/workspace/Titan/Classes/3rdParty/Clipper/cpp_cairo,
+				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";

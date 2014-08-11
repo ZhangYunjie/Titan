@@ -32,8 +32,6 @@ void BattleScene::initScene()
 
     mWinSize = Director::getInstance()->getWinSize();
 
-    // addBackground();
-
     initPhysics();
     initDebugMenu();
     initTouch();
@@ -43,27 +41,20 @@ void BattleScene::initScene()
     scheduleUpdate();
 }
 
-void BattleScene::addBackground()
-{
-    auto bgSprite = Sprite::create("bg.png");
-    bgSprite->setPosition(mWinSize / 2.0f);
-    this->addChild(bgSprite, kZOrderBackground, kTagBackground);
-}
-
 void BattleScene::addTerrain()
 {
     mpRender = RenderTexture::create(mWinSize.width, mWinSize.height);
     mpRender->setPosition(Vec2(mWinSize.width/2, mWinSize.height/2));
     this->addChild(mpRender, 10);
 
-    auto fgSprite = Sprite::create("tileC2.png");
+    auto fgSprite = Sprite::create("charactor_1.png");
     fgSprite->setPosition(mWinSize / 2.0f);
     mpRender->beginWithClear(0, 0, 0, 0);
     fgSprite->visit();
     mpRender->end();
 
     Image *img = new Image();
-    img->initWithImageFile("tileC2.png");
+    img->initWithImageFile("charactor_1.png");
 
     std::vector<Vec2> pointVector;
     std::vector<Vec2> marchingVector;

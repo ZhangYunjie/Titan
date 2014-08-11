@@ -44,7 +44,6 @@ public:
     void onTouchCancelled(cocos2d::Touch* touch, cocos2d::Event* event);
 
 private:
-    void addBackground();
     void addTerrain();
 
     void showBombEffect(cocos2d::Vec2 point);
