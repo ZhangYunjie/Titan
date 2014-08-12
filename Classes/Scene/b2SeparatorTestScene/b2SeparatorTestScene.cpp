@@ -6,7 +6,7 @@
 //
 //
 #include "BattleBase.h"
-
+#include "b2Separator.h"
 #include "b2SeparatorTestScene.h"
 
 USING_NS_CC;
@@ -18,17 +18,112 @@ mWorld(NULL),
 mDebugDraw(NULL),
 mpTouchEventListener(NULL)
 {
-
+    points[0] = Vec2(-60.0f, -60.0f);
+    points[1] = Vec2(60.0f, -60.0f);
+    points[2] = Vec2(60.0f, 0.0f);
+    points[3] = Vec2(0.0f, 0.0f);
+    points[4] = Vec2(-60.0f, 60.0f);
 }
 
 void b2SeparatorTestScene::initScene()
 {
+    mWinSize = Director::getInstance()->getWinSize();
     
+    initTouch();
+    initDebugMenu();
+    initPhysics();
+
+    scheduleUpdate();
 }
 
 void b2SeparatorTestScene::initPhysics()
 {
+    // Define the gravity vector.
+    b2Vec2 gravity;
+    gravity.Set(0.0f, -10.0f);
     
+    // Do we want to let bodies sleep
+    bool doSleep = true;
+    
+    // Construct a world object, which will hold and simulate the rigid bodies.
+    mWorld = new b2World(gravity);
+    mWorld->SetAllowSleeping(doSleep);
+    mWorld->SetContinuousPhysics(true);
+    
+    mDebugDraw = new GLESDebugDraw(PTM_RATIO);
+    mWorld->SetDebugDraw(mDebugDraw);
+    
+    uint32 flags = DEBUG_DRAW_NONE;
+    flags += b2Draw::e_shapeBit;
+    flags += b2Draw::e_jointBit;
+    mDebugDraw->SetFlags(flags);
+
+    initGround();
+    initPoly();
+}
+
+void b2SeparatorTestScene::initGround()
+{
+    b2BodyDef groundBodyDef;
+    groundBodyDef.position.Set(mWinSize.width/PTM_RATIO_2, mWinSize.height/PTM_RATIO_2);
+    
+    // Call the body factory which allocate memory for the ground body
+    // form a pool and creates the ground box shape ( also from a pool).
+    // The body is als added to the world.
+    b2Body* groundBody = mWorld->CreateBody(&groundBodyDef);
+    
+    // Define the ground box shape.
+    b2PolygonShape groundBox;
+    
+    // bottom
+    groundBox.SetAsBox(mWinSize.width/PTM_RATIO_2, 0, b2Vec2(0, -mWinSize.height/PTM_RATIO_2), 0);
+    groundBody->CreateFixture(&groundBox, 0);
+    
+    // top
+    groundBox.SetAsBox(mWinSize.width/PTM_RATIO_2, 0, b2Vec2(0, mWinSize.height/PTM_RATIO_2), 0);
+    groundBody->CreateFixture(&groundBox, 0);
+    
+    // left
+    groundBox.SetAsBox(0, mWinSize.height/PTM_RATIO_2, b2Vec2(-mWinSize.width/PTM_RATIO_2, 0), 0);
+    groundBody->CreateFixture(&groundBox, 0);
+    
+    // right
+    groundBox.SetAsBox(0, mWinSize.height/PTM_RATIO_2, b2Vec2(mWinSize.width/PTM_RATIO_2, 0), 0);
+    groundBody->CreateFixture(&groundBox, 0);
+}
+
+void b2SeparatorTestScene::initPoly()
+{
+    auto *separator = new b2Separator();
+
+    auto bodyDef = new b2BodyDef();
+    bodyDef->type = b2_dynamicBody;
+    bodyDef->position.Set( mWinSize.width / PTM_RATIO_2, mWinSize.height / PTM_RATIO_2 );
+
+    auto body = mWorld->CreateBody( bodyDef );
+
+    auto fixtureDef = new b2FixtureDef();
+    fixtureDef->restitution = 0.4;
+    fixtureDef->friction = 0.2;
+    fixtureDef->density = 4;
+
+    std::vector<b2Vec2> vec;
+    int i = 0;
+    for (; i < 5; i++)
+    {
+        vec.push_back(b2Vec2(points[i].x/PTM_RATIO, points[i].y/PTM_RATIO));
+    }
+
+    if ( separator->validate(vec) == 0 )
+    {
+        CCLOG("Yey! Those vertices are good to go!");
+    }
+    else
+    {
+        CCLOG("Oh, I guess you messed something up");
+    }
+
+    separator->separator(body, fixtureDef, &vec);
 }
 
 void b2SeparatorTestScene::initTouch()
@@ -68,12 +163,27 @@ void b2SeparatorTestScene::draw(Renderer* renderer, const Mat4 &transform, uint3
     Director::getInstance()->pushMatrix( MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW );
     mWorld->DrawDebugData();
     Director::getInstance()->popMatrix( MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW );
+
+    DrawPrimitives::setDrawColor4F(0.0f, 1.0f, 0.0f, 0.5f);
+    int i = 0;
+    for (; i < 5; i++)
+    {
+        DrawPrimitives::drawSolidCircle(points[i]+mWinSize/2.0f, 5.0f,  CC_DEGREES_TO_RADIANS(90), 50);
+        if (i >= 1)
+        {
+            DrawPrimitives::drawLine(points[i-1]+mWinSize/2.0f, points[i]+mWinSize/2.0f);
+        }
+        else
+        {
+            DrawPrimitives::drawLine(points[i]+mWinSize/2.0f, points[4]+mWinSize/2.0f);
+        }
+    }
 }
 
 void b2SeparatorTestScene::update(float dt)
 {
     mWorld->Step(dt, 10, 10);
-
+    mWorld->ClearForces();
     updateScene();
 }
 

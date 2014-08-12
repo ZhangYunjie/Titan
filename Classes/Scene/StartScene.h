@@ -36,6 +36,7 @@ private:
         kTagStartButton = 1,
         kTagPhysicsEditorButton,
         kTagPoly2triButton,
+        kTagb2Separator,
     };
 
     enum kZOrder

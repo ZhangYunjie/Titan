@@ -10,6 +10,7 @@
 #include "StartScene.h"
 #include "BattleScene.h"
 #include "PhysicsEditorScene.h"
+#include "b2SeparatorTestScene.h"
 
 USING_NS_CC;
 
@@ -45,11 +46,19 @@ void StartScene::showStartButton()
     auto poly2triItem = MenuItemLabel::create(poly2triLabel, CC_CALLBACK_1(StartScene::btnCallback, this));
     poly2triItem->setTag(kTagPoly2triButton);
     poly2triItem->setPosition(Vec2(mWinSize.width/2.0f, mWinSize.height/2.0f + 30.0f));
+    
+    // b2Separator Test
+    auto b2SeparatorLabel = Label::createWithTTF(ttfConfig, "b2Separator");
+    b2SeparatorLabel->setColor(Color3B::WHITE);
+    auto b2SeparatorItem = MenuItemLabel::create(b2SeparatorLabel, CC_CALLBACK_1(StartScene::btnCallback, this));
+    b2SeparatorItem->setTag(kTagb2Separator);
+    b2SeparatorItem->setPosition(Vec2(mWinSize.width/2.0f, mWinSize.height/2.0f -60.0f));
 
     auto menu = Menu::create();
     menu->addChild(menuItem);
     menu->addChild(physicsEditorItem);
     menu->addChild(poly2triItem);
+    menu->addChild(b2SeparatorItem);
     menu->setPosition(Vec2::ZERO);
 
     this->addChild(menu, kZOrderMenu);
@@ -70,6 +79,10 @@ void StartScene::btnCallback(Ref *sender)
 
         case kTagPhysicsEditorButton:
             replaceScene<PhysicsEditorScene>();
+            break;
+
+        case kTagb2Separator:
+            replaceScene<b2SeparatorTestScene>();
             break;
 
         default:

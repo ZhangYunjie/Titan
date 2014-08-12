@@ -19,6 +19,7 @@ void b2Separator::separator(b2Body* body, b2FixtureDef* fixtureDef, std::vector<
 
     calcShapes(vec, figsVec);
 
+    auto polyShape = new b2PolygonShape();
     for(int i = 0; i < figsVec.size(); i++)
     {
         vec = figsVec[i];
@@ -30,25 +31,10 @@ void b2Separator::separator(b2Body* body, b2FixtureDef* fixtureDef, std::vector<
         {
             vertices[j] = b2Vec2(vec[j].x/scale, vec[j].y/scale);
         }
-
-        // 将面片三角化
-        j = 1;
-        for (; j < vec.size() - 1; j++)
-        {
-            b2Vec2* vecTr = new b2Vec2[3];
-            vecTr[0] = vertices[0];
-            vecTr[1] = vertices[j];
-            vecTr[2] = vertices[j+1];
-
-            b2PolygonShape polyShape;
-            polyShape.Set(vecTr, 3);
-
-            fixtureDef->shape = &polyShape;
-            body->CreateFixture(fixtureDef);
-
-            delete[] vecTr;
-        }
+        polyShape->Set(vertices, vec.size());
         delete[] vertices;
+        fixtureDef->shape = polyShape;
+        body->CreateFixture(fixtureDef);
     }
 }
 

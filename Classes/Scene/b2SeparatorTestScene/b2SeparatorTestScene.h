@@ -29,6 +29,9 @@ public:
     void initTouch();
     void initPhysics();
     void initDebugMenu();
+
+    void initGround();
+    void initPoly();
     
     void update(float dt);
     void updateScene();
@@ -57,6 +60,8 @@ private:
     
     b2World *mWorld;
     GLESDebugDraw *mDebugDraw;
+
+    cocos2d::Vec2 points[5];
 };
 
 #endif /* defined(__Titan__b2SeparatorTestScene__) */
