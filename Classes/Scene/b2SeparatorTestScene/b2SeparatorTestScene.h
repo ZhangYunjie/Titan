@@ -62,6 +62,8 @@ private:
     GLESDebugDraw *mDebugDraw;
 
     cocos2d::Vec2 points[5];
+    bool mbTouched;
+    int mTouchedIndex;
 };
 
 #endif /* defined(__Titan__b2SeparatorTestScene__) */

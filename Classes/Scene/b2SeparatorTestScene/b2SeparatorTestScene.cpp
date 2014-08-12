@@ -16,7 +16,8 @@ USING_NS_CC;
 b2SeparatorTestScene::b2SeparatorTestScene():
 mWorld(NULL),
 mDebugDraw(NULL),
-mpTouchEventListener(NULL)
+mpTouchEventListener(NULL),
+mbTouched(false)
 {
     points[0] = Vec2(-60.0f, -60.0f);
     points[1] = Vec2(60.0f, -60.0f);
@@ -164,18 +165,34 @@ void b2SeparatorTestScene::draw(Renderer* renderer, const Mat4 &transform, uint3
     mWorld->DrawDebugData();
     Director::getInstance()->popMatrix( MATRIX_STACK_TYPE::MATRIX_STACK_MODELVIEW );
 
-    DrawPrimitives::setDrawColor4F(0.0f, 1.0f, 0.0f, 0.5f);
     int i = 0;
     for (; i < 5; i++)
     {
+        if (mbTouched && i == mTouchedIndex)
+        {
+            DrawPrimitives::setDrawColor4F(1.0f, 0.0f, 0.0f, 0.5f);
+        }
+        else
+        {
+            DrawPrimitives::setDrawColor4F(0.0f, 1.0f, 0.0f, 0.5f);
+        }
         DrawPrimitives::drawSolidCircle(points[i]+mWinSize/2.0f, 5.0f,  CC_DEGREES_TO_RADIANS(90), 50);
+
         if (i >= 1)
         {
+            if (mbTouched && i == mTouchedIndex + 1)
+            {
+                DrawPrimitives::setDrawColor4F(1.0f, 0.0f, 0.0f, 0.5f);
+            }
             DrawPrimitives::drawLine(points[i-1]+mWinSize/2.0f, points[i]+mWinSize/2.0f);
         }
         else
         {
-            DrawPrimitives::drawLine(points[i]+mWinSize/2.0f, points[4]+mWinSize/2.0f);
+            if (mbTouched && mTouchedIndex == 4)
+            {
+                DrawPrimitives::setDrawColor4F(1.0f, 0.0f, 0.0f, 0.5f);
+            }
+            DrawPrimitives::drawLine(points[0]+mWinSize/2.0f, points[4]+mWinSize/2.0f);
         }
     }
 }
@@ -205,22 +222,42 @@ void b2SeparatorTestScene::updateScene()
 
 bool b2SeparatorTestScene::onTouchBegan( Touch* touch, Event* event )
 {
-    return false;
+    Point pos = touch->getLocation();
+    int i = 0;
+    for (; i<5; i++)
+    {
+        float distance = fabsf(points[i].getDistance(pos-mWinSize/2.0f));
+        if ( distance < 5.0f )
+        {
+            mbTouched = true;
+            mTouchedIndex = i;
+        }
+    }
+    return true;
 }
 
 void b2SeparatorTestScene::onTouchMoved( Touch* touch, Event* event )
 {
-    
+    if (mbTouched)
+    {
+        points[mTouchedIndex] = touch->getLocation() - mWinSize/2.0f;
+    }
 }
 
 void b2SeparatorTestScene::onTouchEnded( Touch* touch, Event* event )
 {
-    
+    if (mbTouched)
+    {
+        mbTouched = false;
+    }
 }
 
 void b2SeparatorTestScene::onTouchCancelled( Touch* touch, Event* event )
 {
-
+    if (mbTouched)
+    {
+        mbTouched = false;
+    }
 }
 
 #pragma mark - CALLBACK
