@@ -75,6 +75,7 @@
 		89926D871998AEEC0096AE38 /* b2Separator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89926D851998AEEC0096AE38 /* b2Separator.cpp */; };
 		89926DA91998BBF70096AE38 /* clipper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89926D891998BBF70096AE38 /* clipper.cpp */; };
 		89926DAA1998BBF70096AE38 /* CMakeLists.txt in Resources */ = {isa = PBXBuildFile; fileRef = 89926D8B1998BBF70096AE38 /* CMakeLists.txt */; };
+		89926DC71999B7520096AE38 /* b2SeparatorTestScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89926DC51999B7520096AE38 /* b2SeparatorTestScene.cpp */; };
 		89CED8F819486A0D0065CBFC /* A Damn Mess.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89CED8BB19486A0D0065CBFC /* A Damn Mess.ttf */; };
 		89CED8F919486A0D0065CBFC /* Abberancy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89CED8BC19486A0D0065CBFC /* Abberancy.ttf */; };
 		89CED8FA19486A0D0065CBFC /* Abduction.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89CED8BD19486A0D0065CBFC /* Abduction.ttf */; };
@@ -368,6 +369,8 @@
 		89926D891998BBF70096AE38 /* clipper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = clipper.cpp; sourceTree = "<group>"; };
 		89926D8A1998BBF70096AE38 /* clipper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = clipper.hpp; sourceTree = "<group>"; };
 		89926D8B1998BBF70096AE38 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		89926DC51999B7520096AE38 /* b2SeparatorTestScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2SeparatorTestScene.cpp; sourceTree = "<group>"; };
+		89926DC61999B7520096AE38 /* b2SeparatorTestScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = b2SeparatorTestScene.h; sourceTree = "<group>"; };
 		89CED8BB19486A0D0065CBFC /* A Damn Mess.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "A Damn Mess.ttf"; sourceTree = "<group>"; };
 		89CED8BC19486A0D0065CBFC /* Abberancy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Abberancy.ttf; sourceTree = "<group>"; };
 		89CED8BD19486A0D0065CBFC /* Abduction.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Abduction.ttf; sourceTree = "<group>"; };
@@ -710,6 +713,16 @@
 			path = Clipper;
 			sourceTree = "<group>";
 		};
+		89926DC41999B7520096AE38 /* b2SeparatorTestScene */ = {
+			isa = PBXGroup;
+			children = (
+				89926DC51999B7520096AE38 /* b2SeparatorTestScene.cpp */,
+				89926DC61999B7520096AE38 /* b2SeparatorTestScene.h */,
+			);
+			name = b2SeparatorTestScene;
+			path = ../Classes/Scene/b2SeparatorTestScene;
+			sourceTree = "<group>";
+		};
 		89CED8BA19486A0D0065CBFC /* fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -873,6 +886,7 @@
 		8C770604194752BA00270F5D /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				89926DC41999B7520096AE38 /* b2SeparatorTestScene */,
 				89F9E9D4197E1C6600A60A4D /* PhysicsEditorScene */,
 				89CED938194873AB0065CBFC /* BattleScene */,
 				8C7705FF1947529600270F5D /* StartScene.cpp */,
@@ -1189,6 +1203,7 @@
 				89403C9E1950468800345BA9 /* JSON.cpp in Sources */,
 				8C7706011947529600270F5D /* StartScene.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
+				89926DC71999B7520096AE38 /* b2SeparatorTestScene.cpp in Sources */,
 				89F9E9AF1977DCB600A60A4D /* sweep.cc in Sources */,
 				89403CA919518E3700345BA9 /* ShaderSprite.cpp in Sources */,
 			);
