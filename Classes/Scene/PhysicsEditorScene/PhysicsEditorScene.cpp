@@ -116,6 +116,7 @@ void PhysicsEditorScene::addNewCharactor()
     mpRender = RenderTexture::create(fgSprite->getContentSize().width, fgSprite->getContentSize().height);
     mpRender->setPosition(fgSprite->getContentSize() / 2.0f);
     charactor->addChild(mpRender);
+    this->addChild(charactor);
 
     mpRender->beginWithClear(0, 0, 0, 0);
     fgSprite->visit();

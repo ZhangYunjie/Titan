@@ -17,7 +17,9 @@ b2SeparatorTestScene::b2SeparatorTestScene():
 mWorld(NULL),
 mDebugDraw(NULL),
 mpTouchEventListener(NULL),
-mbTouched(false)
+mbTouched(false),
+mbUnabled(false),
+mPolyTag(kTagPoly)
 {
     points[0] = Vec2(-60.0f, -60.0f);
     points[1] = Vec2(60.0f, -60.0f);
@@ -95,36 +97,19 @@ void b2SeparatorTestScene::initGround()
 
 void b2SeparatorTestScene::initPoly()
 {
-    auto *separator = new b2Separator();
-
     auto bodyDef = new b2BodyDef();
     bodyDef->type = b2_dynamicBody;
     bodyDef->position.Set( mWinSize.width / PTM_RATIO_2, mWinSize.height / PTM_RATIO_2 );
 
     auto body = mWorld->CreateBody( bodyDef );
+    body->SetUserData((void*)&mPolyTag);
 
     auto fixtureDef = new b2FixtureDef();
     fixtureDef->restitution = 0.4;
     fixtureDef->friction = 0.2;
     fixtureDef->density = 4;
-
-    std::vector<b2Vec2> vec;
-    int i = 0;
-    for (; i < 5; i++)
-    {
-        vec.push_back(b2Vec2(points[i].x/PTM_RATIO, points[i].y/PTM_RATIO));
-    }
-
-    if ( separator->validate(vec) == 0 )
-    {
-        CCLOG("Yey! Those vertices are good to go!");
-    }
-    else
-    {
-        CCLOG("Oh, I guess you messed something up");
-    }
-
-    separator->separator(body, fixtureDef, &vec);
+    
+    generatePoly(body, fixtureDef);
 }
 
 void b2SeparatorTestScene::initTouch()
@@ -168,9 +153,13 @@ void b2SeparatorTestScene::draw(Renderer* renderer, const Mat4 &transform, uint3
     int i = 0;
     for (; i < 5; i++)
     {
-        if (mbTouched && i == mTouchedIndex)
+        if (mbUnabled)
         {
             DrawPrimitives::setDrawColor4F(1.0f, 0.0f, 0.0f, 0.5f);
+        }
+        else if (mbTouched && i == mTouchedIndex)
+        {
+            DrawPrimitives::setDrawColor4F(0.5f, 0.5f, 0.0f, 0.5f);
         }
         else
         {
@@ -180,17 +169,17 @@ void b2SeparatorTestScene::draw(Renderer* renderer, const Mat4 &transform, uint3
 
         if (i >= 1)
         {
-            if (mbTouched && i == mTouchedIndex + 1)
+            if (!mbUnabled && mbTouched && i == mTouchedIndex + 1)
             {
-                DrawPrimitives::setDrawColor4F(1.0f, 0.0f, 0.0f, 0.5f);
+                DrawPrimitives::setDrawColor4F(0.5f, 0.5f, 0.0f, 0.5f);
             }
             DrawPrimitives::drawLine(points[i-1]+mWinSize/2.0f, points[i]+mWinSize/2.0f);
         }
         else
         {
-            if (mbTouched && mTouchedIndex == 4)
+            if (!mbUnabled && mbTouched && mTouchedIndex == 4)
             {
-                DrawPrimitives::setDrawColor4F(1.0f, 0.0f, 0.0f, 0.5f);
+                DrawPrimitives::setDrawColor4F(0.5f, 0.5f, 0.0f, 0.5f);
             }
             DrawPrimitives::drawLine(points[0]+mWinSize/2.0f, points[4]+mWinSize/2.0f);
         }
@@ -209,13 +198,39 @@ void b2SeparatorTestScene::updateScene()
     b2Body *body = mWorld->GetBodyList();
     for (; NULL != body; body = body->GetNext() )
     {
-        if ( NULL != body->GetUserData() )
+        if ( NULL != body->GetUserData())
         {
-            auto sprite = (Sprite*)body->GetUserData();
-            sprite->setPosition( body->GetPosition().x * PTM_RATIO, body->GetPosition().y * PTM_RATIO );
-            sprite->setRotation( -1.0f * CC_RADIANS_TO_DEGREES( body->GetAngle() ) );
+//            Sprite* sprite = (Sprite*)body->GetUserData();
+//            if ( NULL != sprite )
+//            {
+//                sprite->setPosition( body->GetPosition().x * PTM_RATIO, body->GetPosition().y * PTM_RATIO );
+//                sprite->setRotation( -1.0f * CC_RADIANS_TO_DEGREES( body->GetAngle() ) );
+//            }
         }
     }
+}
+
+void b2SeparatorTestScene::generatePoly(b2Body* body, b2FixtureDef* fixtureDef)
+{
+    auto *separator = new b2Separator();
+    
+    std::vector<b2Vec2> vec;
+    int i = 0;
+    for (; i < 5; i++)
+    {
+        vec.push_back(b2Vec2(points[i].x/PTM_RATIO, points[i].y/PTM_RATIO));
+    }
+    
+    if ( separator->validate(vec) == 0 )
+    {
+        CCLOG("Yey! Those vertices are good to go!");
+        separator->separator(body, fixtureDef, &vec);
+    }
+    else
+    {
+        CCLOG("Oh, I guess you messed something up");
+    }
+    
 }
 
 #pragma mark - TOUCH
@@ -241,6 +256,23 @@ void b2SeparatorTestScene::onTouchMoved( Touch* touch, Event* event )
     if (mbTouched)
     {
         points[mTouchedIndex] = touch->getLocation() - mWinSize/2.0f;
+
+        auto *separator = new b2Separator();
+        std::vector<b2Vec2> vec;
+        int i = 0;
+        for (; i < 5; i++)
+        {
+            vec.push_back(b2Vec2(points[i].x/PTM_RATIO, points[i].y/PTM_RATIO));
+        }
+
+        if (separator->validate(vec))
+        {
+            mbUnabled = true;
+        }
+        else
+        {
+            mbUnabled = false;
+        }
     }
 }
 
@@ -264,7 +296,20 @@ void b2SeparatorTestScene::onTouchCancelled( Touch* touch, Event* event )
 
 void b2SeparatorTestScene::debugBtnCallBack( Ref *pSender )
 {
-    
+    b2Body *body = mWorld->GetBodyList();
+    for (; NULL != body; body = body->GetNext() )
+    {
+        if ( NULL != body->GetUserData() )
+        {
+            kTag tag = *((kTag*)body->GetUserData());
+            if ( tag == mPolyTag )
+            {
+                body->SetUserData(NULL);
+                mWorld->DestroyBody(body);
+            }
+        }
+    }
+    initPoly();
 }
 
 #pragma mark - DISTRUCTOR

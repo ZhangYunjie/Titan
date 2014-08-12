@@ -35,6 +35,7 @@ public:
     
     void update(float dt);
     void updateScene();
+    void generatePoly(b2Body* body, b2FixtureDef* fixtureDef);
     
     bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
     void onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event);
@@ -48,7 +49,9 @@ private:
     enum kTag
     {
         kTagDebugMenu = 1,
+        kTagPoly,
     };
+    kTag mPolyTag;
 
     enum kZOrder
     {
@@ -63,6 +66,7 @@ private:
 
     cocos2d::Vec2 points[5];
     bool mbTouched;
+    bool mbUnabled;
     int mTouchedIndex;
 };
 
