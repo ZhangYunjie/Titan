@@ -10,12 +10,13 @@
 
 USING_NS_CC;
 
-void MarchingSquare::marchingSquares(Image *image, std::vector<Vec2> &pointVector)
+void MarchingSquare::marchingSquares(Image *image, std::vector<Vec2> &pointVector, int scale)
 {
     pointVector.clear();
     
     mpImage = image;
     mTolerance = 1;
+    mScale = scale;
     
     // get the starting point
     cocos2d::Vec2* startPoint = getStartingPixel();
@@ -51,7 +52,7 @@ void MarchingSquare::marchingSquares(Image *image, std::vector<Vec2> &pointVecto
                 case 5:
                 case 13:
                     stepx = 0;
-                    stepy = -1;
+                    stepy = -mScale;
                     break;
                     
                     /* going DOWN with these cases:
@@ -67,7 +68,7 @@ void MarchingSquare::marchingSquares(Image *image, std::vector<Vec2> &pointVecto
                 case 10:
                 case 11:
                     stepx = 0;
-                    stepy = 1;
+                    stepy = mScale;
                     break;
                     
                     /* going LEFT with these cases:
@@ -82,7 +83,7 @@ void MarchingSquare::marchingSquares(Image *image, std::vector<Vec2> &pointVecto
                 case 4:
                 case 12:
                 case 14:
-                    stepx = -1;
+                    stepx = -mScale;
                     stepy = 0;
                     break;
                     
@@ -98,7 +99,7 @@ void MarchingSquare::marchingSquares(Image *image, std::vector<Vec2> &pointVecto
                 case 2:
                 case 3:
                 case 7:
-                    stepx = 1;
+                    stepx = mScale;
                     stepy = 0;
                     break;
                     
@@ -115,14 +116,14 @@ void MarchingSquare::marchingSquares(Image *image, std::vector<Vec2> &pointVecto
                      
                      */
                 case 6:
-                    if(prevx == 0 && prevy == -1)
+                    if(prevx == 0 && prevy == -scale)
                     {
-                        stepx = -1;
+                        stepx = -mScale;
                         stepy = 0;
                     }
                     else
                     {
-                        stepx = 1;
+                        stepx = mScale;
                         stepy = 0;
                     }
                     break;
@@ -140,15 +141,15 @@ void MarchingSquare::marchingSquares(Image *image, std::vector<Vec2> &pointVecto
                      
                      */
                 case 9:
-                    if(prevx == 1 && prevy == 0)
+                    if(prevx == mScale && prevy == 0)
                     {
                         stepx = 0;
-                        stepy = -1;
+                        stepy = -mScale;
                     }
                     else
                     {
                         stepx = 0;
-                        stepy = 1;
+                        stepy = mScale;
                     }
                     break;
                     
@@ -159,7 +160,8 @@ void MarchingSquare::marchingSquares(Image *image, std::vector<Vec2> &pointVecto
             px += stepx;
             py += stepy;
             // saving contour point
-            pointVector.push_back(Vec2(px, py));
+            pointVector.push_back(Vec2((px - mpImage->getWidth()/2.0f) / mScale, (mpImage->getHeight() / 2.0f - py) / mScale));
+            // pointVector.push_back(Vec2( px / mScale, py / mScale));
             
             prevx = stepx;
             prevy = stepy;
@@ -175,9 +177,9 @@ void MarchingSquare::marchingSquares(Image *image, std::vector<Vec2> &pointVecto
 Vec2* MarchingSquare::getStartingPixel()
 {
     Vec2 *offsetPoint = new Vec2(Vec2::ZERO);
-    for (int i = 0; i<mpImage->getHeight(); i++)
+    for (int i = 0; i<mpImage->getHeight(); i += mScale)
     {
-        for (int j = 0; j<mpImage->getWidth(); j++)
+        for (int j = 0; j<mpImage->getWidth(); j+= mScale)
         {
             offsetPoint->x = j;
             offsetPoint->y = i;
@@ -207,17 +209,17 @@ int MarchingSquare::getSquareValue(int px, int py)
     
     int squareValue = 0;
     // checking upper left pixel
-    if (getAlphaValue(mpImage, px-1, py-1) >= mTolerance)
+    if (getAlphaValue(mpImage, px-mScale, py-mScale) >= mTolerance)
     {
         squareValue += 1;
     }
     // checking upper pixel
-    if (getAlphaValue(mpImage, px, py-1) > mTolerance)
+    if (getAlphaValue(mpImage, px, py-mScale) > mTolerance)
     {
         squareValue += 2;
     }
     // checking left pixel
-    if (getAlphaValue(mpImage, px-1, py) > mTolerance)
+    if (getAlphaValue(mpImage, px-mScale, py) > mTolerance)
     {
         squareValue += 4;
     }

@@ -14,7 +14,7 @@
 class MarchingSquare
 {
 public:
-    void marchingSquares(cocos2d::Image* image, std::vector<cocos2d::Vec2>& pointVector);
+    void marchingSquares(cocos2d::Image* image, std::vector<cocos2d::Vec2>& pointVector, int scale = 1);
 
 private:
     cocos2d::Vec2* getStartingPixel();
@@ -30,5 +30,6 @@ private:
 private:
     cocos2d::Image *mpImage;
     float mTolerance;
+    int mScale;
 };
 #endif /* defined(__Titan__MarchingSquare__) */

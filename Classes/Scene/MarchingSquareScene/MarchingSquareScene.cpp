@@ -25,14 +25,16 @@ void MarchingSquareScene::initScene()
     mWinSize = Director::getInstance()->getWinSize();
     pointVector.clear();
 
-    auto sprite = Sprite::create("img4.png");
+    auto sprite = Sprite::create("tileC2.png");
     sprite->setPosition(mWinSize / 2.0f);
     this->addChild(sprite);
 
     auto marchingSquare = new MarchingSquare();
     auto image = new Image();
-    image->initWithImageFile("charactor_1.png");
-    marchingSquare->marchingSquares(image, pointVector);
+    image->initWithImageFile("tileC2.png");
+
+    int imgScaleFactor = 2;
+    marchingSquare->marchingSquares(image, pointVector, imgScaleFactor);
 }
 
 #pragma mark - UPDATE
@@ -44,7 +46,7 @@ void MarchingSquareScene::draw(Renderer* renderer, const Mat4 &transform, uint32
     DrawPrimitives::setDrawColor4F(0.5f, 0.5f, 0.0f, 0.5f);
     for (std::vector<Vec2>::iterator it = pointVector.begin(); it!= pointVector.end(); it++)
     {
-        DrawPrimitives::drawSolidCircle((*it) / 2.0f + mWinSize / 2.0f, 2.0f,  CC_DEGREES_TO_RADIANS(90), 50);
+        DrawPrimitives::drawSolidCircle((*it) + mWinSize / 2.0f, 2.0f,  CC_DEGREES_TO_RADIANS(90), 50);
     }
 }
 
