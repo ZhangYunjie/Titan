@@ -71,6 +71,8 @@
 		89403CA31951882500345BA9 /* img1.png in Resources */ = {isa = PBXBuildFile; fileRef = 89403CA01951882500345BA9 /* img1.png */; };
 		89403CA41951882500345BA9 /* img2.png in Resources */ = {isa = PBXBuildFile; fileRef = 89403CA11951882500345BA9 /* img2.png */; };
 		89403CA919518E3700345BA9 /* ShaderSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89403CA719518E3700345BA9 /* ShaderSprite.cpp */; };
+		8987D2D5199B3BDF007EF2BC /* MarchingSquareScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8987D2D3199B3BDF007EF2BC /* MarchingSquareScene.cpp */; };
+		8987D2DC199B45D8007EF2BC /* MarchingSquare.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8987D2DA199B45D8007EF2BC /* MarchingSquare.cpp */; };
 		89926D81199307880096AE38 /* GLES-Render.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89926D7F199307880096AE38 /* GLES-Render.cpp */; };
 		89926D871998AEEC0096AE38 /* b2Separator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89926D851998AEEC0096AE38 /* b2Separator.cpp */; };
 		89926DA91998BBF70096AE38 /* clipper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 89926D891998BBF70096AE38 /* clipper.cpp */; };
@@ -362,6 +364,10 @@
 		89403CA719518E3700345BA9 /* ShaderSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ShaderSprite.cpp; path = ../Classes/ShaderSprite.cpp; sourceTree = "<group>"; };
 		89403CA819518E3700345BA9 /* ShaderSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShaderSprite.h; path = ../Classes/ShaderSprite.h; sourceTree = "<group>"; };
 		89403CAB1951904600345BA9 /* tansparentshader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = tansparentshader.h; path = ../Classes/tansparentshader.h; sourceTree = "<group>"; };
+		8987D2D3199B3BDF007EF2BC /* MarchingSquareScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MarchingSquareScene.cpp; sourceTree = "<group>"; };
+		8987D2D4199B3BDF007EF2BC /* MarchingSquareScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarchingSquareScene.h; sourceTree = "<group>"; };
+		8987D2DA199B45D8007EF2BC /* MarchingSquare.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MarchingSquare.cpp; sourceTree = "<group>"; };
+		8987D2DB199B45D8007EF2BC /* MarchingSquare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarchingSquare.h; sourceTree = "<group>"; };
 		89926D7F199307880096AE38 /* GLES-Render.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "GLES-Render.cpp"; sourceTree = "<group>"; };
 		89926D80199307880096AE38 /* GLES-Render.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLES-Render.h"; sourceTree = "<group>"; };
 		89926D851998AEEC0096AE38 /* b2Separator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2Separator.cpp; sourceTree = "<group>"; };
@@ -685,6 +691,25 @@
 			path = picojson;
 			sourceTree = "<group>";
 		};
+		8987D2D2199B3BCC007EF2BC /* MarchingSquareScene */ = {
+			isa = PBXGroup;
+			children = (
+				8987D2D3199B3BDF007EF2BC /* MarchingSquareScene.cpp */,
+				8987D2D4199B3BDF007EF2BC /* MarchingSquareScene.h */,
+			);
+			name = MarchingSquareScene;
+			path = ../Classes/Scene/MarchingSquareScene;
+			sourceTree = "<group>";
+		};
+		8987D2D9199B45D8007EF2BC /* MarchingSquare */ = {
+			isa = PBXGroup;
+			children = (
+				8987D2DA199B45D8007EF2BC /* MarchingSquare.cpp */,
+				8987D2DB199B45D8007EF2BC /* MarchingSquare.h */,
+			);
+			path = MarchingSquare;
+			sourceTree = "<group>";
+		};
 		89926D7E199307880096AE38 /* GLES-Render */ = {
 			isa = PBXGroup;
 			children = (
@@ -874,6 +899,7 @@
 		89FA1A2219484341006B5499 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				8987D2D9199B45D8007EF2BC /* MarchingSquare */,
 				89926D841998AEEC0096AE38 /* b2Separator */,
 				89FA1A2419484595006B5499 /* GameDefine.h */,
 				89403C9C1950468800345BA9 /* JSON.cpp */,
@@ -886,6 +912,7 @@
 		8C770604194752BA00270F5D /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				8987D2D2199B3BCC007EF2BC /* MarchingSquareScene */,
 				89926DC41999B7520096AE38 /* b2SeparatorTestScene */,
 				89F9E9D4197E1C6600A60A4D /* PhysicsEditorScene */,
 				89CED938194873AB0065CBFC /* BattleScene */,
@@ -1198,7 +1225,9 @@
 				89CED93B194873C40065CBFC /* BattleScene.cpp in Sources */,
 				89926DA91998BBF70096AE38 /* clipper.cpp in Sources */,
 				8CF729DB194757490030B362 /* TitanScene.cpp in Sources */,
+				8987D2DC199B45D8007EF2BC /* MarchingSquare.cpp in Sources */,
 				89F9E9D7197E1C6600A60A4D /* PhysicsEditorScene.cpp in Sources */,
+				8987D2D5199B3BDF007EF2BC /* MarchingSquareScene.cpp in Sources */,
 				1AFAF8B716D35DE700DB1158 /* AppDelegate.cpp in Sources */,
 				89403C9E1950468800345BA9 /* JSON.cpp in Sources */,
 				8C7706011947529600270F5D /* StartScene.cpp in Sources */,

@@ -11,6 +11,7 @@
 #include "BattleScene.h"
 #include "PhysicsEditorScene.h"
 #include "b2SeparatorTestScene.h"
+#include "MarchingSquareScene.h"
 
 USING_NS_CC;
 
@@ -73,7 +74,7 @@ void StartScene::btnCallback(Ref *sender)
     switch (tag)
     {
         case kTagStartButton:
-            replaceScene<BattleScene>();
+            replaceScene<MarchingSquareScene>();
             break;
 
 
