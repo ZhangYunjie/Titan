@@ -11,6 +11,7 @@
 
 #include "cocos2d.h"
 
+#include "MarchingSquare.h"
 #include "TitanScene.h"
 
 USING_NS_TT;
@@ -27,9 +28,17 @@ public:
     virtual void initScene();
     virtual void draw(cocos2d::Renderer* renderer, const cocos2d::Mat4 &transform, uint32_t flags) override;
 
+    void update(float dt);
+
 private:
+    enum kTag
+    {
+        kTagDebugInfo = 1,
+    };
+
     cocos2d::Size mWinSize;
     std::vector<cocos2d::Vec2> pointVector;
+    MarchingSquare *marchingSquare;
 };
 
 #endif /* defined(__Titan__MarchingSquareScene__) */

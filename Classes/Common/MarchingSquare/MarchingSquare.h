@@ -15,6 +15,7 @@ class MarchingSquare
 {
 public:
     void marchingSquares(cocos2d::Image* image, std::vector<cocos2d::Vec2>& pointVector, int scale = 1);
+    std::string getDebugInfo();
 
 private:
     cocos2d::Vec2* getStartingPixel();

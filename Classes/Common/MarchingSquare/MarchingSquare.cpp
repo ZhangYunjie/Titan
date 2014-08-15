@@ -5,7 +5,7 @@
 //  Created by zhang yunjie on 2014/08/13.
 //
 //
-
+#include "GameDefine.h"
 #include "MarchingSquare.h"
 
 USING_NS_CC;
@@ -243,4 +243,9 @@ float MarchingSquare::getAlphaValue(Image* image, int x, int y)
         return 0;
     }
     return data[(y * mPixelW * 4 + x * 4) + 3];
+}
+
+void MarchingSquare::getDebugInfo()
+{
+
 }
