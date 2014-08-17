@@ -15,7 +15,6 @@ class MarchingSquare
 {
 public:
     void marchingSquares(cocos2d::Image* image, std::vector<cocos2d::Vec2>& pointVector, int scale = 1);
-    std::string getDebugInfo();
 
 private:
     cocos2d::Vec2* getStartingPixel();
@@ -27,10 +26,20 @@ private:
     };
     
     float getAlphaValue(cocos2d::Image* image, int x, int y);
+    
+public:
+    struct DebugInfo{
+        int pointCount;
+        int scale;
+    };
+    
+    DebugInfo* getDebugInfo();
 
 private:
     cocos2d::Image *mpImage;
     float mTolerance;
     int mScale;
+
+    DebugInfo* mpDebugInfo;
 };
 #endif /* defined(__Titan__MarchingSquare__) */

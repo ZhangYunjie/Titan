@@ -17,6 +17,9 @@ void MarchingSquare::marchingSquares(Image *image, std::vector<Vec2> &pointVecto
     mpImage = image;
     mTolerance = 1;
     mScale = scale;
+
+    mpDebugInfo = new MarchingSquare::DebugInfo;
+    mpDebugInfo->scale = scale;
     
     // get the starting point
     cocos2d::Vec2* startPoint = getStartingPixel();
@@ -172,6 +175,8 @@ void MarchingSquare::marchingSquares(Image *image, std::vector<Vec2> &pointVecto
             }
         }
     }
+
+    mpDebugInfo->pointCount = (int)pointVector.size();
 }
 
 Vec2* MarchingSquare::getStartingPixel()
@@ -245,7 +250,7 @@ float MarchingSquare::getAlphaValue(Image* image, int x, int y)
     return data[(y * mPixelW * 4 + x * 4) + 3];
 }
 
-void MarchingSquare::getDebugInfo()
+MarchingSquare::DebugInfo* MarchingSquare::getDebugInfo()
 {
-
+    return mpDebugInfo;
 }
